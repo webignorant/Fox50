@@ -1,0 +1,85 @@
+
+input1{
+width: 100px;
+
+margin: 0;
+border: 0;
+font-size: 15px;
+padding-top: 1px !important;
+padding-top: 5px;
+letter-spacing: 4px;
+font-weight: bold;
+border: 1px solid silver;
+background-color: white;
+background-position: 5px 40%;
+background-repeat: no-repeat;
+cursor: pointer;
+text-align: center;
+}
+
+}
+.layout_100 .mainCol {
+width: auto;
+}
+.mainCol {
+
+}
+.s_body {
+color: #555;
+}
+
+/*视频上传页面*/
+/*Fox Old*/
+.upload-t
+{
+	width:998px;
+	height:40px;
+	font-size:25px;
+	background-repeat:no-repeat;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #c5ddf6;
+}	
+
+.upload-mian{
+	width:998px;
+	height:auto;
+	border-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-color: #c5ddf6;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.upload-mian ul {
+	padding:10px;
+}
+.upload-mian ul li{
+	margin:10px 0px;
+	font-size:14px;
+}
+.upload-mian .saveBtn{
+ width: 100px;
+height: 30px;
+margin: 0;
+border: 0;
+font-size: 14px;
+padding-top: 1px !important;
+padding-top: 5px;
+
+font-weight: bold;
+border: 1px solid silver;
+background-color: white;
+background-position: 5px 40%;
+background-repeat: no-repeat;
+cursor: pointer;
+text-align: center;
+color: #777;
+}
+.upload-mian .uploadBtn{
+	width:300px;
+	height:200px;
+	border:0px;
+	cursor:pointer;
+}
+

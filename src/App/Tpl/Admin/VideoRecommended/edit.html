@@ -1,0 +1,130 @@
+<include file="Public:header" />
+
+<!--uploadify插件-->
+<load href="__PUBLIC__/Js/jquery-1.8.3.min.js" />
+<load href="__PUBLIC__/Plugin/uploadify/jquery.uploadify.min.js" />
+<load href="__PUBLIC__/Plugin/uploadify/uploadify.css" />
+
+<div id="main" class="main" >
+<script language="JavaScript">
+
+</script>
+<div class="content">
+<div class="title">编辑推荐视频 [ <a href="__URL__">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+<form method='post' id="form1" >
+<!--
+<tr>
+	<td class="tRight tTop">视频编号:</td>
+	<td class="tLeft"><input type="text" name="title" value="{$vo.vid}" readonly/></td>
+</tr>
+<tr>
+    <td class="tRight tTop">上传海报:</td>
+	<td class="tLeft"><input class="large" name="img" type="file" /></td>
+</tr>
+-->
+<tr>
+	<td class="tRight tTop">视频名称:</td>
+	<td class="tLeft"><input type="text" name="title" value="{$vo.title}" readonly/></td>
+</tr>
+<tr>
+	<td class="tRight tTop">视频海报:</td>
+	<td class="tLeft">
+    <!--插件所在-->
+        <input id="file_upload" name="file_upload" type="file" multiple="true">
+        <div id="queue"></div>
+        <img id="rimg" width="800" height="600" title="{$vo.title}" src="{$vo.img}">
+	</td>
+
+</tr>
+<tr>
+	<td></td>
+	<td class="center"><input type="hidden" id="rid" name="id" value="{$vo.id}" >
+	<input type="hidden" name="ajax" value="1">
+	<!--
+	<input type="button" value="保 存" onclick="ThinkAjax.sendForm('form1','__URL__/update/')" class="small submit">
+	<input type="reset" class="submit  small" value="清 空" >
+	-->
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+
+<script type="text/javascript">
+    var uploadStatus = false; //判断是否上传完毕
+    $(function() {
+        $('#file_upload').uploadify({
+            'auto'     : true,
+            'buttonText' : '上传图片',
+            'height' : 30,
+            'width' : 100,
+            'fileSizeLimit' : '2048KB',
+            'fileTypeExts'  : '*.jpg;*.png;*.jpeg;',
+            'fileTypeDesc' : '请选择推荐视频封面图片',
+            'fileObjName' : 'uploadFile', //PHP获取$file的名称
+            'formData' : {'someKey' : 'someValue', 'someOtherKey' : 1, 'rid' : $('#rid').val()},
+            'swf'      : '__PUBLIC__/Plugin/uploadify/uploadify.swf',
+            'uploader' : '__APP__/Home/Upload/uploadVideoRecommendedImg',
+            'multi' : false,
+            'queueID' : 'queue',
+            'queueSizeLimit' : 999,
+            'uploadLimit' : 999,
+            'removeCompleted' : true,
+            'removeTimeout' : false,
+            'requestErrors' : true,
+            'successTimeout' : 90,
+            'OnDisable' : function() {
+            
+            },
+            'onCancel'    : function(file) {
+                alert('文件[' + file.name + ']已经移除队列!');
+            },
+            'onClearQueue' : function(queueItemCount) {
+                //alert(queueItemCount + ' file(s) were removed from the queue');
+                $('#result').empty();
+                $('#result').css({display : 'none'});
+            },
+            'onFallback' : function() {
+                //禁用上传按钮
+                $('#file_upload').uploadify('disable', true);
+                flashcheck= confirm('检测当前浏览器没有兼容的Flash,无法正常执行上传功能!\n请检测浏览器是否禁用Flash功能，并且开启\n点击确定将登录Adobe网站，下载最新的Adobe Flash.');
+                if(flashcheck){
+                    location.href = 'http://get.adobe.com/cn/flashplayer/';
+                }
+            },
+            'onSelect' : function(file) {  
+                this.addPostParam("file_name",encodeURI(file.name));//改变文件名的编码
+            },
+            'onUploadComplete' : function(file) {
+                
+            },
+            'onUploadStart' : function(file) {
+                //禁用上传按钮
+                $('#file_upload').uploadify('disable', true);
+                //$('#file_upload').uploadify('settings','rid',$('#rid').val());
+                //alert(file.type);
+                //alert('Starting to upload ' + file.name);
+            },
+            'onUploadSuccess' : function(file, data, response) {
+                //转换成json数据
+                var obj = eval( "(" + data + ")" );
+                //var fileinfo = eval( "(" + obj.info + ")" );
+                //alert(obj.info);
+                return_info = obj.info;
+                $('#rimg').attr('src',return_info);
+                //激活上传按钮
+                $('#file_upload').uploadify('disable', false);
+            },
+            'onUploadError' : function(file, errorCode, errorMsg, errorString){
+                //激活上传按钮
+                $('#file_upload').uploadify('disable', false);
+                alert('文件'+file.name+'上传失败');
+            },
+            'onQueueComplete' : function(queueData){
+                
+            }
+        });
+    });
+</script>

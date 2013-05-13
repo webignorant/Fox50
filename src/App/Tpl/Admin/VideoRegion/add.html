@@ -1,0 +1,33 @@
+<tagLib name="html" />
+<include file="Public:header" />
+<script src="__PUBLIC__/Js/Think/checkFormSend.js"></script>
+
+<div id="main" class="main" >
+<div class="content">
+<div class="title">添加视频地区 [ <a href="__URL__">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+<form method='post' id="form1" >
+<tr>
+	<td class="tRight" >地区名称：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeftRequire"  check='Require' warning="分类名称不能为空" id="typename" name="regionname" value=""><input type="button" value="检测名称" onclick="checkName()" class="submit hMargin"></td>
+</tr>
+<tr>
+	<td class="tRight" >显示顺序：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeft" name="displayorder" value=""></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center">
+	<input type="hidden" name="ajax" value="1">
+	<input type="button" value="保 存" class="small submit">
+	<input type="reset" class="submit  small" value="清 空" >
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+
+<script language="JavaScript">
+
+</script>

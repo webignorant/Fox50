@@ -1,0 +1,105 @@
+<!--********************这里是主体内容********************-->
+<load href="__PUBLIC__/Js/jquery-1.8.3.min.js" />
+
+<div id="main" class="main" >
+    <script language="JavaScript">
+        $(document).ready(function(){
+            //添加连播按钮
+            $('#addContinuousBtn').click(function(){
+                videoNum = $('#videoListId').val();  //获取右边选择的视频ID
+                videoValue = $('#videoListId').find("option:selected").text();   //获取右边选择的视频标题
+                if(videoValue == null){
+                    alert('请在右边的视频列表选择视频！');
+                }
+                //如果获取正确，添加到左边的选项，并且删除右边的选项
+                if(videoNum != null && videoValue != null){
+                    $('#continuousVideoId').append("<option value='"+videoNum+"'>"+videoValue+"</option>");  //添加
+                    $("#videoListId option[value='"+videoNum+"']").remove(); //删除
+                }
+                //alert( $('#continuousVideoId').html());
+            });
+            //移除连播按钮
+            $('#delContinuousBtn').click(function(){
+                videoNum = $('#continuousVideoId').val();  //获取左边选择的视频ID
+                videoValue = $('#continuousVideoId').find("option:selected").text();   //获取左边选择的视频标题
+                if(videoValue == null){
+                    alert('请在右边的视频列表选择视频！');
+                }
+                //如果获取正确，添加到左边的选项，并且删除右边的选项
+                if(videoNum != null && videoValue != null && videoNum !=0 ){
+                    $('#videoListId').append("<option value='"+videoNum+"'>"+videoValue+"</option>");  //添加
+                    $("#continuousVideoId option[value='"+videoNum+"']").remove();  //删除
+                }
+            });
+            //提交按钮
+/*
+            $('#submitBtn').click(function(){
+                //保存前设置连播列表为全选
+               $("#continuousVideoId option").each(function(){
+                    $(this).attr("selected", true);
+               });
+               alert($("#continuousVideoId").html());
+            });
+*/
+        });
+        function selectAll(){
+            $(document).ready(function(){
+                $("#continuousVideoId").children().each(function(){$(this).attr("selected",true)});
+                return true;
+            });
+        }
+    </script>
+    <div class="content">
+        <div class="title">编辑视频连播 [ <a href="__URL__">返回列表</a> ]</div>
+        <table cellpadding=3 cellspacing=3>
+        <form method='post' id="form1" action="__URL__/update/" onsubmit="selectAll();">
+        <tr>
+            <td class="tRight" >连播名称：</td>
+            <td class="tLeft" ><input type="text" class="medium bLeftRequire"  check='Require' warning="连播名称不能为空" id="name" name="name" value="<{$flow.name}>" /></td>
+        </tr>
+        <tr>
+            <td class="tRight" >
+                <!--<fhtml:select id="continuousVideoId" name="continuousVideoId[]" options="continuousList" selected="selectContinuousList"  multiple="true" style="multiSelect" size="15" />-->
+                连播视频列表<br />
+                <select id="continuousVideoId" name="continuousVideoId[]" multiple="multiple" ondblclick="" onchange="" class="multiSelect" size="15" >
+                    <volist name="continuousList" id="continuous">
+                        <option value="<{$continuous[vid]}>"><{$continuous['title']}></option>
+                    </volist>
+                </select>
+            </td>
+            <td class="tRight" >
+                <input id="addContinuousBtn" type="button" value="<=添加" />
+                <br />
+                <input id="delContinuousBtn" type="button" value="移除=>" />
+            </td>
+            <td class="tLeft" >
+                <!--<form method='post' action="__URL__/add">
+                    <span id="key"><input type="text" name="title" title="视频查询" class="medium" ></span>
+                    <input type="submit" name="search" value="查询" />
+                </div>
+                <div  id="searchM" class=" none search cBoth" ></div>
+                </form>
+                -->
+                <br />
+                <!--<fhtml:select id="videoListId" name="videoListId[]" options="videoList" selected="selectVideoList"  multiple="true" style="multiSelect" size="15" />-->
+                <select id="videoListId" name="videoListId[]" ondblclick="" onchange="" class="multiSelect" size="15" >
+                    <volist name="videoList" id="video">
+                        <option value="<{$video[vid]}>"><{$video['title']}></option>
+                    </volist>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="center">
+            <input type="hidden" name="id" value="<{$flow.id}>" />
+            <input type="hidden" name="continuousVideoIdList" value="<{$flow.vidlist}>" />
+            <input type="submit" value="保 存" id="submitBtn" class="small submit">
+            <input type="reset" class="submit  small" value="清 空" >
+            </td>
+        </tr>
+        </table>
+        </form>
+    </div>
+</div>
+<!--********************这里是主体内容********************-->

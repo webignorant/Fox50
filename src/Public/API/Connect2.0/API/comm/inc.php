@@ -1,0 +1,1 @@
+{"appid":"100423741","appkey":"7891ccdb5d5eb6a0cf5f7efa0f8f372d","callback":"http://www.fox50.cn/index.php/UserBind/qq_user_login_check","scope":"get_user_info,add_share","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}

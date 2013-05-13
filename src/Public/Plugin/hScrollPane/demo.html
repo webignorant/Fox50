@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>hScrollPane - 水平滚动条Demo</title>
+<link href="css/hScrollPane.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+body{margin:0; text-align:center; color:#7d8289; font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;}
+
+.container{
+	width:598px;
+	height:130px;
+	margin:40px auto;
+	overflow:hidden;
+	position:relative;
+	-moz-user-select:none;
+}
+.presswraper{
+	height:100px;
+	border:1px solid #ddd;
+	background-color:#f1f1f1;
+}
+.press{
+	line-height:100px;
+	white-space:nowrap;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.container2{
+	width:598px;
+	height:154px;
+	margin:40px auto;
+	overflow:hidden;
+	position:relative;
+	-moz-user-select:none;
+}
+.container2 ul{
+	width:10000px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	padding:0;
+	margin:0;
+}
+.container2 ul li{
+	height:124px;
+	width:183px;
+	float:left;
+	line-height:90px;
+	text-align:center;
+	background:#eee;
+	padding:0;
+	margin-right:24px;
+	list-style-type:none;
+}
+.container2 ul li img{border:1px solid #ccc; padding:2px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="presswraper">
+		<div class="press">Begin Eyeminded 致力于提供专业的各类网站开发服务；极富视觉享受的平面及动画设计制作服务；高效益的网站重构服务。我们是一群追求技术创造价值的青年，有着丰富的行业经验。End</div>
+	</div>
+</div>
+
+<a href="" id="showhide">点击这里查看隐藏内容加滚动条的示例&raquo;</a>
+<div class="container" style="display:none;">
+	<div class="presswraper">
+		<div class="press">Begin Eyeminded 致力于提供专业的各类网站开发服务；极富视觉享受的平面及动画设计制作服务；高效益的网站重构服务。我们是一群追求技术创造价值的青年，有着丰富的行业经验。 Eyeminded 致力于提供专业的各类网站开发服务；极富视觉享受的平面及动画设计制作服务；高效益的网站重构服务。我们是一群追求技术创造价值的青年，有着丰富的行业经验。End</div>
+	</div>
+</div>
+
+<div class="container2">
+	<ul>
+		<li><img src="images/1.jpg" alt="" /></li>
+		<li><img src="images/2.jpg" alt="" /></li>
+		<li><img src="images/3.jpg" alt="" /></li>
+		<li><img src="images/4.jpg" alt="" /></li>
+		<li><img src="images/5.jpg" alt="" /></li>
+		<li><img src="images/6.jpg" alt="" /></li>
+		<li><img src="images/7.jpg" alt="" /></li>
+		<li><img src="images/8.jpg" alt="" /></li>
+	</ul>
+</div>
+
+
+<script type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="js/hScrollPane.js"></script>
+<script type="text/javascript">
+$(".container").hScrollPane({
+	mover:".press", //指定container对象下的哪个元素需要滚动位置 | 必传项;
+	showArrow:true, //指定是否显示左右箭头，默认不显示 | 可选项;
+	//moverW:function(){return $(".press").width();}(), //传入水平滚动对象的长度值,不传入的话默认直接获取mover的宽度值 | 可选项;
+	//handleMinWidth:100,//指定handle的最小宽度,要固定handle的宽度请在css中设定handle的width属性（如 width:28px!important;），不传入则不设定最小宽度 | 可选项;
+	//dragable:true, //指定是否要支持拖动效果，默认可以拖动 | 可选项;
+	//easing:true, //滚动是否需要滑动效果,默认有滑动效果 | 可选项;
+	handleCssAlter:"draghandlealter", //指定拖动鼠标时滚动条的样式，不传入该参数则没有变化效果 | 可选项;
+	mousewheel:{bind:true,moveLength:500} //mousewheel: bind->'true',绑定mousewheel事件; ->'false',不绑定mousewheel事件；moveLength是指定鼠标滚动一次移动的距离,默认值：{bind:true,moveLength:300} | 可选项;
+});
+
+$("#showhide").click(function(){
+	$(".container:last").show().hScrollPane({
+		mover:".press",
+		handleCssAlter:"draghandlealter"
+	});
+	return false;
+});
+
+$(".container2").hScrollPane({
+	mover:"ul",
+	moverW:function(){return $(".container2 li").length*207-24;}(),
+	showArrow:true,
+	handleCssAlter:"draghandlealter",
+	mousewheel:{moveLength:207}
+});
+</script>
+</body>
+</html>

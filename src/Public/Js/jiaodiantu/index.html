@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery图片轮播(焦点图)插件</title>
+<link href="css/jquery.slideBox.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="js/jquery.slideBox.min.js" type="text/javascript"></script>
+<script>
+jQuery(function($){
+	$('#demo1').slideBox();
+	$('#demo2').slideBox({
+		direction : 'top',//left,top#方向
+		duration : 0.3,//滚动持续时间，单位：秒
+		easing : 'linear',//swing,linear//滚动特效
+		delay : 5,//滚动延迟时间，单位：秒
+		startIndex : 1//初始焦点顺序
+	});
+	$('#demo3').slideBox({
+		duration : 0.3,//滚动持续时间，单位：秒
+		easing : 'linear',//swing,linear//滚动特效
+		delay : 5,//滚动延迟时间，单位：秒
+		hideClickBar : false,//不自动隐藏点选按键
+		clickBarRadius : 10
+	});
+	$('#demo4').slideBox({
+		hideBottomBar : true//隐藏底栏
+	});
+});
+</script>
+</head>
+
+<body>
+<h3>一、左右轮播，滚动持续0.6秒，滚动延迟3秒，滚动效果swing，初始焦点第1张，点选按键自动隐藏，按键边框半径（IE8-只方不圆）5px（以上各项为默认设置值）</h3>
+<div id="demo1" class="slideBox">
+  <ul class="items">
+    <li><a href="go/to/your/url.html" title="这里是测试标题一"><img src="img/1.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题二"><img src="img/2.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题三"><img src="img/3.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题四"><img src="img/4.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题五"><img src="img/5.jpg"></a></li>
+  </ul>
+</div>
+<h3>二、上下轮播，滚动持续0.3秒，滚动延迟5秒，滚动效果linear，初始焦点第2张，点选按键自动隐藏</h3>
+<div id="demo2" class="slideBox">
+  <ul class="items">
+    <li><a href="go/to/your/url.html" title="这里是测试标题一"><img src="img/1.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题二"><img src="img/2.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题三"><img src="img/3.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题四"><img src="img/4.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题五"><img src="img/5.jpg"></a></li>
+  </ul>
+</div>
+<h3>三、左右轮播，滚动持续0.3秒，滚动延迟5秒，滚动效果linear，初始焦点第1张，点选按键不隐藏，按键边框半径10px（圆形）</h3>
+<div id="demo3" class="slideBox">
+  <ul class="items">
+    <li><a href="go/to/your/url.html" title="这里是测试标题一"><img src="img/1.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题二"><img src="img/2.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题三"><img src="img/3.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题四"><img src="img/4.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题五"><img src="img/5.jpg"></a></li>
+  </ul>
+</div>
+<h3>四、隐藏底栏</h3>
+<div id="demo4" class="slideBox">
+  <ul class="items">
+    <li><a href="go/to/your/url.html" title="这里是测试标题一"><img src="img/1.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题二"><img src="img/2.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题三"><img src="img/3.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题四"><img src="img/4.jpg"></a></li>
+    <li><a href="go/to/your/url.html" title="这里是测试标题五"><img src="img/5.jpg"></a></li>
+  </ul>
+</div>
+<h3>五、<a href="jquery.slideBox.zip">想下载，就可个劲儿的点我:)</a></h3>
+<h4>爱我的老婆孩子！香港回归祖国15周年献礼，哈哈！！</h4>
+</body>
+</html>

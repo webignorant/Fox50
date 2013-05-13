@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?> <?php if(is_array($typese)): $i = 0; $__LIST__ = $typese;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$setp): $mod = ($i % 2 );++$i;?><option value="<?php echo ($setp["id"]); ?>|<?php echo ($setp["typename"]); ?>"><?php echo ($setp["typename"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>

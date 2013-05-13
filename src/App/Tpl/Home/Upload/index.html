@@ -1,0 +1,400 @@
+<!--********************这里是主体内容********************-->
+<!--<meta http-equiv="X-UA-Compatible" content="IE=8" />-->
+<link rel="stylesheet" type="text/css"  href="__PUBLIC__/Css/upload.css">
+<style type="text/css">
+.videoManageBtn{
+width:130px;height:30px;border: 1px solid gainsboro; background:#FFFFFF
+}
+.oneUploadBtn{
+width:130px;height:30px;border: 1px solid gainsboro; background:#FFFFFF
+}
+.multiUploadBtn{
+width:130px;height:30px;border: 1px solid gainsboro; background:#FFFFFF
+}
+.reginput{
+clear: both;
+margin: 20px 0px;
+list-style: none;
+padding-left: 12px;
+}
+.necessary{
+color:red;
+}
+</style>
+<!--uploadify插件-->
+<load href="__PUBLIC__/Js/jquery-1.8.3.min.js" />
+<load href="__PUBLIC__/Plugin/uploadify/jquery.uploadify.min.js" />
+<load href="__PUBLIC__/Plugin/uploadify/uploadify.css" />
+
+<div class="mainCol">
+    <div id="upload-mian" class="upload-mian" style="background-image:url(__PUBLIC__/images/fox/upload-bg.jpg)" >
+        <form method="post" name="from" action="__URL__/upload" enctype="multipart/form-data">
+        <input type="hidden" name="MAX_FILE_SIZE" value="300000000000000">
+        <ul>
+            <li>
+                <input class="videoManageBtn" type="button" id="videoManageBtn" onclick="videoManage();" value="视频管理" />
+                <input class="videoManageBtn" type="button" id="oneUploadBtn" onclick="oneUpload();" value="单文件上传" style="background:white;color:block;"/>
+                <input class="videoManageBtn" type="button" id="multiUploadBtn" value="多文件上传" />
+                <hr />
+            </li>
+            <li>
+                <div style="width:400px;height:auto;float:left;">
+                    <form>
+                        <div id="queue"></div>
+                        <input id="file_upload" name="file_upload" type="file" multiple="true">
+                        <div id="multiOperateBtn" style="display:none">
+                            <input class="videoManageBtn" type="button" onclick="multiUploadCheck();" value="开始上传" />
+                            <input class="videoManageBtn" type="button" onclick="javascript:$('#file_upload').uploadify('stop','*');" value="停止上传" />
+                            <!--
+                            <input type="button" onclick="javascript:$('#file_upload').uploadify('disable', false);" value="激活按钮" />
+                            <input type="button" onclick="javascript:$('#file_upload').uploadify('disable', true);" value="禁止按钮" />
+                            -->
+                            <input class="videoManageBtn" type="button" onclick="javascript:$('#file_upload').uploadify('cancel','*');" value="清除队列" />
+                        </div>
+                    </form>
+                </div>
+                <div id="result" style="display:none;width:400px;height:auto;float:left;background:#ECFFFF;"></div>
+                <div style="clear:both;"></div>
+            </li>
+            <li class="reginput"><div id="upload_info" style="color: rgb(255, 0, 0)">单视频上传模式，在对话框中选中一个视频，确定后自动上传，视频标题默认取视频文件名</div></li>
+            <li class="reginput">视频栏目类型:
+                <select id="catid" name="catid" onchange="typeselec(this.value)">
+                  <volist name="catid" id="ca">
+                       <option value="<{$ca.id}>|<{$ca.catname}>"><{$ca.catname}></option>
+                  </volist>
+                </select>
+                <span class="necessary">*</span>
+            </li>
+            <li class="reginput">所属视频类型:
+                <select id="typeid" name="type">  
+                  <volist name="vtype" id="tp">
+                       <option value="<{$tp.id}>|<{$tp.typename}>"><{$tp.typename}></option>
+                  </volist>
+                </select>
+                <span class="necessary">*</span>
+            </li>
+            <li class="reginput">所属地区:
+                <select id="regionid" name="diqu">
+                    <volist name="region" id="re">
+                        <option value="<{$i}>"><{$re}></option>
+                    </volist>
+                </select>
+                <span class="necessary">*</span>
+            </li>
+            <li class="reginput">视频标题:<input id="videotitle" type="text" name="title" title="标题默认为视频文件名" /><span class="necessary">*</span></li>
+            <li id="actorli" class="reginput">主演:<input id="actor" type="text" name="zhuyan" /></li>
+            <li id="directorli" class="reginput">导演:<input id="director" type="text" name="daoyan" /></li>
+            <li class="reginput">发行年份:
+                <select id="year" name="nianfen">
+                    <volist name="year" id="ye">
+                    <option value="<{$ye}>"><{$ye}></option>
+                    </volist>
+                </select>
+            </li>
+            <li class="reginput">内容简介:<textarea id="about" name="content"></textarea></li>
+            <li class="reginput"><input type="button" id="savevideoinfo" class="saveBtn" title="上传视频" value="视频未上传" /></li>
+            <!--隐藏信息-->
+            <input type="hidden" id="up_file_name" name="videofile" value="" onchange="return charge();"/>
+            <input type="hidden" id="up_file_path" name="videopath" value="" />
+            <input type="hidden" id="up_file_extension" name="videoextension" value="" />
+            <!--
+            <input type="hidden" id="up_file_size" name="videosize" value="" />
+            <input type="hidden" id="definition" name="videodefinition" value="" />
+            <input type="hidden" id="playtime" name="videoplaytime" value="" />
+            <input type="hidden" id="img" name="videoimg" value="" />
+            -->
+            <li><b>只支持最大为100M的FLV视频格式的上传！</b></li>
+            <li><b>推荐使用Google Chrome、IE8以上浏览器访问</b></li>
+            <li></li>
+        </ul>
+        </form>
+    </div>
+    
+</div> 
+<load href="__PUBLIC__/Js/json.js" />
+
+<script type="text/javascript">
+    var uploadStatus = false; //判断是否上传完毕
+    var multilMode = false;   //判断是否多文件上传
+    $(function() {
+        $('#file_upload').uploadify({
+            'auto'     : true,
+            'buttonText' : '上传视频',
+            'height' : 30,
+            'width' : 100,
+            'fileSizeLimit' : '102400KB',
+            'fileTypeExts'  : '*.jpg;*.flv;*.mp4;*.avi',
+            'fileObjName' : 'uploadFile', //PHP获取$file的名称
+            'swf'      : '__PUBLIC__/Plugin/uploadify/uploadify.swf',
+            /*'uploader' : '__PUBLIC__/Plugin/uploadify/uploadify.php',*/
+            'uploader' : '__URL__/uploadify',
+            'multi' : false,
+            'queueID' : 'queue',
+            'queueSizeLimit' : 999,
+            'uploadLimit' : 50,
+            'removeCompleted' : false,
+            'removeTimeout' : false,
+            'requestErrors' : true,
+            'successTimeout' : 3600,
+            'OnDisable' : function() {
+            
+            },
+            'onCancel'    : function(file) {
+                alert('文件[' + file.name + ']已经移除队列!');
+            },
+            'onClearQueue' : function(queueItemCount) {
+                //alert(queueItemCount + ' file(s) were removed from the queue');
+                $('#result').empty();
+                $('#result').css({display : 'none'});
+            },
+            'onFallback' : function() {
+                //禁用上传按钮
+                $('#file_upload').uploadify('disable', true);
+                flashcheck= confirm('检测当前浏览器没有兼容的Flash,无法正常执行上传功能!\n请检测浏览器是否禁用Flash功能，并且开启\n点击确定将登录Adobe网站，下载最新的Adobe Flash.');
+                if(flashcheck){
+                    location.href = 'http://get.adobe.com/cn/flashplayer/';
+                }
+            },
+            'onSelect' : function(file) {  
+                this.addPostParam("file_name",encodeURI(file.name));//改变文件名的编码
+                //获取并设置表单标题
+                if(multilMode == false) {
+                    filename = file.name;  //文件名
+                    index = filename.lastIndexOf("."); //需要获取的长度
+                    videofiletitle = filename.substring(0,index);  //获取
+                    $('#videotitle').val(videofiletitle);
+                }
+                $('#result').empty();
+                $('#result').css({display : 'none'});
+            },
+            'onUploadComplete' : function(file) {
+                
+            },
+            'onUploadStart' : function(file) {
+                //禁用上传按钮
+                $('#file_upload').uploadify('disable', true);
+                //alert('Starting to upload ' + file.name);
+            },
+            'onUploadSuccess' : function(file, data, response) {
+                //alert(response);
+                if(multilMode == false){
+                    //alert('视频上传成功，请点击表单保存视频信息！');
+                }
+                //alert('文件上传成功');
+                //转换成json数据
+                var obj = eval( "(" + data + ")" );
+                var fileinfo = eval( "(" + obj.info + ")" );
+                //获取并设置视频存放路径
+                $('#up_file_path').val(fileinfo.savepath);
+                //获取并设置视频文件名
+                $('#up_file_name').val(fileinfo.savename);
+                //获取并设置视频文件类型
+                $('#up_file_extension').val(fileinfo.extension);
+                /*
+                //获取视频标题
+                filename = file.name;  //文件名
+                index = filename.lastIndexOf("."); //需要获取的长度
+                videofiletitle = filename.substring(0,index);  //获取
+                //获取并设置视频大小
+                $('#up_file_size').val(fileinfo.size);
+                //获取并设置视频清晰度
+                $('#definition').val(fileinfo.definition);
+                //获取并设置视频播放时间
+                $('#playtime').val(fileinfo.playtime);
+                //获取并设置视频封面
+                $('#img').val(fileinfo.img);
+                */
+                //显示视频信息表单
+                //$('#upload-mian').css({display: "block"});
+                //视频信息预显示
+                //$('#videotitle').val(videofiletitle);
+                
+                //写进数据库
+                //setVideoInfo();
+                if(multilMode == false){
+                    //允许保存表单
+                    uploadStatus = true;
+                    $('#savevideoinfo').val('请保存视频');
+                }else{
+                    //设置文件名
+                    filename = file.name;  //文件名
+                    index = filename.lastIndexOf("."); //需要获取的长度
+                    videofiletitle = filename.substring(0,index);  //获取
+                    $('#videotitle').val(videofiletitle);
+                    
+                    setMultiVideoInfo();
+                }
+                
+                //激活上传按钮
+                $('#file_upload').uploadify('disable', false);
+                
+                //暂停上传
+                $('#file_upload').uploadify('settings','auto',false);
+            },
+            'onUploadError' : function(file, errorCode, errorMsg, errorString){
+                //激活上传按钮
+                $('#file_upload').uploadify('disable', false);
+                //alert('文件'+file.name+'上传失败');
+            },
+            'onQueueComplete' : function(queueData){
+                
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function setVideoInfo() {
+        var catid = $('#catid').val();
+        var typeid = $('#typeid').val();
+        var regionid = $('#regionid').val();
+        var title = $('#videotitle').val();
+        var actor = $('#actor').val();
+        var director = $('#director').val();
+        var year = $('#year').val();
+        var about = $('#about').val();
+        var filename = $('#up_file_name').val();
+        var path = $('#up_file_path').val();
+        var extension = $('#up_file_extension').val();
+        //alert(catid+' '+typeid+' '+regionid+' '+title+' '+actor+' '+director+' '+year+' '+about+' '+filename+' '+path);
+        $(document).ready(function(){
+            $.post("__URL__/savaVideoInfo/",
+                {catid:catid, typeid:typeid, regionid:regionid, title:title, actor:actor, director:director, year:year, about:about, filename:filename, path:path, extension:extension},
+                function(data){
+                    //var json_data = eval( "(" data + ")");
+                    //var json_data = eval( "(" + data + ")" );
+                    //var Info = eval( "(" + data.info + ")" );
+                    //alert(Info.title+' '+Info.img);
+                    if(data.data == 1){
+                        alert(data.info);
+                        window.location.reload();
+                    }else{
+                        alert(data.info);
+                    }
+                    //不显示视频信息表单
+                    //$('#upload-mian').css({display: "none"});
+                });
+        })
+    }
+    function setMultiVideoInfo() {
+        $(document).ready(function(){
+            var catid = $('#catid').val();
+            var typeid = $('#typeid').val();
+            var regionid = $('#regionid').val();
+            var title = $('#videotitle').val();
+            var actor = $('#actor').val();
+            var director = $('#director').val();
+            var year = $('#year').val();
+            var about = $('#about').val();
+            var filename = $('#up_file_name').val();
+            var path = $('#up_file_path').val();
+            var extension = $('#up_file_extension').val();
+            //alert(catid+' '+typeid+' '+regionid+' '+title+' '+actor+' '+director+' '+year+' '+about+' '+filename+' '+path);
+            //alert('文件上传成功');
+            $.post("__URL__/savaVideoInfo/",
+                {catid:catid, typeid:typeid, regionid:regionid, title:title, actor:actor, director:director, year:year, about:about, filename:filename, path:path, extension:extension},
+                function(data){
+                    $('#result').show();
+                    if(data.data == 1){
+                        $('#result').append('标题为['+title+']的视频信息保存成功<br />');
+                    }else{
+                        $('#result').append(+'标题为['+title+']的视频信息保存失败<br />');
+                    }
+                });
+        })
+    }
+    function multiUploadCheck() {
+        uploadCheck = confirm('批量上传的视频信息确定是如下\n视频栏目：'+$("#catid option:selected").text()+'\n视频类型：'+$('#typeid option:selected').text()+'\n视频地区：'+$('#regionid option:selected').text());
+        if(uploadCheck){
+            $('#file_upload').uploadify('upload','*');
+        }
+    }
+</script>
+
+<script>
+    //JQ鼠标单击事件
+    $(document).ready(function(){
+        //视频管理
+        $('#videoManageBtn').click(function(e){
+            e.preventDefault();
+            location.href = '__APP__/Home/Video/video_index';
+        })
+        //单文件上传
+        $('#oneUploadBtn').click(function(e){
+            e.preventDefault();
+                $('#oneUploadBtn').css({background:"#777",color:"#000"});
+                $('#multiUploadBtn').css({background:"",color:"#000"});
+            //修改
+            multilMode = false;
+            $('#multiOperateBtn').css({display:"none"});
+            $('#upload_info').css({display:"inline"});
+            $('#upload_info').text('单视频上传模式，在对话框中选中一个视频，确定后自动上传，视频标题默认取视频文件名');
+            $('#file_upload').uploadify('settings','buttonText','选择视频');
+            $('#file_upload').uploadify('settings','multi',false);
+            $('#file_upload').uploadify('settings','auto',true);
+            $('#savevideoinfo').css({display:"block"});
+            $('#result').css({display:"none"});
+            $("#videotitle").removeAttr("readonly");
+            $('#videotitle').css({background:"#FFF"});
+            $('#videotitle').val('视频标题自动获取');
+        })
+        //单文件上传保存按钮
+        $('#savevideoinfo').click(function(e){
+            e.preventDefault();
+            if(uploadStatus == true){
+                setVideoInfo();
+            }else{
+                alert('请先上传视频');
+            }
+        });
+        //多文件上传
+        $('#multiUploadBtn').click(function(e){
+            e.preventDefault();
+                $('#multiUploadBtn').css({background:"#777",color:"#000"});
+                $('#oneUploadBtn').css({background:"",color:"#000"});
+            //修改
+            multilMode = true;
+            $('#multiOperateBtn').css({display:"block"});
+            $('#upload_info').css({display:"inline"});
+            $('#upload_info').text('多视频上传模式，在对话框中选中多个视频，点击开始上传按钮上传，视频标题默认取视频文件名');
+            $('#file_upload').uploadify('settings','buttonText','选择多视频');
+            $('#file_upload').uploadify('settings','multi',true);
+            $('#file_upload').uploadify('settings','auto',false);
+            $('#savevideoinfo').css({display:"none"});
+            $('#videotitle').attr({readonly:"true"});
+            $('#videotitle').css({background:"#CCC"});
+            $('#videotitle').val('多文件上传模式下禁用');
+        })
+        //针对动漫、资讯、生活栏目隐藏演员、导演输入框
+        $('#catid').change(function(){
+            var cat_value = $('#catid').val();
+            cat_index = cat_value.indexOf('|');
+            cat_id = cat_value.substring(0,cat_index);
+            if(cat_id == 3 || cat_id == 4 || cat_id == 5 || cat_id == 6){
+                $('#actorli').hide();
+                $('#directorli').hide();
+            }else{
+                $('#actorli').show();
+                $('#directorli').show();
+            }
+            
+        })
+        
+    })
+
+</script>
+
+<script type="text/javascript">
+    function typeselec(typeselect){
+        $("#typeid").load('__URL__/typeselect',{typeid:typeselect.split('|')[0]});
+    }
+    function charge(){
+        var filename = document.getElementById('up_file').value;
+        var file_type = filename.substring(filename.lastIndexOf(".")+1);
+        if(!(file_type == "mp4" || file_type == "flv" || file_type == "avi"))
+           alert ("目前只支持mp4、flv、avi格式");
+        
+    }
+</script>
+
+<!--********************这里是主体内容********************-->

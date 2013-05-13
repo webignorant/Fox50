@@ -1,0 +1,37 @@
+<tagLib name="html" />
+<include file="Public:header" />
+<load href ="__PUBLIC__/Js/common.js" />
+<div id="main" class="main" >
+<div class="content">
+<div class="title">编辑友情链接 [ <a href="__URL__">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+<form method='post' id="form1" action="__URL__/update/" >
+<tr>
+	<td class="tRight" >站点名称:</td>
+	<td class="tLeft" ><input type="text" class="medium bLeftRequire"  check='Require' id="account" name="name" value="{$vo.name}"></td>
+</tr>
+<tr>
+	<td class="tRight" >URL:</td>
+	<td class="tLeft" ><input type="text" class="medium bLeft" name="url" value="{$vo.url}"></td>
+</tr>
+
+<tr>
+	<td class="tRight" >说明文字：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeft" name="description" value="{$vo.description}"></td>
+</tr>
+<tr>
+	<td class="tRight">LOGO地址：</td>
+	<td class="tLeft"><input type="text" class="medium bLeft" name="logo" value="{$vo.logo}"></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center">
+		<input type="hidden" name="id" value="{$vo.id}" >
+	<input type="submit" value="保 存" class="small submit">
+	<input type="reset" class="submit  small" value="清 空" >
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</div>

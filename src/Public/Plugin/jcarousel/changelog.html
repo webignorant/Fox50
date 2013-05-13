@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jCarousel:更新日志</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="wrap">
+  <h1>jCarousel</h1>
+  <h2>jQuery下的滚动切换传送插件</h2>
+	<h3>更新日志</h3>
+	<h4>版本 0.2.3 - 2008-04-07</h4>
+    <ul>
+    <li>更新jQuery版本为1.2.3.</li>
+    <li>修复Safari下的一个<a href="http://sorgalla.com/2007/10/12/jcarousel-021/#comment-2222">问题</a>。</li>
+    <li>添加新的实例“一个页面多个滚动切换”。</li>
+  </ul>
+    <h4>版本 0.2.2 - 2007-11-07</h4>
+  <ul>
+    <li>修复由<a href="http://sorgalla.com/2007/10/12/jcarousel-021/#comment-2222">John Fiala</a>告知的li元素嵌套bug。</li>
+    <li>修复由<a href="http://groups.google.com/group/jquery-en/browse_thread/thread/455edd3814bf2d9c/86f35001bb483024">Glenn 
+      Nilsson</a>告知的元素过少时的初始化bug。</li>
+  </ul>
+	<h4>版本 0.2.1 - 2007-10-12</h4>
+  <ul>
+    <li>更换<code>start</code>为自定义的起始位置选项。就的<code>start</code>选项被重命名为<code>offset</code>。</li>
+    <li>添加通过Ajax从PHP脚本加载动态内容的示例。</li>
+    <li>修复widths/heights变量的bug。</li>
+  </ul>
+	
+	<h4>版本 0.2.0-beta - 2007-05-07</h4>
+  <ul>
+    <li>完全重写插件。详情查看<a href="http://sorgalla.com/2007/05/07/jcarousel-020-beta/">这里</a>。</li>
+	</ul>
+	<h4>版本 0.1.6 - 2007-01-22</h4>
+  <ul>
+    <li>New public methods <code>size()</code> and <code>init()</code>.</li>
+		<li>Added new example &quot;Carousel with external controls&quot;.</li>
+  </ul>
+	<h4>版本 0.1.5 - 2007-01-08</h4>
+  <ul>
+    <li>修改代码使其可以在jQuery 1.1下正常工作。</li>
+    <li>按照jQuery文档的要求重命名js文件为jquery.jcarousel.pack.js。</li>
+  </ul>
+  <h4>版本 0.1.4 - 2006-12-12</h4>
+  <ul>
+    <li>新配置选项<code>autoScrollResumeOnMouseout</code>.</li>
+  </ul>
+	<h4>版本 0.1.3 - 2006-12-02</h4>
+  <ul>
+    <li>新的配置项<code>itemStart</code>。设置起始项位置。</li>
+  </ul>
+	<h4>版本 0.1.2 - 2006-11-28</h4>
+  <ul>
+    <li>新配置选项<code>wrapPrev</code>。表现类似与<code>wrap</code>，但在滚动切换的起始位置点击“前一个(prev-button)”按钮后会滚动到最后。（注意:在加载动态内容时可能会出现些意想不到的结果。你必须确定初始化的时候滚动切换传送带已经完全被加载。）。</li>
+    <li>在buttons方法最后移除button操作。以便让回调函数改变为jCarousel指定的行为。</li>
+  </ul>
+	<h4>版本 0.1.1 - 2006-10-25</h4>
+  <ul>
+		<li>让列表项处理回调函数时接受动画前后触发的两个函数。</li>
+    <li>让列表项处理回调函数时接受第四个参数<code>state</code>，此参数有三个状态: <code>next</code>, <code>prev</code>和<code>init</code>.</li>
+    <li>新的配置项：<code>autoScrollStopOnMouseover</code></li>
+  </ul>
+	<h4>版本 0.1.0 - 2006-09-21</h4>
+  <ul>
+		<li>稳定版本。</li>
+    <li>内部的源代码重写，以适应jQuery插件指南。</li>
+    <li>新增内联文档。</li>
+    <li>改变许可为双许可模型(<a href="http://www.opensource.org/licenses/mit-license.php">MIT</a> 和 <a href="http://www.opensource.org/licenses/gpl-license.php">GPL</a>)。</li>
+  </ul>
+	<h4>版本 0.1.0-RC1 - 2006-09-13</h4>
+  <ul>
+		<li>虚拟项属性<code>jCarouselItemIdx</code> 由<code>jcarousel-item-<em>n</em></code>class类代替。</li>
+    <li>回调函数项接受第三个参数<code>idx</code>，这个参数指代当前项在列表中的位置(原来的属性<code>jCarouselItemIdx</code>)。</li>
+	  <li>修复Safari下margin-right的bug。</li>
+  </ul>
+	<h4>版本 0.1.0-gamma - 2006-09-07</h4>
+  <ul>
+   		<li>含有指定HTML标记的列表元素(<code>ul</code>和<code>ol</code>)上如果指定了<code>jQuery().jcarousel()</code>就自动包装。</li>
+		<li>添加新的回调函数<code>itemFirstInHandler</code>, <code>itemFirstOutHandler</code>, <code>itemLastInHandler</code>, <code>itemLastOutHandler</code>, <code>itemVisibleInHandler</code>, <code>itemVisibleOutHandler</code>.</li>
+		<li>一些常规的源代码重写。</li>
+		<li>修复<code>&lt;li&gt;</code>索引属性设置不正确的bug。</li>
+		<li>改变默认的<code>itemWidth</code>和<code>itemHeight</code>为75。</li>
+  </ul>
+	<h4>版本 0.1.0-beta - 2006-09-02</h4>
+  <ul>
+	  <li>最初的版本。</li>
+	</ul>
+</div>
+</body>
+</html>

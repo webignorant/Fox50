@@ -1,0 +1,386 @@
+<!--********************这里是主体内容********************-->
+
+<script src="__PUBLIC__/Js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<link href="__PUBLIC__/Plugin/slideBox/css/jquery.slideBox.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/Plugin/slideBox/js/jquery.slideBox.min.js" type="text/javascript"></script>
+<script>
+jQuery(function($){
+
+});
+$('#videoslide').ready(function(){
+	$('#videoslide').slideBox({
+		duration : 0.3,//滚动持续时间，单位：秒
+		easing : 'linear',//swing,linear//滚动特效
+		delay : 5,//滚动延迟时间，单位：秒
+		hideClickBar : false,//不自动隐藏点选按键
+		clickBarRadius : 10
+	});
+});
+</script>
+<div style="width:1000px; height:305px; padding-top:5px; ">
+    <div id="videoslide" class="slideBox" style="float:left; width:665px; height:305px;">
+        <ul class="slideitems">
+        <volist name="RecommendedList" id="vo">
+            <li><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img width="665" height="305" src="<{$vo.img}>" /></a></li>
+        </volist>
+        </ul>
+    </div>
+<style>
+.jiaodian ul{ border-bottom:#999999 dotted 1px; padding-bottom:5px; padding-top:3px;}
+.jiaodian ul li{ padding:5px; width:310px;}
+.jiaodian span{ overflow:hidden; display:inline-block; width:250px; height:15px;}
+.jiaodian .data{width:55px; margin-left:3px;}
+.jiaodian .hd { width:322px; padding:0 5px; height:25px;}
+.jiaodian .hd h3{ font-size:14px; font-weight:bold; width:250px; float:left;}
+.jiaodian .more { float:left }
+</style>
+    <div class="jiaodian"  style="width:322px; height:295px; border:1px solid #c5ddf6; float:right; font-size:13px; padding:5px;">
+        <div class="hd">
+            <h3>最热视频</h3>
+            <!--<a href="<{:U('Home/VideoCategory/index?catid=8')}>" class="more">更多&gt;&gt;</a>-->
+        </div>
+        <ul>
+            <volist name="HotList" id="vo">
+                <li><a href='<{:U('Home/Play/index?vid='.$vo[vid])}>'><span class='hot'><{$vo.title|msubstr=0,18,'utf-8',true}></span><span class='data'><{$vo.viewnum}></span></a></li>
+            </volist>
+        </ul>
+    </div>
+</div>
+
+<!--最近更新视频-->
+<div class="box">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd"><h3>最近更新</h3></div>
+                <ul class="index_top_video">
+                    <{$LatestVideoError}>
+                    <volist name="LatestVideo" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,12,'utf-8',true}></a> <span><font color="red"><{$vo.dateline|date="m-d",###}></font></span></li>
+                    </volist>
+                </ul>
+                <div class="total">今日更新：<span>[<{$NewVideoNumInToday}>]</span> 总视频数量：<span>[<{$VideoMaxNum}>]</span></div>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+      
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                  <h3 class="rec"><span>近期热门视频推荐</span></h3> 
+                </div>
+                <ul class="mov_pic_list index_rec">
+                    <{$LatestVideoError}>
+                    <volist name="LatestVideo" id="vo">
+                        <li><div class="pic"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                    </volist>
+                </ul>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<!--最近电影推荐视频-->
+<div class="box">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd">
+                  <h3>电影热门排行榜</h3>
+                  <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                </div>
+                <ul class="index_top_video">
+                    <{$showHitVideoInCategory1Error}>
+                    <volist name="showHitVideoInCategory1" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>电影</h3>
+                    <a href="<{:U('Home/VideoCategory/index?catid=1')}>" class="more">全部&gt;&gt;</a>
+                    <div class="sort">
+                        <volist name="movieTypeList" id="vo">
+                            <a href="<{:U('Home/VideoCategory/index?catid=1&rid='.$vo[id])}>" title="<{$vo.regionname}>"><{$vo.regionname}></a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="index_mov">
+                    <ul class="mov_pic_list">
+                        <{$movieerror}>
+                        <volist name="movieList" id="vo">
+                            <li><div class="pic"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                        </volist>
+                    </ul>
+                    <div class="mov_text_list">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<!--最近连续剧推荐视频-->
+<div class="box">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd">
+                  <h3>电视剧热门排行榜</h3>
+                  <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                </div>
+                <ul class="index_top_video">
+                    <{$showHitVideoInCategory2Error}>
+                    <volist name="showHitVideoInCategory2" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>电视剧</h3>
+                    <a href="<{:U('Home/VideoCategory/index?catid=2')}>" class="more">全部&gt;&gt;</a>
+                    <div class="sort">
+                        <volist name="sitcomsTypeList" id="vo">
+                            <a href="<{:U('Home/VideoCategory/index?catid=2&rid='.$vo[id])}>" title="<{$vo.regionname}>"><{$vo.regionname}></a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="index_mov">
+                    <ul class="mov_pic_list">
+                        <{$sitcomserror}>
+                        <volist name="sitcomsList" id="vo">
+                            <li><div class="pic"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                        </volist>
+                    </ul>
+                    <div class="mov_text_list">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<!--最近动漫推荐视频-->
+<div class="box">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd">
+                  <h3>动漫热门排行榜</h3>
+                  <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                </div>
+                <ul class="index_top_video">
+                    <{$showHitVideoInCategory3Error}>
+                    <volist name="showHitVideoInCategory3" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>动漫</h3>
+                    <a href="<{:U('Home/VideoCategory/index?catid=3')}>" class="more">全部&gt;&gt;</a>
+                    <div class="sort">
+                        <volist name="animationTypeList" id="vo">
+                            <a href="<{:U('Home/VideoCategory/index?catid=3&rid='.$vo[id])}>" title="<{$vo.regionname}>"><{$vo.regionname}></a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="index_mov">
+                    <ul class="mov_pic_list">
+                        <{$animationerror}>
+                        <volist name="animationList" id="vo">
+                            <li><div class="pic"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                        </volist>
+                    </ul>
+                    <div class="mov_text_list">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<!--最近娱乐推荐视频-->
+<div class="box">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd">
+                  <h3>娱乐热门排行榜</h3>
+                  <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                </div>
+                <ul class="index_top_video">
+                    <{$showHitVideoInCategory4Error}>
+                    <volist name="showHitVideoInCategory4" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>娱乐</h3>
+                    <a href="<{:U('Home/VideoCategory/index?catid=4')}>" class="more">全部&gt;&gt;</a>
+                    <div class="sort">
+                        <volist name="entertainmentTypeList" id="vo">
+                            <a href="<{:U('Home/VideoCategory/index?catid='.$vo[upid].'&tid='.$vo[id])}>" title="<{$vo.typename}>"><{$vo.typename}></a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="index_mov">
+                    <ul class="mov_pic_list">
+                        <{$entertainmenterror}>
+                        <volist name="entertainmentList" id="vo">
+                            <li><div class="pic"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                        </volist>
+                    </ul>
+                    <div class="mov_text_list">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<!--最近资讯推荐视频-->
+<div class="box">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd">
+                  <h3>资讯热门排行榜</h3>
+                  <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                </div>
+                <ul class="index_top_video">
+                    <{$showHitVideoInCategory5Error}>
+                    <volist name="showHitVideoInCategory5" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>资讯</h3>
+                    <a href="<{:U('Home/VideoCategory/index?catid=5')}>" class="more">全部&gt;&gt;</a>
+                    <div class="sort">
+                        <volist name="newsTypeList" id="vo">
+                            <a href="<{:U('Home/VideoCategory/index?catid='.$vo[upid].'&tid='.$vo[id])}>" title="<{$vo.typename}>"><{$vo.typename}></a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="index_mov">
+                    <ul class="mov_pic_list">
+                        <{$newserror}>
+                        <volist name="newsList" id="vo">
+                            <li><div class="pic"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                        </volist>
+                    </ul>
+                    <div class="mov_text_list">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<!--最近生活推荐视频-->
+<div class="box">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd">
+                  <h3>生活热门排行榜</h3>
+                  <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                </div>
+                <ul class="index_top_video">
+                    <{$showHitVideoInCategory6Error}>
+                    <volist name="showHitVideoInCategory6" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>生活</h3>
+                    <a href="<{:U('Home/VideoCategory/index?catid=6')}>" class="more">全部&gt;&gt;</a>
+                    <div class="sort">
+                        <volist name="lifeTypeList" id="vo">
+                            <a href="<{:U('Home/VideoCategory/index?catid='.$vo[upid].'&tid='.$vo[id])}>" title="<{$vo.typename}>"><{$vo.typename}></a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="index_mov">
+                    <ul class="mov_pic_list">
+                        <{$lifeerror}>
+                        <volist name="lifeList" id="vo">
+                            <li>
+                                <div class="pic">
+                                    <a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,9,'utf-8',true}></a>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                    <div class="mov_text_list">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+    
+<!--********************这里是主体内容********************-->

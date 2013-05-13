@@ -1,0 +1,63 @@
+
+<!--********************这里是主体内容********************-->
+<div id="contain">
+
+    <div  class="mian-l">
+
+        <div  class="column-1">
+            <div class="lmtbz">
+                <div class="lm_l"><span><a href="<{:U('Home/VideoCategory/index?catid=9')}>"><strong>视频排行榜</strong></a></span></div>
+            </div>
+            <div class="column-list-1">
+                <div class="bzzxlb-l" >
+                
+                    <div class="main_top">
+                        <div class="lm_2"><span><a href="#"> <strong>娱乐排行榜</strong></a></span></div>
+                        <div class="gengduo_Top"><a href="#"><span>更多>></span></a></div>
+                        <ul>
+                            <volist name="Category9PlayNumTop" id="vo">
+                                <li><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>"><{$vo.title}></a>&nbsp;&nbsp;<a href=""><img src="__PUBLIC__/images/checked_out.png" width="16" height="16" border="0" alt="" align="absmiddle">(<{$vo.viewnum}>)</a></li>
+                            </volist>
+                        </ul>
+                    </div>
+                    
+                    <div class="main_top">
+                        <div class="lm_2"><span><a href="#"> <strong>资讯排行榜</strong></a></span></div>
+                        <div class="gengduo_Top"><a href="#"><span>更多>></span></a></div>
+                        <ul>
+                            <volist name="Category8PlayNumTop" id="vo">
+                                <li><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>"><{$vo.title}></a>&nbsp;&nbsp;<a href=""><img src="__PUBLIC__/images/checked_out.png" width="16" height="16" border="0" alt="" align="absmiddle">(<{$vo.viewnum}>)</a></li>
+                            </volist>
+                        </ul>
+                    </div>
+                    
+                    <div class="main_top">
+                        <div class="lm_2"><span><a href="#"> <strong>教育排行榜</strong></a></span></div>
+                        <div class="gengduo_Top"><a href="#"><span>更多>></span></a></div>
+                        <ul>
+                            <volist name="Category6PlayNumTop" id="vo">
+                                <li><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>"><{$vo.title}></a>&nbsp;&nbsp;<a href=""><img src="__PUBLIC__/images/checked_out.png" width="16" height="16" border="0" alt="" align="absmiddle">(<{$vo.viewnum}>)</a></li>
+                            </volist>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  class="mian-r">
+        <div class="mian-r-1">
+            <div class="lm_2"><span><a href="#"> <strong>总排行榜</strong></a></span></div>
+            <div class="gengduo_Top"><a href="#"><span>更多>></span></a></div>
+            <ul>
+                <volist name="VideoPlayTop" id="vo">
+                    <li><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>"><{$vo.title}></a>&nbsp;&nbsp;<a href=""><img src="__PUBLIC__/images/checked_out.png" width="16" height="16" border="0" alt="" align="absmiddle">(<{$vo.viewnum}>)</a></li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+
+
+</div> 
+<!--********************这里是主体内容********************-->

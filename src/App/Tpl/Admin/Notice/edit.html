@@ -1,0 +1,37 @@
+<include file="Public:header" />
+<div id="main" class="main" >
+<script language="JavaScript">
+<!--
+function resetPwd(){
+var pass	 =	 $F('resetPwd');
+ThinkAjax.send('__URL__/resetPwd/','ajax=1&id={$vo.id}&password='+encodeURIComponent(pass));
+}
+//-->
+</script>
+<div class="content">
+<div class="title">编辑视频栏目 [ <a href="__URL__">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+<form method='post' id="form1" >
+<tr>
+	<td class="tRight tTop">公  告：</td>
+	<td class="tLeft"><TEXTAREA class="large bLeft"  name="content" rows="5" cols="57">{$vo.content}</textarea></td>
+</tr>
+<tr>
+	<td class="tRight">状态：</td>
+	<td class="tLeft"><SELECT class="small bLeft"  name="status">
+	<option <eq name="vo.status" value="1" >selected</eq> value="1">启用</option>
+	<option <eq name="vo.status" value="0" >selected</eq> value="0">禁用</option>
+	</SELECT></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center"><input type="hidden" name="id" value="{$vo.id}" >
+	<input type="hidden" name="ajax" value="1">
+	<input type="button" value="保 存" onclick="ThinkAjax.sendForm('form1','__URL__/update/')" class="small submit">
+	<input type="reset" class="submit  small" value="清 空" >
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</div>

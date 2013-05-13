@@ -1,0 +1,316 @@
+<!--********************这里是主体内容********************-->
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/user.css">
+
+<style>
+.result_info{
+    margin-left:10px;
+    width:300px;
+    color:blue;
+    display:none;
+}
+</style>
+
+<div class="user_login">
+	<form action="__URL__/registercheck" method="post" name="gxcms" id="gxcms" onsubmit="return checkform();" enctype="multipart/form-data">
+        <input name="jumpurl" type="hidden" value="http://localhost/fox%2050/?s=video/lists/id/1.html" />
+        <div class="regleft"><span>用户注册</span></div>
+        <div class="right">
+        <ul>
+            <li class="reginput">帐户名称：<input name="username" id="username" onkeypress="return event.keyCode>=48&&event.keyCode<=57||(event.keyCode>=97&&event.keyCode<=122)" type="text" onfocus="this.style.borderColor='#fc9938'" onblur="this.style.borderColor='#dcdcdc';" maxlength="12" error="帐户名不能为空" title="不超过12个字符">
+            <span id="usernameResult" class="result_info"></span><span id="usernameCheck" class="result_info"></span>
+            </li>
+            
+            <li class="reginput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<input name="email" id="email" type="text" maxlength="50" onfocus="this.style.borderColor='#fc9938'" onblur="this.style.borderColor='#dcdcdc'" this.style.borderColor='#dcdcdc'" error="邮箱不能为空" title="不超过50个字符">
+            <span id="emailResult" class="result_info"></span>
+            </li>
+            
+            <li class="reginput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码：<input name="userpwd" id="userpwd" type="password" maxlength="15" onfocus="this.style.borderColor='#fc9938'" onblur="this.style.borderColor='#dcdcdc'" error="密码不能为空" title="不超过15个字符">
+            <span id="userpwdResult" class="result_info"></span>
+            </li>
+            
+            <li class="reginput">确认密码：<input name="reuserpwd" id="reuserpwd" type="password" maxlength="15" onfocus="this.style.borderColor='#fc9938'" onblur="onpass();this.style.borderColor='#dcdcdc'" error="两次输入的密码不一样">
+            <span id="reuserpwdResult" class="result_info"></span>
+            </li>
+            
+            <li class="reginput">密保问题：<input name="question" id="question" type="text" maxlength="15" title="填写一个密保问题，最多只能输入10个汉字" onfocus="this.style.borderColor='#fc9938'" onblur="this.style.borderColor='#dcdcdc'" error="密保问题不能为空">
+            <span id="questionResult" class="result_info"></span>
+            </li>
+            
+            <li class="reginput">密保答案：<input name="answer" id="answer" type="text" maxlength="15" title="填写密保问题的答案，最多只能输入20个汉字" onfocus="this.style.borderColor='#fc9938'" onblur="this.style.borderColor='#dcdcdc'" error="密保答案不能为空">
+            <span id="answerResult" class="result_info"></span>
+            </li>
+            
+            <li class="reginput">&nbsp;&nbsp;&nbsp;验证码：<input type="text" name="verify" id="verify" style="width:70px;"/>&nbsp;&nbsp;&nbsp;<img src='__URL__/verify/' onclick="function fleshVerify(a){var timenow = new Date().getTime();a.src='__URL__/verify/'+timenow;};fleshVerify(this) " />
+            </li>
+            
+            <li style="padding-left:60px"><input name="agree" id="check" type="checkbox" checked="checked" style="border:none;background:none" error="同意协议才能注册为本网站用户">
+            <span class="f12">我确认我同意</span> 
+            <a href="javascript:void(0);" id="syxy">使用协议</a>
+            </li>
+            
+            <li style="padding-left:35px"><input type="submit" name="" class="" style="width:75px; height:25px" value="注册" />
+             已经是会员，请<a href="index.php?s=User/Login">登录</a>
+            </li>
+            
+        </ul>
+        </div>
+        <input type="hidden" name="__gxcmsform__" value="157396af641a5811eb0d5ad7408b4908" />
+    </form>
+    
+<script>
+allow = false; //是否允许提交表单
+/*
+errorPosition = new Array(); //错误地点,数组保存
+error = '';
+//设置错误数组
+//参数:错误的ID名称 执行的模式true为增加,false为删除
+function setErrorArray(checkID ,mode){
+    //mode=arguments[1]?arguments[1]:true;
+    //检测是否存在，不存在就添加
+    //alert(errorPosition.length);
+    //errorPosition.push(checkID);
+    //alert(errorPosition[1]);
+    if(errorPosition.length == 0){
+        errorPosition.push(checkID);
+    }
+    for(var i = 0; i <= errorPosition.length; i++) {
+        if(errorPosition[i] == checkID){
+            if(!mode){
+                delete errorPosition[i]; 
+                break;
+            }else{
+                break;
+            }
+        }
+        if(i == errorPosition.length){
+            errorPosition.push(checkID);
+            break;
+        }
+    }
+
+    for(var i = 0; i < errorPosition.length; i++) {
+        if(i == errorPosition.length){
+            return errorPosition.length;
+        }
+    }
+}
+*/
+$(document).ready(function(){
+    //用户名检查
+    $('#username').focus(function(){
+        $('#usernameResult').css({color : 'blue'});
+        $('#usernameResult').text('字母开头，允许5-20字节，允许字母数字下划线');
+        $('#usernameCheck').hide();
+        $('#usernameResult').show();
+    });
+    $('#username').blur(function(){
+        if(!$('#username').val()){
+            $('#usernameResult').css({color : 'red'});
+            $('#usernameResult').text('用户名不能为空');
+        }else{
+            //var reg=eval("^[a-zA-Z][a-zA-Z0-9_]{5,19}$");
+            //var reg = ^[0-9a-zA-Z]+$;
+            var reg = new RegExp("^[a-zA-Z][a-zA-Z0-9_]{4,19}$"); 
+            usernameStr = $('#username').val();
+            if(!reg.test(usernameStr)){
+                $('#usernameResult').css({color : 'red'});
+                $('#usernameResult').text('用户名格式不符合');
+            }else{
+                //判断用户名是否已注册
+                userNameExist = 0;
+                $.post('__URL__/readuser', {send_user :$('#username').val()}, function(data){
+                    obj = eval("(" + data + ")");
+                    if(obj.status == 0){
+                        $('#usernameCheck').css({color : 'red'});
+                        $('#usernameResult').css({color : 'red'});
+                        $('#usernameResult').text('不通过');
+                    }else{
+                        $('#usernameCheck').css({color : 'green'});
+                        $('#usernameResult').css({color : 'green'});
+                        $('#usernameResult').text('已通过');
+                    }
+                    $('#usernameCheck').text(obj.info);
+                    $('#usernameCheck').show();
+                });
+            }
+        }
+        //$("#usernameCheck").load("__URL__/readuser",{send_user:$("input[name='username']").val()});
+    });
+    //电子邮件检查
+    $('#email').focus(function(){
+        $('#emailResult').css({color : 'blue'});
+        $('#emailResult').text('电子邮件不能为空，且不能大于二十个汉字');
+        $('#emailResult').show();
+    });
+    $('#email').blur(function(){
+        if(!$('#email').val()){
+            $('#emailResult').css({color : 'red'});
+            $('#emailResult').text('电子邮件不能为空');
+        }else{
+            var reg=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            emailStr = $('#email').val();
+            if(!reg.test(emailStr)){
+                $('#emailResult').css({color : 'red'});
+                $('#emailResult').text('电子邮件格式不符合');
+            }else{
+                $('#emailResult').css({color : 'green'});
+                $('#emailResult').text('已通过');
+            }
+        }
+    });
+    //用户密码检查
+    $('#userpwd').focus(function(){
+        $('#userpwdResult').css({color : 'blue'});
+        $('#userpwdResult').text('只能输入6-20个字母、数字、下划线');
+        $('#userpwdResult').show();
+    });
+    $('#userpwd').blur(function(){
+        if(!$('#userpwd').val()){
+            $('#userpwdResult').css({color : 'red'});
+            $('#userpwdResult').text('密码不能为空');
+        }else if($('#username').val() == $('#userpwd').val()){
+            $('#userpwdResult').css({color : 'red'});
+            $('#userpwdResult').text('用户名和密码不能相同！');
+        }else{
+            var reg=/^(\w){6,20}$/;
+            userpwdStr = $('#userpwd').val();
+            if(!reg.test(userpwdStr)){
+                $('#userpwdResult').css({color : 'red'});
+                $('#userpwdResult').text('密码格式不符合');
+            }else{
+                $('#userpwdResult').css({color : 'green'});
+                $('#userpwdResult').text('已通过');
+            }
+        }
+    });
+    //用户确认密码检查
+    $('#reuserpwd').focus(function(){
+        if(!$('#userpwd').val()){
+            $('#userpwdResult').show();
+            $('#userpwd').focus();
+        }else{
+            $('#reuserpwdResult').css({color : 'blue'});
+            $('#reuserpwdResult').text('请再一次输入密码');
+            $('#reuserpwdResult').show();
+        }
+    });
+    $('#reuserpwd').blur(function(){
+        if($('#userpwd').val() != $('#reuserpwd').val()){
+            $('#reuserpwdResult').css({color : 'red'});
+            $('#reuserpwdResult').text('两次密码不一样');
+            $('#userpwd').focus();
+        }else{
+            $('#reuserpwdResult').css({color : 'green'});
+            $('#reuserpwdResult').text('已通过');
+        }
+    });
+    //密保问题检查
+    $('#question').focus(function(){
+        $('#questionResult').css({color : 'blue'});
+        $('#questionResult').text('密保问题不能为空，且不能大于十个汉字');
+        $('#questionResult').show();
+    });
+    $('#question').blur(function(){
+        if(!$('#question').val()){
+            $('#questionResult').css({color : 'red'});
+            $('#questionResult').text('密保问题不能为空');
+        }else if($('#question').val().length > 10) {
+            $('#questionResult').css({color : 'red'});
+            $('#questionResult').text('密保问题大于十个汉字');
+        }else{
+            $('#questionResult').css({color : 'green'});
+            $('#questionResult').text('已通过');
+        }
+    });
+    //密保答案检查
+    $('#answer').focus(function(){
+        $('#answerResult').css({color : 'blue'});
+        $('#answerResult').text('密保答案不能为空，且不能大于二十个汉字');
+        $('#answerResult').show();
+    });
+    $('#answer').blur(function(){
+        if(!$('#answer').val()){
+            $('#answerResult').css({color : 'red'});
+            $('#answerResult').text('密保答案不能为空');
+        }else if($('#answer').val().length > 20) {
+            $('#answerResult').css({color : 'red'});
+            $('#answerResult').text('密保答案大于二十个汉字');
+        }else{
+            $('#answerResult').css({color : 'green'});
+            $('#answerResult').text('已通过');
+        }
+    });
+});
+</script>
+
+<script>
+function checkform(){
+	//同意协议才能注册为本网站用户
+	if(!$('#check').attr('checked')){
+		alert($('#check').attr('error'));
+		$('#check').focus();
+		return false;
+	}
+	//验证码
+	if(!$('#verify').val()){
+		alert('验证码不能为空');
+		$('#verify').focus();
+		return false;
+	}
+	if($('#username').val() == ''){
+        $('#username').focus();
+        return false;
+	}else if($('#emailResult').text() != '已通过'){
+        $('#email').focus();
+        return false;
+	}else if($('#userpwdResult').text() != '已通过'){
+        $('#userpwd').focus();
+        return false;
+	}else if($('#reuserpwdResult').text() != '已通过'){
+        $('#reuserpwd').focus();
+        return false;
+	}
+	else if($('#questionResult').text() != '已通过'){
+        $('#question').focus();
+        return false;
+	}else if($('#answerResult').text() != '已通过'){
+        $('#answer').focus();
+        return false;
+	}else{
+        return true;
+	}
+}
+</script>
+
+</div>
+
+<script language="JavaScript">
+$(document).ready(function(){
+    if(self!=top){top.location=self.location;}
+    $('#syxy').click(function(){
+		var offset = $("#syxy").offset();
+		var left = offset.left/2;
+		var top = offset.top/2;
+		$("#showagree").toggleClass("regnone"); 
+		$("#showagree").css({left:left,top:top,display:""});
+    });
+    $('#showagree').click(function(){
+        $("#showagree").hide();
+    });
+});
+</script>
+
+<style>.regnone{display:none}</style>
+<div id="showagree" style="position:absolute;background: #F2F2F2;border:2px solid #ccc;padding:5px; width:600px;height:320px;" class="regnone"><h4 style="font-size:14px;color:#000000; height:25px; line-height:25px"><span style="float:left">fox50使用协议:</span><span style=" float:right;cursor:pointer">关闭</span></h4>
+    <textarea style="width:100%; height:250px;">注册用户的义务
+      (1) 遵守《全国人大常委会关于维护互联网安全的决定》、《互联网电子公告服务管理规定》及中华人民共和国其他各项有关法律、法规，承担一切因您的行为直接或间接引起的民事或刑事法律责任。
+      (2) 尊重网上道德，严禁发表危害国家安全、破坏民族团结、破坏国家宗教政策、破坏社会稳定、侮辱、诽谤、教唆、虚假、淫秽等内容的作品。
+      (3) 注册时提供您本人真实、正确、最新及完整的资料，并负责进行更新，以确保其真实、正确、最新及完整。
+      (4) 注册用户自行负担上网所需的设备及费用。
+      (5) 在任何情况下，注册用户不得利用[fox50]进行违反或可能违反国家法律和法规的言论或行为，否则，[fox50]可在任何时候不经任何事先通知终止向您提供服务。并且用户对自己的言论或行为负责。
+    若您提供任何错误、不实、过时或不完整的资料或信息，并为[fox50]所确知，或者[fox50]有合理的理由怀疑前述资料或信息为错误、不实、过时或不完整，[fox50]有权暂停或终止您的帐号，并拒绝您于现在和未来使用[fox50]全部或部分的服务。
+    </textarea>
+</div>
+
+<!--********************这里是主体内容********************-->

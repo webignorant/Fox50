@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jCarousel实例</title>
+<link href="../style.css" rel="stylesheet" type="text/css" />
+
+<!--
+  jQuery library
+-->
+<script type="text/javascript" src="../lib/jquery-1.2.3.pack.js"></script>
+
+<!--
+  jCarousel library
+-->
+<script type="text/javascript" src="../lib/jquery.jcarousel.pack.js"></script>
+
+<!--
+  jCarousel core stylesheet
+-->
+<link rel="stylesheet" type="text/css" href="../lib/jquery.jcarousel.css" />
+
+<!--
+  jCarousel skin stylesheet
+-->
+<link rel="stylesheet" type="text/css" href="../skins/ie7/skin.css" />
+
+<script type="text/javascript">
+
+var mycarousel_itemList = [
+    {url: 'http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg', title: 'Flower1'},
+    {url: 'http://static.flickr.com/75/199481072_b4a0d09597_s.jpg', title: 'Flower2'},
+    {url: 'http://static.flickr.com/57/199481087_33ae73a8de_s.jpg', title: 'Flower3'},
+    {url: 'http://static.flickr.com/77/199481108_4359e6b971_s.jpg', title: 'Flower4'},
+    {url: 'http://static.flickr.com/58/199481143_3c148d9dd3_s.jpg', title: 'Flower5'},
+    {url: 'http://static.flickr.com/72/199481203_ad4cdcf109_s.jpg', title: 'Flower6'},
+    {url: 'http://static.flickr.com/58/199481218_264ce20da0_s.jpg', title: 'Flower7'},
+    {url: 'http://static.flickr.com/69/199481255_fdfe885f87_s.jpg', title: 'Flower8'},
+    {url: 'http://static.flickr.com/60/199480111_87d4cb3e38_s.jpg', title: 'Flower9'},
+    {url: 'http://static.flickr.com/70/229228324_08223b70fa_s.jpg', title: 'Flower10'}
+];
+
+function mycarousel_itemVisibleInCallback(carousel, item, i, state, evt)
+{
+    // The index() method calculates the index from a
+    // given index who is out of the actual item range.
+    var idx = carousel.index(i, mycarousel_itemList.length);
+    carousel.add(i, mycarousel_getItemHTML(mycarousel_itemList[idx - 1]));
+};
+
+function mycarousel_itemVisibleOutCallback(carousel, item, i, state, evt)
+{
+    carousel.remove(i);
+};
+
+/**
+ * Item html creation helper.
+ */
+function mycarousel_getItemHTML(item)
+{
+    return '<img src="' + item.url + '" width="75" height="75" alt="' + item.title + '" />';
+};
+
+jQuery(document).ready(function() {
+    jQuery('#mycarousel').jcarousel({
+        wrap: 'circular',
+        itemVisibleInCallback: {onBeforeAnimation: mycarousel_itemVisibleInCallback},
+        itemVisibleOutCallback: {onAfterAnimation: mycarousel_itemVisibleOutCallback}
+    });
+});
+
+</script>
+</head>
+<body>
+<div id="wrap">
+  <h1>jCarousel</h1>
+  <h2>jQuery下的滚动切换传送插件</h2>
+
+  <h3>循环滚动切换</h3>
+  <p>jCarousel并没有专门花功夫去支持循环滚动切换。只是提供了一些基本简单有效的方法代替之。这个例子就演示了如何做的。 </p>
+
+  <ul id="mycarousel" class="jcarousel-skin-ie7">
+    <!-- 内容会被动态加载到这里 -->
+  </ul>
+
+</div>
+</body>
+</html>

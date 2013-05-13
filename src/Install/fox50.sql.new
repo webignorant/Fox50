@@ -1,0 +1,746 @@
+-- phpMyAdmin SQL Dump
+-- version 2.11.9.2
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 15, 2013 at 02:59 AM
+-- Server version: 5.1.28
+-- PHP Version: 5.2.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `fox50`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_access`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_access` (
+  `role_id` smallint(6) unsigned NOT NULL,
+  `node_id` smallint(6) unsigned NOT NULL,
+  `level` tinyint(1) NOT NULL,
+  `pid` smallint(6) NOT NULL,
+  `module` varchar(50) DEFAULT NULL,
+  KEY `groupId` (`role_id`),
+  KEY `nodeId` (`node_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `fox50_access`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_form`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_form` (
+  `id` smallint(4) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `create_time` int(11) unsigned NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_form`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_friendlink`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_friendlink` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `displayorder` tinyint(3) NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '站点名称',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '站点URL',
+  `description` mediumtext NOT NULL COMMENT '文字说明',
+  `logo` varchar(255) NOT NULL DEFAULT '' COMMENT 'logo地址',
+  `type` tinyint(3) NOT NULL DEFAULT '0' COMMENT '类型',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='友情链接数据表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_friendlink`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_group`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_group` (
+  `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `create_time` int(11) unsigned NOT NULL,
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `sort` smallint(3) unsigned NOT NULL DEFAULT '0',
+  `show` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `fox50_group`
+--
+
+INSERT INTO `fox50_group` (`id`, `name`, `title`, `create_time`, `update_time`, `status`, `sort`, `show`) VALUES
+(1, 'system', '系统设置', 1222841259, 0, 1, 0, 0),
+(2, 'setting', '网站管理', 1222841259, 0, 1, 0, 0),
+(3, 'user', '用户管理', 1222841259, 0, 1, 0, 0),
+(4, 'video', '视频管理', 1222841259, 0, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_node`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_node` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `remark` varchar(255) DEFAULT NULL,
+  `sort` smallint(6) unsigned DEFAULT NULL,
+  `pid` smallint(6) unsigned NOT NULL,
+  `level` tinyint(1) unsigned NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '0',
+  `group_id` tinyint(3) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `level` (`level`),
+  KEY `pid` (`pid`),
+  KEY `status` (`status`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=500 ;
+
+--
+-- Dumping data for table `fox50_node`
+--
+
+INSERT INTO `fox50_node` (`id`, `name`, `title`, `status`, `remark`, `sort`, `pid`, `level`, `type`, `group_id`) VALUES
+(1, 'Admin', '后台系统', 1, '属于项目应用', 0, 0, 1, 0, 0),
+(2, 'Home', '前台网站', 1, '属于项目应用', 1, 0, 1, 0, 0),
+
+(10, 'Index', '管理首页', 1, '属于系统设置组', 1, 1, 2, 0, 1),
+(11, 'Basic', '基本设置', 1, '属于系统设置组', 2, 1, 2, 0, 1),
+(12, 'Database', '数据库设置', 1, '属于系统设置组', 3, 1, 2, 0, 1),
+(13, 'Sqlbak', '数据备份恢复', 1, '属于系统设置组', 4, 1, 2, 0, 1),
+(14, 'Node', '节点设置', 1, '属于系统设置组', 5, 1, 2, 0, 1),
+(15, 'Log', '系统日志', 1, '属于系统设置组', 6, 1, 2, 0, 1),
+(21, 'Advertisement', '广告位管理', 0, '属于网站管理组', 0, 1, 2, 0, 2),
+(22, 'Friendlink', '友情链接管理', 1, '属于网站管理组', 2, 1, 2, 0, 2),
+(23, 'VideoComment', '评论管理', 1, '属于网站管理组', 3, 1, 2, 0, 2),
+(24, 'Notice', '公告管理', 1, '属于网站管理组', 4, 1, 2, 0, 2),
+(31, 'User', '用户列表', 1, '属于用户管理组', 1, 1, 2, 0, 3),
+(32, 'Role', '用户角色', 1, '属于用户管理组', 2, 1, 2, 0, 3),
+(33, 'Admin', '管理员列表', 1, '属于用户管理组', 3, 1, 2, 0, 3),
+(41, 'Video', '视频列表', 1, '属于视频管理组', 1, 1, 2, 0, 4),
+(42, 'VideoCategory', '视频栏目', 1, '属于视频管理组', 2, 1, 2, 0, 4),
+(43, 'VideoType', '视频类型', 1, '属于视频管理组', 3, 1, 2, 0, 4),
+(44, 'VideoRegion', '视频地区', 1, '属于视频管理组', 4, 1, 2, 0, 4),
+(45, 'VideoRecommended', '视频推荐', 1, '属于视频管理组', 5, 1, 2, 0, 4),
+
+(90, 'Public', '公共模块', 1, '属于公共组', 2, 1, 2, 0, 0),
+
+(101, 'index', '管理首页默认方法', 1, '属于网站基本信息模块的方法', 1, 10, 3, 0, 0),
+
+(111, 'index', '网站基本信息默认方法', 1, '属于网站基本信息模块的方法', 1, 11, 3, 0, 0),
+(112, 'insert', '网站基本信息添加方法', 1, '属于网站基本信息模块的方法', 2, 11, 3, 0, 0),
+(113, 'delete', '网站基本信息删除方法', 1, '属于网站基本信息模块的方法', 3, 11, 3, 0, 0),
+(114, 'update', '网站基本信息更新方法', 1, '属于网站基本信息模块的方法', 4, 11, 3, 0, 0),
+(115, 'edit', '网站基本信息编辑方法', 1, '属于网站基本信息模块的方法', 5, 11, 3, 0, 0),
+
+(121, 'index', '数据库设置默认方法', 1, '属于数据库设置模块的方法', 1, 12, 3, 0, 0),
+
+(131, 'index', '数据备份恢复默认方法', 1, '属于数据备份恢复模块的方法', 1, 13, 3, 0, 0),
+
+(141, 'index', '节点设置默认方法', 1, '属于节点设置模块的方法', 1, 14, 3, 0, 0),
+(142, 'insert', '节点设置添加方法', 1, '属于节点设置模块的方法', 2, 14, 3, 0, 0),
+(143, 'delete', '节点设置删除方法', 1, '属于节点设置模块的方法', 3, 14, 3, 0, 0),
+(144, 'update', '节点设置更新方法', 1, '属于节点设置模块的方法', 4, 14, 3, 0, 0),
+(145, 'edit', '节点设置编辑方法', 1, '属于节点设置模块的方法', 5, 14, 3, 0, 0),
+
+(151, 'index', '系统日记默认方法', 1, '属于系统日记模块的方法', 1, 15, 3, 0, 0),
+
+(211, 'index', '广告设置默认方法', 0, '属于广告设置模块的方法', 1, 21, 3, 0, 0),
+(212, 'insert', '广告设置添加方法', 0, '属于广告设置模块的方法', 2, 21, 3, 0, 0),
+(213, 'delete', '广告设置删除方法', 0, '属于广告设置模块的方法', 3, 21, 3, 0, 0),
+(214, 'update', '广告设置更新方法', 0, '属于广告设置模块的方法', 4, 21, 3, 0, 0),
+(215, 'edit', '广告设置编辑方法', 0, '属于广告设置模块的方法', 5, 21, 3, 0, 0),
+
+(221, 'index', '友情链接设置默认方法', 1, '属于友情链接设置模块的方法', 1, 22, 3, 0, 0),
+(222, 'insert', '友情链接设置添加方法', 1, '属于友情链接设置模块的方法', 2, 22, 3, 0, 0),
+(223, 'delete', '友情链接设置删除方法', 1, '属于友情链接设置模块的方法', 3, 22, 3, 0, 0),
+(224, 'update', '友情链接设置更新方法', 1, '属于友情链接设置模块的方法', 4, 22, 3, 0, 0),
+(225, 'edit', '友情链接设置编辑方法', 1, '属于友情链接设置模块的方法', 5, 22, 3, 0, 0),
+
+(231, 'index', '评论设置默认方法', 1, '属于评论设置模块的方法', 1, 23, 3, 0, 0),
+(232, 'insert', '评论设置添加方法', 1, '属于评论设置模块的方法', 2, 23, 3, 0, 0),
+(233, 'delete', '评论设置删除方法', 1, '属于评论设置模块的方法', 3, 23, 3, 0, 0),
+(234, 'update', '评论设置更新方法', 1, '属于评论设置模块的方法', 4, 23, 3, 0, 0),
+(235, 'edit', '评论设置编辑方法', 1, '属于评论设置模块的方法', 5, 23, 3, 0, 0),
+
+(241, 'index', '公告设置默认方法', 1, '属于公告设置模块的方法', 1, 24, 3, 0, 0),
+(242, 'insert', '公告设置添加方法', 1, '属于公告设置模块的方法', 2, 24, 3, 0, 0),
+(243, 'delete', '公告设置删除方法', 1, '属于公告设置模块的方法', 3, 24, 3, 0, 0),
+(244, 'update', '公告设置更新方法', 1, '属于公告设置模块的方法', 4, 24, 3, 0, 0),
+(245, 'edit', '公告设置编辑方法', 1, '属于公告设置模块的方法', 5, 24, 3, 0, 0),
+
+(311, 'index', '用户管理默认方法', 1, '属于用户管理模块的方法', 1, 31, 3, 0, 0),
+(312, 'insert', '用户管理添加方法', 1, '属于用户管理模块的方法', 2, 31, 3, 0, 0),
+(313, 'delete', '用户管理删除方法', 1, '属于用户管理模块的方法', 3, 31, 3, 0, 0),
+(314, 'update', '用户管理更新方法', 1, '属于用户管理模块的方法', 4, 31, 3, 0, 0),
+(315, 'edit', '用户管理编辑方法', 1, '属于用户管理模块的方法', 5, 31, 3, 0, 0),
+
+(321, 'index', '角色组管理默认方法', 1, '属于角色组管理模块的方法', 1, 32, 3, 0, 0),
+(322, 'insert', '角色组管理添加方法', 1, '属于角色组管理模块的方法', 2, 32, 3, 0, 0),
+(323, 'delete', '角色组管理删除方法', 1, '属于角色组管理模块的方法', 3, 32, 3, 0, 0),
+(324, 'update', '角色组管理更新方法', 1, '属于角色组管理模块的方法', 4, 32, 3, 0, 0),
+(325, 'edit', '角色组管理编辑方法', 1, '属于角色组管理模块的方法', 5, 32, 3, 0, 0),
+
+(331, 'index', '管理员组管理默认方法', 1, '属于管理员组管理模块的方法', 1, 33, 3, 0, 0),
+(332, 'insert', '管理员组管理添加方法', 1, '属于管理员组管理模块的方法', 2, 33, 3, 0, 0),
+(333, 'delete', '管理员组管理删除方法', 1, '属于管理员组管理模块的方法', 3, 33, 3, 0, 0),
+(334, 'update', '管理员组管理更新方法', 1, '属于管理员组管理模块的方法', 4, 33, 3, 0, 0),
+(335, 'edit', '管理员组管理编辑方法', 1, '属于管理员组管理模块的方法', 5, 33, 3, 0, 0),
+
+(411, 'index', '视频管理默认方法', 1, '属于视频管理模块的方法', 1, 41, 3, 0, 0),
+(412, 'insert', '视频管理添加方法', 1, '属于视频管理模块的方法', 2, 41, 3, 0, 0),
+(413, 'delete', '视频管理删除方法', 1, '属于视频管理模块的方法', 3, 41, 3, 0, 0),
+(414, 'update', '视频管理更新方法', 1, '属于视频管理模块的方法', 4, 41, 3, 0, 0),
+(415, 'edit', '视频管理编辑方法', 1, '属于视频管理模块的方法', 5, 41, 3, 0, 0),
+(416, 'setVideodata', '视频管理入库方法', 1, '属于视频管理模块的方法', 6, 41, 3, 0, 0),
+(417, 'transcoding', '视频管理转码方法', 1, '属于视频管理模块的方法', 7, 41, 3, 0, 0),
+(418, 'setVideoStatus', '视频管理设置状态方法', 1, '属于视频管理模块的方法', 8, 41, 3, 0, 0),
+
+(421, 'index', '视频栏目管理默认方法', 1, '属于视频栏目管理模块的方法', 1, 42, 3, 0, 0),
+(422, 'insert', '视频栏目管理添加方法', 1, '属于视频栏目管理模块的方法', 2, 42, 3, 0, 0),
+(423, 'delete', '视频栏目管理删除方法', 1, '属于视频栏目管理模块的方法', 3, 42, 3, 0, 0),
+(424, 'update', '视频栏目管理更新方法', 1, '属于视频栏目管理模块的方法', 4, 42, 3, 0, 0),
+(425, 'edit', '视频栏目管理编辑方法', 1, '属于视频栏目管理模块的方法', 5, 42, 3, 0, 0),
+
+(431, 'index', '视频类型管理默认方法', 1, '属于视频类型管理模块的方法', 1, 43, 3, 0, 0),
+(432, 'insert', '视频类型管理添加方法', 1, '属于视频类型管理模块的方法', 2, 43, 3, 0, 0),
+(433, 'delete', '视频类型管理删除方法', 1, '属于视频类型管理模块的方法', 3, 43, 3, 0, 0),
+(434, 'update', '视频类型管理更新方法', 1, '属于视频类型管理模块的方法', 4, 43, 3, 0, 0),
+(435, 'edit', '视频类型管理编辑方法', 1, '属于视频类型管理模块的方法', 5, 43, 3, 0, 0),
+
+(441, 'index', '视频地区管理默认方法', 1, '属于视频地区管理模块的方法', 1, 44, 3, 0, 0),
+(442, 'insert', '视频地区管理添加方法', 1, '属于视频地区管理模块的方法', 2, 44, 3, 0, 0),
+(443, 'delete', '视频地区管理删除方法', 1, '属于视频地区管理模块的方法', 3, 44, 3, 0, 0),
+(444, 'update', '视频地区管理更新方法', 1, '属于视频地区管理模块的方法', 4, 44, 3, 0, 0),
+(445, 'edit', '视频地区管理编辑方法', 1, '属于视频地区管理模块的方法', 5, 44, 3, 0, 0),
+
+(451, 'index', '视频推荐管理默认方法', 1, '属于视频推荐管理模块的方法', 1, 45, 3, 0, 0),
+(452, 'insert', '视频推荐管理添加方法', 1, '属于视频推荐管理模块的方法', 2, 45, 3, 0, 0),
+(453, 'delete', '视频推荐管理删除方法', 1, '属于视频推荐管理模块的方法', 3, 45, 3, 0, 0),
+(454, 'update', '视频推荐管理更新方法', 1, '属于视频推荐管理模块的方法', 4, 45, 3, 0, 0),
+(455, 'edit', '视频推荐管理编辑方法', 1, '属于视频推荐管理模块的方法', 5, 45, 3, 0, 0),
+(456, 'addVideoRecommended', '视频推荐管理添加修改方法', 1, '属于视频推荐管理模块的方法', 6, 45, 3, 0, 0),
+(457, 'setVideoRecommended', '视频推荐管理设置方法', 1, '属于视频推荐管理模块的方法', 7, 45, 3, 0, 0),
+(458, 'add', '视频推荐管理下拉选择方法', 1, '属于视频推荐管理模块的方法', 8, 45, 3, 0, 0);
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_notice`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_notice` (
+  `id` smallint(8) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+  `uid` smallint(8) NOT NULL COMMENT '发布者ID',
+  `dateline` int(10) NOT NULL COMMENT '发布时间',
+  `content` varchar(250) NOT NULL COMMENT '公告内容',
+  `who` smallint(5) NOT NULL COMMENT '放置位置',
+  `status` tinyint(1) NOT NULL COMMENT '状态(1为启用，2为禁用)',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='公告表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_notice`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_role`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_role` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `pid` smallint(6) DEFAULT NULL,
+  `status` tinyint(1) unsigned DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `ename` varchar(5) DEFAULT NULL,
+  `create_time` int(11) unsigned NOT NULL,
+  `update_time` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parentId` (`pid`),
+  KEY `ename` (`ename`),
+  KEY `status` (`status`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `fox50_role`
+--
+
+INSERT INTO `fox50_role` (`id`, `name`, `pid`, `status`, `remark`, `ename`, `create_time`, `update_time`) VALUES
+(1, '管理组', 0, 1, '', '', 1208784792, 1254325558),
+(2, '用户组', 0, 1, '', '', 1215496283, 1254325566),
+(3, '游客组', 0, 1, '', NULL, 1254325787, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_role_user`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_role_user` (
+  `role_id` mediumint(9) unsigned DEFAULT NULL,
+  `user_id` char(32) DEFAULT NULL,
+  KEY `group_id` (`role_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `fox50_role_user`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_setting`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_setting` (
+  `skey` varchar(255) NOT NULL DEFAULT '' COMMENT '设置名',
+  `svalue` text NOT NULL COMMENT '设置值',
+  PRIMARY KEY (`skey`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站点设置数据表';
+
+--
+-- Dumping data for table `fox50_setting`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_user`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_user` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `account` varchar(64) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `password` char(32) NOT NULL,
+  `bind_account` varchar(50) NOT NULL,
+  `last_login_time` int(11) unsigned DEFAULT '0',
+  `last_login_ip` varchar(40) DEFAULT NULL,
+  `login_count` mediumint(8) unsigned DEFAULT '0',
+  `verify` varchar(32) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  `create_time` int(11) unsigned NOT NULL,
+  `update_time` int(11) unsigned NOT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `type_id` tinyint(2) unsigned DEFAULT '0',
+  `info` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `account` (`account`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_user`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video` (
+  `vid` mediumint(8) NOT NULL AUTO_INCREMENT COMMENT '视频ID',
+  `catid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '所属栏目ID',
+  `typeid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '所属视频类型ID',
+  `regionid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '所属地区ID',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '所属用户ID',
+  `username` varchar(15) NOT NULL DEFAULT '' COMMENT '所属用户名',
+  `specialid` mediumint(8) unsigned NOT NULL COMMENT '所属专辑ID',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '视频发布时间',
+  `postip` varchar(255) NOT NULL DEFAULT '' COMMENT '视频发布IP',
+  `filename` varchar(255) NOT NULL DEFAULT '' COMMENT '视频文件名',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '视频标题',
+  `type` varchar(255) NOT NULL DEFAULT '' COMMENT '视频类型',
+  `size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '视频大小',
+  `filepath` varchar(255) NOT NULL DEFAULT '' COMMENT '视频路径',
+  `thumb` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否有缩略图',
+  `remote` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为远程视频',
+  `actor` varchar(50) NOT NULL COMMENT '主演/演员',
+  `director` varchar(15) NOT NULL COMMENT '导演',
+  `year` mediumint(5) NOT NULL COMMENT '发行年份',
+  `about` varchar(200) NOT NULL COMMENT '内容简介',
+  `img` varchar(255) NOT NULL COMMENT '视频封面图片',
+  `definition` varchar(10) NOT NULL DEFAULT '0' COMMENT '清晰度',
+  `playtime` varchar(10) NOT NULL COMMENT '播放时长',
+  `relevanceid` int(10) NOT NULL DEFAULT '0' COMMENT '连播表ID',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '视频状态\r\n     0=已通过\r\n     1=待审核\r\n     2=已忽略',
+  PRIMARY KEY (`vid`),
+  KEY `uid` (`uid`),
+  KEY `specialid` (`specialid`,`dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='视频信息表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_video`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_category`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_category` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
+  `upid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '上级栏目ID',
+  `catname` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目名称',
+  `num` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '视频数',
+  `allowcomment` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否允许评论',
+  `displayorder` smallint(6) NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  `notinheritedarticle` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否继承上级文章管理权限',
+  `notinheritedblock` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否继承上级模块管理权限',
+  `domain` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目域名',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '自定义链接地址',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '添加人用户ID',
+  `username` varchar(255) NOT NULL DEFAULT '' COMMENT '添加人用户名',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `closed` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否关闭',
+  `shownav` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否在头部的导航中显示',
+  `description` text NOT NULL COMMENT 'SEO 描述',
+  `seotitle` text NOT NULL COMMENT 'SEO 标题',
+  `keyword` text NOT NULL COMMENT 'SEO 关键字',
+  `primaltplname` varchar(255) NOT NULL DEFAULT '' COMMENT '模板名',
+  `disallowpublish` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否允许发布视频',
+  `foldername` varchar(255) NOT NULL DEFAULT '' COMMENT '生成的文件夹名称',
+  `perpage` smallint(6) NOT NULL DEFAULT '0' COMMENT '每页显示视频数',
+  `maxpages` smallint(6) NOT NULL DEFAULT '0' COMMENT '最大页数',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='视频栏目表' AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `fox50_video_category`
+--
+
+INSERT INTO `fox50_video_category` (`id`, `upid`, `catname`, `num`, `allowcomment`, `displayorder`, `notinheritedarticle`, `notinheritedblock`, `domain`, `url`, `uid`, `username`, `dateline`, `closed`, `shownav`, `description`, `seotitle`, `keyword`, `primaltplname`, `disallowpublish`, `foldername`, `perpage`, `maxpages`) VALUES
+(1, 0, '电影', 0, 1, 1, 0, 0, '', '', 0, 'system', 20130113, 0, 1, 'Fox50视频电影频道-最好的享受', 'Fox50视频电影频道', 'Fox50', '', 0, '', 0, 0),
+(2, 0, '电视剧', 0, 1, 2, 0, 0, '', '', 0, 'system', 20130113, 0, 1, 'Fox50视频连续剧频道-最好的享受', 'Fox50视频电视剧频道', 'Fox50', '', 0, '', 0, 0),
+(3, 0, '动漫', 0, 1, 4, 0, 0, '', '', 0, 'system', 20130113, 0, 1, 'Fox50视频动漫频道-最好的享受', 'Fox50视频动漫频道', 'Fox50', '', 0, '', 0, 0),
+(4, 0, '娱乐', 0, 1, 9, 0, 0, '', '', 0, 'system', 20130113, 0, 1, 'Fox50视频娱乐频道-最好的享受', 'Fox50视频娱乐频道', 'Fox50', '', 0, '', 0, 0),
+(5, 0, '资讯', 0, 1, 8, 0, 0, '', '', 0, 'system', 20130113, 0, 1, 'Fox50视频资讯频道-最好的享受', 'Fox50视频资讯频道', 'Fox50', '', 0, '', 0, 0),
+(6, 0, '生活', 0, 1, 15, 0, 0, '', '', 0, 'system', 20130113, 0, 1, 'Fox50视频生活频道-最好的享受', 'Fox50视频生活频道', 'Fox50', '', 0, '', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_comment`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_comment` (
+  `cid` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论ID',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
+  `vid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '视频ID',
+  `idtype` varchar(20) NOT NULL DEFAULT '' COMMENT 'ID类型',
+  `postip` varchar(255) NOT NULL DEFAULT '' COMMENT '评论IP',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论时间',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '评论状态\r\n     0=已通过\r\n     1=待审核\r\n     2=已忽略',
+  `message` text NOT NULL COMMENT '评论内容',
+  PRIMARY KEY (`cid`),
+  KEY `idtype` (`vid`,`idtype`,`dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='视频评论表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_video_comment`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_count`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_count` (
+  `id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '视频编号',
+  `catid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '栏目编号',
+  `viewnum` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '查看数',
+  `commentnum` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `favtimes` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
+  `sharetimes` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '分享数',
+  `praise` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '支持/顶',
+  `criticism` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '批评/踩',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='视频统计表';
+
+--
+-- Dumping data for table `fox50_video_count`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_favorite`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_favorite` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '收藏ID',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '收藏人用户ID',
+  `objid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '收藏对象ID',
+  `idtype` varchar(255) NOT NULL DEFAULT '' COMMENT '收藏对象ID类型',
+  `spaceuid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '空间用户ID',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '收藏标题',
+  `description` text NOT NULL COMMENT '收藏说明',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '收藏时间',
+  PRIMARY KEY (`id`),
+  KEY `idtype` (`objid`,`idtype`),
+  KEY `uid` (`uid`,`idtype`,`dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='视频收藏表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_video_favorite`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_flow`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_flow` (
+  `id` int(12) unsigned NOT NULL AUTO_INCREMENT COMMENT '连播ID',
+  `uid` int(10) NOT NULL COMMENT '用户ID',
+  `name` varchar(50) NOT NULL COMMENT '连播名称',
+  `vidlist` varchar(250) NOT NULL COMMENT '连播视频ID',
+  `status` tinyint(1) NOT NULL COMMENT '状态(完结？否则在上传界面显示)',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='视频连播表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_video_flow`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_recommended`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_recommended` (
+  `id` mediumint(8) NOT NULL AUTO_INCREMENT COMMENT '推荐ID',
+  `vid` mediumint(8) NOT NULL COMMENT '视频ID',
+  `img` varchar(255) NOT NULL COMMENT '视频封面图片',
+  `title` varchar(255) NOT NULL COMMENT '视频标题',
+  PRIMARY KEY (`id`),
+  KEY `vid` (`vid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='视频推荐表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_video_recommended`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_region`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_region` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '地区编号',
+  `regionname` varchar(255) NOT NULL DEFAULT '' COMMENT '地区名称',
+  `num` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '视频数',
+  `displayorder` smallint(6) NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='视频地区表' AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `fox50_video_region`
+--
+
+INSERT INTO `fox50_video_region` (`id`, `regionname`, `num`, `displayorder`) VALUES
+(1, '大陆', 0, 1),
+(2, '香港', 0, 2),
+(3, '台湾', 0, 3),
+(4, '韩国', 0, 4),
+(5, '美国', 0, 5),
+(6, '欧洲', 0, 6),
+(7, '日本', 0, 7),
+(8, '印度', 0, 8),
+(9, '新加坡', 0, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_special`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_special` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '专辑编号',
+  `specialname` varchar(50) NOT NULL DEFAULT '' COMMENT '专辑名',
+  `catid` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '专辑系统分类',
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '专辑所有者编号',
+  `username` varchar(15) NOT NULL DEFAULT '' COMMENT '专辑所有者名称',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `videonum` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '视频数量',
+  `pic` varchar(60) NOT NULL DEFAULT '' COMMENT '专辑封面照片',
+  `videoflag` tinyint(1) NOT NULL DEFAULT '0' COMMENT '专辑是否有视频',
+  `privacy` tinyint(1) NOT NULL DEFAULT '0' COMMENT '视频隐私设置\r\n     0=全站用户可见\r\n     1=仅好友可见\r\n     2=指定好友可见\r\n     3=仅自己可见\r\n     4=凭密码可见',
+  `password` varchar(10) NOT NULL DEFAULT '' COMMENT '专辑密码',
+  `target_ids` text NOT NULL COMMENT '指定好友可见的用户ID集合',
+  `favtimes` mediumint(8) unsigned NOT NULL COMMENT '收藏次数',
+  `sharetimes` mediumint(8) unsigned NOT NULL COMMENT '分享次数',
+  `depict` text NOT NULL COMMENT '专辑描述',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`,`updatetime`),
+  KEY `updatetime` (`updatetime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户视频专辑表' AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `fox50_video_special`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fox50_video_type`
+--
+
+CREATE TABLE IF NOT EXISTS `fox50_video_type` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类编号',
+  `upid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类编号/栏目编号',
+  `typename` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `num` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '视频数',
+  `available` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否可用',
+  `displayorder` tinyint(3) NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='视频类型表' AUTO_INCREMENT=260 ;
+
+--
+-- Dumping data for table `fox50_video_type`
+--
+
+INSERT INTO `fox50_video_type` (`id`, `upid`, `typename`, `num`, `available`, `displayorder`) VALUES
+(1, 1, '武侠', 0, 1, 1),
+(2, 1, '警匪', 0, 1, 2),
+(3, 1, '犯罪', 0, 1, 3),
+(4, 1, '科幻', 0, 1, 4),
+(5, 1, '战争', 0, 1, 5),
+(6, 1, '恐怖', 0, 1, 6),
+(7, 1, '惊悚', 0, 1, 7),
+(8, 1, '纪录片', 0, 1, 8),
+(9, 1, '西部', 0, 1, 9),
+(10, 1, '戏曲', 0, 1, 10),
+(11, 1, '歌舞', 0, 1, 11),
+(12, 1, '奇幻', 0, 1, 12),
+(13, 1, '冒险', 0, 1, 13),
+(14, 1, '悬疑', 0, 1, 14),
+(15, 1, '历史', 0, 1, 15),
+(16, 1, '动作', 0, 1, 16),
+(17, 1, '传纪', 0, 1, 17),
+(18, 1, '动画', 0, 1, 18),
+(19, 1, '儿童', 0, 1, 19),
+(20, 1, '喜剧', 0, 1, 20),
+(21, 1, '爱情', 0, 1, 21),
+(22, 1, '剧情', 0, 1, 22),
+(23, 1, '运动', 0, 1, 23),
+(24, 1, '短片', 0, 1, 24),
+(51, 2, '古装', 0, 1, 1),
+(52, 2, '武侠', 0, 1, 2),
+(53, 2, '警匪', 0, 1, 3),
+(54, 2, '军事', 0, 1, 4),
+(55, 2, '神话', 0, 1, 5),
+(56, 2, '科幻', 0, 1, 6),
+(57, 2, '悬疑', 0, 1, 7),
+(58, 2, '历史', 0, 1, 8),
+(59, 2, '儿童', 0, 1, 9),
+(60, 2, '农村', 0, 1, 10),
+(61, 2, '都市', 0, 1, 11),
+(62, 2, '家庭', 0, 1, 12),
+(63, 2, '搞笑', 0, 1, 13),
+(64, 2, '偶像', 0, 1, 14),
+(65, 2, '言情', 0, 1, 15),
+(66, 2, '时装', 0, 1, 16),
+(101, 3, '热血', 0, 1, 1),
+(102, 3, '格斗', 0, 1, 2),
+(103, 3, '恋爱', 0, 1, 3),
+(104, 3, '美少女', 0, 1, 4),
+(105, 3, '校园', 0, 1, 5),
+(106, 3, '搞笑', 0, 1, 6),
+(107, 3, '神魔', 0, 1, 7),
+(108, 3, '机战', 0, 1, 8),
+(109, 3, '科幻', 0, 1, 9),
+(110, 3, '真人', 0, 1, 10),
+(111, 3, '青春', 0, 1, 11),
+(112, 3, '魔法', 0, 1, 12),
+(113, 3, '神话', 0, 1, 13),
+(114, 3, '冒险', 0, 1, 14),
+(115, 3, '运动', 0, 1, 15),
+(116, 3, '竞技', 0, 1, 16),
+(117, 3, '童话', 0, 1, 17),
+(118, 3, '亲子', 0, 1, 18),
+(119, 3, '教育', 0, 1, 19),
+(120, 3, '励志', 0, 1, 20),
+(121, 3, '剧情', 0, 1, 21),
+(122, 3, '社会', 0, 1, 22),
+(123, 3, '历史', 0, 1, 23),
+(124, 3, '战争', 0, 1, 24),
+(151, 4, '明星八卦', 0, 1, 1),
+(152, 4, '影视快讯', 0, 1, 2),
+(153, 4, '综艺节目', 0, 1, 3),
+(154, 4, '音乐资讯', 0, 1, 4),
+(155, 4, '娱乐深喉', 0, 1, 5),
+(156, 4, '精彩专题', 0, 1, 6),
+(201, 5, '大陆', 0, 1, 1),
+(202, 5, '国际', 0, 1, 2),
+(203, 5, '台海', 0, 1, 3),
+(204, 5, '社会', 0, 1, 4),
+(205, 5, '拍客', 0, 1, 5),
+(206, 5, '财经', 0, 1, 6),
+(207, 5, '体育', 0, 1, 7),
+(208, 5, '评论', 0, 1, 8),
+(251, 6, '时尚', 0, 1, 1),
+(252, 6, '旅游', 0, 1, 2),
+(253, 6, '公开课堂', 0, 1, 3);

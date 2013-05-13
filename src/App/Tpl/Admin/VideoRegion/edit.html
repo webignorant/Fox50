@@ -1,0 +1,51 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/Js/Think/checkFormSend.js"></script>
+
+<div id="main" class="main" >
+
+<div class="content">
+<div class="title">编辑视频地区 [ <a href="javascript:history.back();">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+<tr>
+	<td class="tRight" colspan="2"><hr></td>
+</tr>
+<form method='post' id="form1" >
+<tr>
+	<td class="tRight" >地区名称：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeftRequire"  check='Require' warning="地区名称不能为空" id="regionname" name="regionname" value="{$vo.regionname}"><input type="button" value="检测名称" onclick="checkName('regionname','set')" class="submit hMargin"></td>
+</tr>
+<tr>
+	<td class="tRight" >显示顺序：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeft" name="displayorder" value="{$vo.displayorder}"></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center">
+	<input type="hidden" name="id" value="{$vo.id}" >
+	<input type="hidden" name="ajax" value="1">
+	<input type="button" value="保 存" onclick="checkForm('regionname','set')" class="small submit">
+	<input type="reset" class="submit  small" value="清 空" >
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+
+<script language="JavaScript">
+function edit(id){
+	var keyValue;
+	if (id)
+	{
+		keyValue = id;
+	}else {
+		keyValue = getSelectCheckboxValue();
+	}
+	if (!keyValue)
+	{
+		alert('请选择编辑项！');
+		return false;
+	}
+	location.href =  URL+"/edit/vid/"+keyValue;
+}
+</script>

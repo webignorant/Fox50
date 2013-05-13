@@ -1,0 +1,168 @@
+<{// 引入标签库 }>
+<tagLib name="fhtml" />
+<{// 加载头部公共文件 }>
+<include file="Public:header" />
+<!-- 菜单区域  -->
+
+<style>
+/*浮动*/
+.fLeft{float:left}
+.fRig{float:right}
+.fNone{float:none}
+.cBoth{clear:both}
+/*边距*/
+.hMargin{margin-left:3px; margin-right:3px}
+.vMargin{margin-top:3px; margin-bottom:3px}
+/*大小*/
+.huge{width:350px}
+.large{width:280px}
+.medium{width:150px}
+.small{width:65px}
+.mini{width:35px}
+/*盒子*/
+.box{clear:both;overflow:hidden;height:auto;zoom:1;margin:10px 0 0;width:960; MARGIN-RIGHT: auto; MARGIN-LEFT: auto;}
+.box_left_col{float:left;width:160px;}
+.left_col{float:left;width:160px;margin-bottom:10px;}
+.left_col .bd{border-width:0 1px;}
+.left_col .ct{margin:0 1px;background-color:#f1f8ff;}
+.left_col .hd{height:20px;background:url(images/bg.gif) no-repeat 14px -146px;}
+.left_col h3{padding:0 0 8px;line-height:16px;}
+
+.right_col{float:right;width:828px; height:auto; }
+.right_col .hd{padding:8px 0 8px 8px;}
+.right_col h3{padding:0 0 0 10px;line-height:18px;background:url(images/bg.gif) transparent no-repeat 0 -73px;}
+.right_col h3.rec{position:relative;height:18px;}
+.right_col h3.rec span{display:inline-block;position:absolute;top:-6px;left:-14px;width:112px;height:31px;text-indent:-1000px;background:url(images/bg.gif) no-repeat 0 -111px;}
+.right_col .ct{background:url(images/hd_bg.gif) repeat-x 0 0;}
+.right_col .sort{display:inline-block;float:right;margin:2px 0 0;padding:0;color:#0082cb;}
+.right_col .sort a,.sort span{margin:0 8px 0 0;}
+
+/*输入框*/
+input.imgButton{width:65px; height:28px; margin:0; border:0;font-size:15px; padding-top:1px !important; padding-top:5px;letter-spacing:4px; font-weight:bold;border:1px solid silver; background-color:#F0F0FF; background-position:5px 40%; background-repeat:no-repeat; cursor:pointer; text-align:center}
+/*表格*/
+table.list{margin:3px 0px; padding:8px; border:1px solid gray; text-align:left; width:99%; float:left;border-collapse:collapse;}
+table.select{margin:3px 0px; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:left; width:500px; clear:both}
+table.order{margin:3px 0px; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:left; width:260px; clear:both}
+table.login{margin:15% auto 0% auto; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:left; width:350px; max-width:350px; clear:both}
+table.message{margin:10% auto 0px auto; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:center; width:55%}
+table.error{margin:12px 0px; border-collapse:collapse; border:2px groove #d4d4d4; padding:5px; text-align:left; line-height:165%; width:90%}
+table th{background:#cdd}
+table thead th{border-left:1px solid #cdd; background-color:#dee; background-image:url(../images/bgcolor.gif); color:#899}
+ table.message th, 
+ table.message td, 
+  table.select th, 
+ table.select td, 
+  table.order th, 
+ table.order td, 
+  table.error th, 
+ table.error td, 
+   table.login th, 
+ table.login td, 
+ table.list th, 
+ table.list td{border-left:1px solid silver; border-bottom:1px solid silver; vertical-align:top; padding:3px}
+table td.topTd{background:url(../images/bgline.gif) repeat-x; border-bottom:1pt solid gray;padding:0px;}
+table td.bottomTd{background:url(../images/bgline.gif) repeat-x; border-bottom:1pt solid gray;padding:0px;}
+table th.active, td.active{background-color:#CFC}
+table tr.row{background-color:#FFF}
+table tr.active{background-color:#CFC}
+table th.head{background:url(../images/titlebg.gif) repeat-x; background-position:12px 45%; padding-left:25px; color:white}
+</style>
+
+<script language="JavaScript">
+function user_video(){
+    location.href  = '<{:U('Home/Video/video_index')}>';
+}
+function user_collect(){
+alert('不提供');
+    //location.href  = '<{:U('Home/Video/collect_index')}>';
+}
+function user_special(){
+alert('不提供');
+    //location.href  = '<{:U('Home/Video/special_index')}>';
+}
+function play(id){
+    auditList = $('#AuditList').val();
+    var reg = "/("+id+")/";
+    regresult = auditList.match(eval(reg));
+    if(regresult){
+        location.href  = '__APP__/Home/Play/index/vid/'+id;
+    }else{
+        alert('视频没有审核通过');
+    }
+}
+function upload(id){
+	if (id)
+	{
+		 location.href  = '<{:U('Home/Upload/index')}>';
+	}else{
+		 location.href  = '<{:U('Home/Upload/index')}>';
+	}
+}
+function delVideo(id){
+    if(id) {
+        location.href  = '__URL__/delete/vid/'+id;
+    }else{
+        location.href  = '<{:U('Home/Video/delete')}>';
+    }
+}
+function continuous(){
+    location.href = '__APP__/Home/VideoFlow/video_continuous_index';
+}
+function sortBy (field,sort){
+	location.href = URL+"/video_index/&_order="+field+"&_sort="+sort;
+}
+</script>
+
+<div class="box">
+    <div class="left_col">
+        <div class="medium hMargin" ><b>视频连播管理</b></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我上传的" onclick="user_video();" class="medium" /></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我连播的" onclick="continuous();" class="medium" /></div>
+        <!--
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我收藏的" onclick="user_collect();" class="medium" /></div>
+        <div class="medium hMargin" ><b>专辑管理</b></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我创建的" onclick="user_special();" class="medium" /></div>
+        -->
+    </div>
+    <div class="right_col">
+        <div class="operate" >
+            <fhtml:imageBtn name="add" value="上传" click="upload();" style="impBtn hMargin fLeft shadow" />
+            <fhtml:imageBtn name="edit" value="编辑" click="edit()" style="impBtn hMargin fLeft shadow" />
+            
+            <div class="fRig">
+            <form method='post' action="__URL__/video_index">
+                <div class="fLeft"><span id="key"><input type="text" name="title" title="视频查询" class="medium" ></span></div>
+                <fhtml:imageBtn type="submit" name="search" value="查询" style="impBtn hMargin fLeft shadow" />
+            </div>
+            <div  id="searchM" class=" none search cBoth" ></div>
+            </form>
+        </div>
+        
+        <div class="list" >
+            <fhtml:list id="checkList" pk="id" name="videoflow" style="list" checkbox="true" action="true" datasource="list" show="uid:用户编号,name:连播名称:play,vidlist:编号信息,status:状态" actionlist=""/>
+        </div>
+        <div class="paging"><{$page}></div>
+    </div>
+</div>
+<!--
+<div class="box">
+
+<div class="content" >
+<div class="title">视频管理</div>
+
+
+
+
+
+
+<div class="list" >
+<html:list id="checkList" pk="vid" name="video" style="list" checkbox="true" action="true" datasource="list" show="title:标题:edit,dateline|toDate='Y-m-d H#i#s':添加时间|16%,actor:主演,year:发行年份|toDate='Y-m-d',about:内容简介,status|getStatus:状态" actionlist="status|showStatus=$video['vid']"/>
+</div>
+
+<div class="page"><{$page}></div>
+
+</div>
+
+</div>
+-->
+

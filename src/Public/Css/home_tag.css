@@ -1,0 +1,68 @@
+/*前台html标签使用的样式*/
+
+/*浮动*/
+.fLeft{float:left}
+.fRig{float:right}
+.fNone{float:none}
+.cBoth{clear:both}
+/*边距*/
+.hMargin{margin-left:3px; margin-right:3px}
+.vMargin{margin-top:3px; margin-bottom:3px}
+/*大小*/
+.huge{width:350px}
+.large{width:280px}
+.medium{width:150px}
+.small{width:65px}
+.mini{width:35px}
+/*状态颜色*/
+.over{background-color:#CFC}
+.out{background-color:#FFF}
+.down{background-color:#CF9}
+.click{background-color:#CC3}
+/*盒子*/
+.box{clear:both;overflow:hidden;height:auto;zoom:1;margin:10px 0 0;width:960; MARGIN-RIGHT: auto; MARGIN-LEFT: auto;}
+.box_left_col{float:left;width:160px;}
+.left_col{float:left;width:160px;margin-bottom:10px;}
+.left_col .bd{border-width:0 1px;}
+.left_col .ct{margin:0 1px;background-color:#f1f8ff;}
+.left_col .hd{height:20px;background:url(images/bg.gif) no-repeat 14px -146px;}
+.left_col h3{padding:0 0 8px;line-height:16px;}
+
+.right_col{float:right;width:828px; height:auto; }
+.right_col .hd{padding:8px 0 8px 8px;}
+.right_col h3{padding:0 0 0 10px;line-height:18px;background:url(images/bg.gif) transparent no-repeat 0 -73px;}
+.right_col h3.rec{position:relative;height:18px;}
+.right_col h3.rec span{display:inline-block;position:absolute;top:-6px;left:-14px;width:112px;height:31px;text-indent:-1000px;background:url(images/bg.gif) no-repeat 0 -111px;}
+.right_col .ct{background:url(images/hd_bg.gif) repeat-x 0 0;}
+.right_col .sort{display:inline-block;float:right;margin:2px 0 0;padding:0;color:#0082cb;}
+.right_col .sort a,.sort span{margin:0 8px 0 0;}
+
+/*输入框*/
+input.imgButton{width:65px; height:28px; margin:0; border:0;font-size:15px; padding-top:1px !important; padding-top:5px;letter-spacing:4px; font-weight:bold;border:1px solid silver; background-color:#F0F0FF; background-position:5px 40%; background-repeat:no-repeat; cursor:pointer; text-align:center}
+/*表格*/
+table.list{margin:3px 0px; padding:8px; border:1px solid gray; text-align:left; width:99%; float:left;border-collapse:collapse;}
+table.select{margin:3px 0px; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:left; width:500px; clear:both}
+table.order{margin:3px 0px; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:left; width:260px; clear:both}
+table.login{margin:15% auto 0% auto; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:left; width:350px; max-width:350px; clear:both}
+table.message{margin:10% auto 0px auto; padding:3px; border-collapse:collapse; border:1px solid gray; text-align:center; width:55%}
+table.error{margin:12px 0px; border-collapse:collapse; border:2px groove #d4d4d4; padding:5px; text-align:left; line-height:165%; width:90%}
+table th{background:#cdd}
+table thead th{border-left:1px solid #cdd; background-color:#dee; background-image:url(../images/bgcolor.gif); color:#899}
+ table.message th, 
+ table.message td, 
+  table.select th, 
+ table.select td, 
+  table.order th, 
+ table.order td, 
+  table.error th, 
+ table.error td, 
+   table.login th, 
+ table.login td, 
+ table.list th, 
+ table.list td{border-left:1px solid silver; border-bottom:1px solid silver; vertical-align:top; padding:3px}
+table td.topTd{background:url(../images/bgline.gif) repeat-x; border-bottom:1pt solid gray;padding:0px;}
+table td.bottomTd{background:url(../images/bgline.gif) repeat-x; border-bottom:1pt solid gray;padding:0px;}
+table th.active, td.active{background-color:#CFC}
+table tr.row{background-color:#FFF}
+table tr.active{background-color:#CFC}
+table th.head{background:url(../images/titlebg.gif) repeat-x; background-position:12px 45%; padding-left:25px; color:white}

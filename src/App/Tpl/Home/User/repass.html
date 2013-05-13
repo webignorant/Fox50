@@ -1,0 +1,27 @@
+<!--********************这里是主体内容********************-->
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/user.css">
+<script language="JavaScript">if(self!=top){top.location=self.location;}</script>
+
+<div class="user_login">
+	<form action="<{:U('Home/User/repasscheck')}>" method="post" name="gxcms" id="gxcms" >
+        <input name="jumpurl" type="hidden" value="http://localhost/fox%2050/?s=video/lists/id/1.html" />
+        <div class="regleft"><span>修改密码</span></div>
+        <div class="right">
+        <ul>
+            <li class="reginput">用户名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="medium bLeftRequire" name="username" /><span id="register_title" style="display:none"></span></li>
+            <li class="reginput">旧密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" class="medium bLeftRequire" name="oldpassword" /><span id="register_title" style="display:none"></span></li>
+            <li class="reginput">新密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" class="medium bLeftRequire" name="password" /></li>
+            <li class="reginput">确认新密码：<input type="password" class="medium bLeftRequire" name="repassword" /></li>
+            <li >验证码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="width:80px;" name="verify"> <img SRC="__URL__/verify/" BORDER="0" ALT="点击刷新验证码" id="verifyImg" onClick="function fleshVerify(a){var timenow = new Date().getTime();a.src='__URL__/verify/'+timenow;};fleshVerify(this)" style="cursor:pointer" align="absmiddle" /></li>
+            <li style="padding-left:60px">
+                <input  type="submit" class="hMargin submit small" value="确 认" alt="确认" />
+                <input  type="button" onClick="history.back()" class="hMargin submit small" value="取 消" alt="取消" />
+            </li>
+        </ul>
+        </div>
+        <input type="hidden" name="__gxcmsform__" value="4213567133287c24c6cff67011807053" />
+    </form>
+</div>
+
+<!--********************这里是主体内容********************-->

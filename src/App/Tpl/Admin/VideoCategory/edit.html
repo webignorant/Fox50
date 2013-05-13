@@ -1,0 +1,114 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/Js/Think/checkFormSend.js"></script>
+
+<div id="main" class="main" >
+<div class="content">
+<div class="title">编辑视频栏目 [ <a href="javascript:history.back();">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+<form method='post' id="form1" >
+<tr>
+	<td class="tRight" >栏目名称：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeftRequire"  check='Require' warning="栏目名称不能为空" id="catname" name="catname" value="{$vo.catname}"><input type="button" value="检测栏目" onclick="checkName('catname','set')" class="submit hMargin"></td>
+</tr>
+<tr>
+	<td class="tRight" >是否允许评论：</td>
+	<td class="tLeft" ><SELECT class="small bLeft"  name="allowcomment">
+	<option <eq name="vo.allowcomment" value="1" >selected</eq> value="1">允许</option>
+	<option <eq name="vo.allowcomment" value="0" >selected</eq> value="0">禁止</option>
+	</SELECT></td>
+</tr>
+<tr>
+	<td class="tRight" >显示顺序：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeft" name="displayorder" value="{$vo.displayorder}"></td>
+</tr>
+
+<tr>
+	<td class="tRight">栏目域名：</td>
+	<td class="tLeft"><input type="text" class="medium bLeft" name="domain" value="{$vo.domain}"></td>
+</tr>
+<tr>
+	<td class="tRight tTop">是否在导航栏显示：</td>
+	<td class="tLeft"><SELECT class="small bLeft"  name="shownav">
+	<option <eq name="vo.shownav" value="1" >selected</eq> value="1">允许</option>
+	<option <eq name="vo.shownav" value="0" >selected</eq> value="0">禁止</option>
+	</SELECT></td>
+</tr>
+<tr>
+	<td class="tRight">状态：</td>
+	<td class="tLeft"><SELECT class="small bLeft"  name="status">
+	<option <eq name="vo.status" value="1" >selected</eq> value="1">启用</option>
+	<option <eq name="vo.status" value="0" >selected</eq> value="0">禁用</option>
+	</SELECT></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center">
+	<input type="hidden" name="id" value="{$vo.id}" >
+	<input type="hidden" name="ajax" value="1">
+	<input type="button" value="保 存" onclick="checkForm('catname','set');" class="small submit">
+	<input type="reset" class="submit  small" value="清 空" >
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+
+<script language="JavaScript">
+function edit(id){
+	var keyValue;
+	if (id)
+	{
+		keyValue = id;
+	}else {
+		keyValue = getSelectCheckboxValue();
+	}
+	if (!keyValue)
+	{
+		alert('请选择编辑项！');
+		return false;
+	}
+	location.href =  URL+"/edit/vid/"+keyValue;
+}
+/*
+submitResultCheck = false; //判断是否允许提交表单
+function checkName(){
+    submitResultCheck = false;
+	ThinkAjax.send('__URL__/checkName/','ajax=1&catname='+$F('catname'),setFormSubmit);
+}
+//设置表单是否允许提交
+function setFormSubmit(data,status){
+    if(status != 0){
+        //document.getElementById("submitResult").value = "true";
+        submitResultCheck = true;
+    }else{
+        //document.getElementById("submitResult").value = "false";
+        submitResultCheck = false;
+    }
+}
+//检查表单
+function checkForm(){
+    category_name = document.getElementById("catname").value;
+    if(category_name == ''){
+        document.getElementById("catname").focus();
+        return false;
+    }
+    //查询名称是否正确，正确则执行修改处理
+    ThinkAjax.send('__URL__/checkName/','ajax=1&catname='+$F('catname'),sendFormSubmit);
+}
+//判断是否发送表单
+function sendFormSubmit(data,status){
+    if(status != 0){
+        submitResultCheck = true;
+    }else{
+        submitResultCheck = false;
+    }
+    if(!submitResultCheck){
+        document.getElementById("catname").focus();
+    }else{
+        ThinkAjax.sendForm('form1','__URL__/update/');
+    }
+}
+    */
+
+</script>

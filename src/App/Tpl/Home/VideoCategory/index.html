@@ -1,0 +1,145 @@
+<!--********************这里是主体内容********************-->
+
+<div class="box">
+    <div class="box_left_col">
+        
+        <div class="left_col">
+            <div class="topbrd"></div>
+            <div class="bd">
+                <div class="ct">
+                    <div class="hd">
+                      <h3><{$CategoryName}>视频检索</h3>
+                      <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                    </div>
+                    <div class="video_retrieval">
+                        <div class="retrieval_name">按地区</div>
+                        <ul>
+                            <{$RegionListError}>
+                            <volist name="RegionList" id="vo">
+                                <li><a href="<{:U('Home/VideoCategory/index?catid='.$_GET[catid].'&rid='.$vo[id])}>"><{$vo.regionname}></a></li>
+                            </volist>
+                        </ul>
+                    </div>
+                    <div class="video_retrieval">
+                        <div class="retrieval_name">按类型</div>
+                        <ul>
+                            <{$TypeListError}>
+                            <volist name="TypeList" id="vo">
+                                <li><a href="<{:U('Home/VideoCategory/index?catid='.$_GET[catid].'&tid='.$vo[id])}>"><{$vo.typename}></a></li>
+                            </volist>
+                        </ul>
+                    </div>
+                    <div class="video_retrieval">
+                        <div class="retrieval_name">按年份</div>
+                        <ul>
+                            <{$TypeListError}>
+                            <volist name="VideoYearList" id="vo">
+                                <li><a href="<{:U('Home/VideoCategory/index?catid='.$_GET[catid].'&yid='.$vo)}>"><{$vo}></a></li>
+                            </volist>
+                            <li><a href="<{:U('Home/VideoCategory/index?catid='.$_GET[catid].'&yid=90h')}>">90年代</a></li>
+                            <li><a href="<{:U('Home/VideoCategory/index?catid='.$_GET[catid].'&yid=80h')}>">80年代</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="btmbrd"></div>
+        </div>
+        
+        <if condition="$paixin eq 1">
+        <div class="left_col">
+            <div class="topbrd"></div>
+            <div class="bd">
+                <div class="ct">
+                    <div class="hd">
+                      <h3><{$TypeName}>类型排行榜</h3>
+                      <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                    </div>
+                    <ul class="index_top_video">
+                        <volist name="paixinlist" id="vo">
+                            <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" target="_blank" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <div class="btmbrd"></div>
+        </div>
+        </if>
+        
+        <div class="left_col">
+            <div class="topbrd"></div>
+            <div class="bd">
+                <div class="ct">
+                    <div class="hd">
+                      <h3><{$CategoryName}>热播排行榜</h3>
+                      <!--<a href="/fox 50/?s=top10/lists.html" class="more">更多&gt;&gt;</a>-->
+                    </div>
+                    <ul class="index_top_video">
+                        <{$Category9TopToPlayNumError}>
+                        <volist name="catgoryList" id="vo">
+                            <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" target="_blank" title="<{$vo.title}>"><{$vo.title|msubstr=0,11,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <div class="btmbrd"></div>
+        </div>
+        
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3><{$CategoryName}>栏目</h3>
+                    <div class="sort">
+                        <a href="javascript:setTitleSort();">按名称</a>
+                        <a href="javascript:setDateLineSort();">按时间</a>
+                    </div>
+                </div>
+                <div class="index_mov1">
+                    <ul class="mov_pic_list">
+                        <{$videoerror}>
+                        <volist name="videoList" id="vo">
+                            <li><div class="pic"><a href="<{:U('Home/PlayLoad/index','vid='.$vo[vid]),'.fhtml'}>" target="_blank" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/PlayLoad/index','vid='.$vo[vid]),'.fhtml'}>" title="<{$vo.title}>" target="_blank"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                        </volist>
+                    </ul>
+                    <neq name="videoList" value="null">
+                    <div class="mov_text_list">
+                        <div class="paging"><{$page}></div>
+                    </div>
+                    </neq>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $("#title").focus();
+});
+Category = <{$catid}>;
+Sort = '<{$sort}>';
+function setTitleSort() {
+    location.href = URL+"/index/catid/"+Category+"/order/title/sort/"+Sort;
+}
+function setDateLineSort() {
+    location.href = URL+"/index/catid/"+Category+"/order/dateline/sort/"+Sort;
+}
+</script>
+
+
+
+
+<!--
+
+    <div class="categorynav">
+        <ul id="dh"> 
+        <volist name="TypeList" id="vo">
+            <li><a href="<{:U('Home/VideoCategory/index?catid='.$vo[upid].'&tid='.$vo[id])}>"><{$vo.typename}></a></li>
+        </volist>
+        </ul>
+    </div>
+-->
+
+<!--********************这里是主体内容********************-->

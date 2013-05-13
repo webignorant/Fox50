@@ -1,0 +1,31 @@
+<include file="Public:header" />
+<div class="main" >
+<div class="content">
+<TABLE id="checkList" class="list" cellpadding=0 cellspacing=0 >
+<tr><td height="3" colspan="2" class="topTd" ></td></tr>
+<TR class="row" ><th colspan="2" class="space">系统信息</th></tr>
+
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">您上次登录时间</TD><TD>{$system['userlastLoginTime']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">登录次数</TD><TD>{$system['userlogincount']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">登录IP</TD><TD>{$system['last_login_ip']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">当前PHP的版本号</TD><TD>{$system['PHP_VERSION']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">当前服务器的操作系统</TD><TD>{$system['PHP_OS']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">服务器解译引擎</TD><TD>{$system['SERVER_SOFTWARE']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">当前运行的PHP程序所在服务器主机的名称</TD><TD>{$system['SERVER_NAME']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">正在浏览当前页面用户的主机名</TD><TD>{$system['REMOTE_HOST']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">正在游览的用户连接到服务器时所使用的端口</TD><TD>{$system['REMOTE_PORT']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">客户端IP</TD><TD>{$system['ip']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">服务器所使用的端口</TD><TD>{$system['SERVER_PORT']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">上传的最大数</TD><TD>{$system['MaxFile']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">数据库版本号</TD><TD>{$system['MysqlVersion']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">数据库地址</TD><TD>{$system['db_host']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">数据库用户</TD><TD>{$system['db_user']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">数据库</TD><TD>{$system['db_name']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">数据库端口</TD><TD>{$system['db_port']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">数据库类型</TD><TD>{$system['db_type']}</TD></TR>
+<TR class="row" onmouseover="over()" onmouseout="out()" onclick="change()"><TD width="15%">本站名称</TD><TD>{$system['cms_name']}</TD></TR>
+<tr><td height="3" colspan="2" class="bottomTd"></td></tr>
+</TABLE>
+</div>
+</div>
+<!-- 主页面结束 -->

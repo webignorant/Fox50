@@ -1,0 +1,17 @@
+
+
+
+/* ͼ */
+.focus{width:657px;height:420px;border:1px solid #EEE;position:relative;margin-top:6px;float:left}
+.f426x240{width:617px;height:420px;overflow:hidden}
+.f426x240 img{width:617px;height:420px; }
+
+.rslides{width:100%;position:relative;list-style:none;padding:0}
+.rslides_nav{height:51px;width:31px;position:absolute;-webkit-tap-highlight-color:rgba(0,0,0,0);top:50%;left:0;opacity:0.5;text-indent:-9999px;overflow:hidden;text-decoration:none;background:url(../images/i.png) no-repeat 0 -560px;margin-top:-28px}
+.rslides_nav:active{opacity:1.0}
+.rslides_nav.next{left:auto;background-position:-31px -560px;right:0}
+.rslides_tabs{margin:12px auto;clear:both;text-align:center}
+.rslides_tabs li{display:inline;float:none;_float:left;*float:left;margin-right:5px}
+.rslides_tabs a{text-indent:-9999px;overflow:hidden;-webkit-border-radius:15px;-moz-border-radius:15px;border-radius:15px;background:rgba(0,0,0, .2);background:#DDD;display:inline-block;_display:block;*display:block;width:9px;height:9px}
+.rslides_tabs .rslides_here a{background:rgba(0,0,0, .6);background:#390}
+

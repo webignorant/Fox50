@@ -1,0 +1,153 @@
+<include file="Public:header" />
+<load href="__PUBLIC__/Js/jquery-1.8.3.min.js" />
+<div id="main" class="main" >
+
+<div class="content">
+<div class="title">编辑视频 [ <a href="javascript:history.back();">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+
+<form method='post' id="form1" name="form1">
+<tr>
+	<td class="tRight" >视频栏目类型:</td>
+	<td class="tLeft" >
+       <select id="catid" name="catid" onchange="typeselec(this.value)">
+          <volist name="catid" id="ca">
+               <option <eq name="info.catid" value="$ca.id" >selected</eq> value="<{$ca.id}>|<{$ca.catname}>"><{$ca.catname}></option>
+          </volist>
+        </select>
+	</td>
+</tr>
+    <script language="JavaScript">  
+        function typeselec(typeselect){
+            $("#typeid").load('__URL__/typeselect.html',{typeid:typeselect.split('|')[0]});
+        }
+        function charge(){
+            var filename = document.getElementById('up_file').value;
+            var file_type = filename.substring(filename.lastIndexOf(".")+1);
+            if(!(file_type == "mp4" || file_type == "flv" || file_type == "avi"))
+               alert ("目前只支持mp4、flv、avi格式!");
+        }
+    </script>
+<tr>
+	<td class="tRight" >所属视频类型:</td>
+	<td class="tLeft" >
+       <select id="typeid" name="typeid">  
+          <volist name="vtype" id="tp">
+               <option <eq name="info.typeid" value="$tp.id" >selected</eq> value="<{$tp.id}>|<{$tp.typename}>"><{$tp.typename}></option>
+          </volist>
+        </select>
+	</td>
+</tr>
+<tr>
+	<td class="tRight">所属地区:</td>
+	<td class="tLeft">
+       <select id="regionid" name="regionid">
+        <volist name="region" id="re">
+            <option <eq name="info.regionid" value="$i" >selected</eq> value="<{$i}>"><{$re}></option>
+        </volist>
+        </select>
+	</td>
+</tr>
+<tr>
+	<td class="tRight tTop">视频标题:</td>
+	<td class="tLeft"><input id="videotitle" type="text" name="title" value="<{$info.title}>"/></td>
+</tr>
+<tr>
+	<td class="tRight tTop">主演:</td>
+	<td class="tLeft"><input id="actor" type="text" name="actor" value="<{$info.actor}>"/></td>
+</tr>
+<tr>
+	<td class="tRight tTop">导演:</td>
+	<td class="tLeft"><input id="director" type="text" name="director" value="<{$info.director}>"/></td>
+</tr>
+<tr>
+	<td class="tRight">发行年份:</td>
+	<td class="tLeft">
+       <select id="year" name="year">
+          <option <eq name="info.year" value="2013" >selected</eq> value="2013">2013</option>
+          <option <eq name="info.year" value="2012" >selected</eq> value="2012">2012</option>
+          <option <eq name="info.year" value="2011" >selected</eq> value="2011">2011</option>
+          <option <eq name="info.year" value="2010" >selected</eq> value="2010">2010</option>
+          <option <eq name="info.year" value="2009" >selected</eq> value="2009">2009</option>
+          <option <eq name="info.year" value="2008" >selected</eq> value="2008">2008</option>
+          <option <eq name="info.year" value="2007" >selected</eq> value="2007">2007</option>
+          <option <eq name="info.year" value="2006" >selected</eq> value="2006">2006</option>
+          <option <eq name="info.year" value="2005" >selected</eq> value="2005">2005</option>
+          <option <eq name="info.year" value="2004" >selected</eq> value="2004">2004</option>
+          <option <eq name="info.year" value="2003" >selected</eq> value="2003">2003</option>
+          <option <eq name="info.year" value="2002" >selected</eq> value="2002">2002</option>
+          <option <eq name="info.year" value="2001" >selected</eq> value="2001">2001</option>
+          <option <eq name="info.year" value="2000" >selected</eq> value="2000">2000</option>
+          <option <eq name="info.year" value="1999" >selected</eq> value="1999">1999</option>
+          <option <eq name="info.year" value="1998" >selected</eq> value="1998">1998</option>
+          <option <eq name="info.year" value="1997" >selected</eq> value="1997">1997</option>
+          <option <eq name="info.year" value="1996" >selected</eq> value="1996">1996</option>
+          <option <eq name="info.year" value="1995" >selected</eq> value="1995">1995</option>
+          <option <eq name="info.year" value="1994" >selected</eq> value="1994">1994</option>
+          <option <eq name="info.year" value="1993" >selected</eq> value="1993">1993</option>
+          <option <eq name="info.year" value="1992" >selected</eq> value="1992">1992</option>
+          <option <eq name="info.year" value="1991" >selected</eq> value="1991">1991</option>
+          <option <eq name="info.year" value="1990" >selected</eq> value="1990">1990</option>
+          <option <eq name="info.year" value="1989" >selected</eq> value="1989">1989</option>
+          <option <eq name="info.year" value="1988" >selected</eq> value="1988">1988</option>
+        </select>
+	</td>
+</tr>
+<tr>
+	<td class="tRight tTop">内容简介:</td>
+	<td class="tLeft"><textarea id="about" name="about" cols="40" rows="5"><{$info.about}></textarea></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center">
+	<input type="hidden" id="vid" name="vid" value="<{$info.vid}>" />
+	<input type="hidden" name="ajax" value="1" />
+	<input id="set_check" type="button" value="保 存" class="small submit" />
+	<input type="reset" class="submit  small" value="清 空" />
+	</td>
+</tr>
+<tr>
+    <td></td>
+    <td class="center">
+        <div id="result" style = "display:none"></div>
+    </td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+
+<script language="JavaScript">
+    $(document).ready(function(){
+        $('#set_check').click(function(e){
+            e.preventDefault(); 
+            setvideo();
+        });
+    });
+    
+    function setvideo() {
+            var vid = $("#vid").val();
+            var catid = $("#catid").val();
+            var typeid = $("#typeid").val();
+            var regionid = $("#regionid").val();
+            var title = $("#videotitle").val();
+            var actor = $("#actor").val();
+            var director = $("#director").val();
+            var year = $("#year").val();
+            var about = $("#about").val();
+            //alert(catid+' '+typeid+' '+regionid+' '+title+' '+actor+' '+director+' '+year+' '+about);
+            $.post("__URL__/update/",{vid : vid,catid : catid,typeid :typeid, regionid : regionid, title : title, actor : actor,director : director,year : year,about : about},function(data){
+                if(data.data == 1){
+                    $("#result").show('normal',function(){
+                        $("#result").css({color :"blue"});
+                        $("#result").html(data.info);
+                    });
+                }else if(data.data == 0){
+                    $("#result").toggle('normal',function(){
+                        $("#result").css({color :"red"});
+                        $("#result").html(data.info);
+                    });
+                }
+            });
+        }
+</script>

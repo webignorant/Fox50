@@ -1,0 +1,560 @@
+﻿<include file="Public:header" />
+
+<script src="../Public/js/ajax.js"></script>
+<script type="text/javascript" src="../Public/play/FLVPlayer.js"></script>
+
+<div id="wrapper">
+    <include file="Public:top" />
+</div>
+
+<style>
+.discusscontent_list_li{
+	           position:relative;
+      }
+.discussontent_list_span{
+	           position:absolute;
+               right:10px;
+      }
+.container{
+	width:598px;
+	height:130px;
+	margin:40px auto;
+	overflow:hidden;
+	position:relative;
+	-moz-user-select:none;
+}
+.presswraper{
+	height:100px;
+	border:1px solid #ddd;
+	background-color:#f1f1f1;
+}
+.press{
+	line-height:100px;
+	white-space:nowrap;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.container2{
+	width:685px;
+	height:130px;
+	margin:0px auto;
+	overflow:hidden;
+	position:relative;
+	-moz-user-select:none;
+}
+.container2 ul{
+	width:10000px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	padding:0;
+	margin:0;
+}
+.container2 ul li{
+	height:100px;
+	width:133px;
+	float:left;
+	line-height:90px;
+	text-align:center;
+	background:#eee;
+	padding:0;
+	margin-right:20px;
+	list-style-type:none;
+}
+.container2 ul .playlistnum{
+	height:100px;
+	width:10px;
+	float:left;
+	line-height:90px;
+	text-align:center;
+	background:#eee;
+	padding:0;
+	margin-right:2px;
+	list-style-type:none;
+}
+.container2 ul li img{border:1px solid #ccc; padding:2px;}
+
+     <!--选项卡-->
+					  #videocard-title{
+						   width:262px;
+						   height:35px;
+					  }
+					  h4{
+						 width:128px;
+						 height:35px;
+						 margin-right:1px;
+						 border:#CCC solid 1px;
+						 float:left;
+					  }
+					  #videocard{
+						  width:262px;
+						  height:279px;
+					  }
+					  #videocard-content{
+						  width:262px;
+						  height:245px;
+						  padding:2px;
+						  margin:0;
+						  background:#FFF;
+						  word-break:break-all;
+					  }
+					  #videocard-content ul li{
+						  border-bottom:#CCC dashed 1px;
+						  margin-top:2px;
+						  width:255px;
+						  height:25px;
+						  line-height:25px;
+						  word-break:break-all;
+						  overflow:hidden;
+					  }
+					  .videotitle-right{
+						  margin-right:0;
+					  }
+					  .videotitle{
+						  background:#FFF;
+						  border-bottom:none;
+						  border-right:none;
+					  }
+					   h4 a,h4 a:hover{
+						  width:131px;
+						  height:35px;
+						  line-height:35px;
+						  font-size:15px;
+						  float:left;
+						  text-decoration:none;
+						  text-align:center;
+						  text-decoration:none;
+						  color:#333;
+					  }
+</style>
+
+<!-- 问题 -->
+<div class="mplay-bg">
+    ﻿<div class="play-area">
+        <div class="play-title"><{$videotitle}></div>
+        <div id="nav1-l"></div>
+        <script type="text/javascript">
+		
+		var flashvarsVideoNewControls = {
+			source: "",
+			type: "video",
+			streamtype: "file",
+			server: "",//Used for rtmp streams
+			duration: "0",
+			//poster: "http://jaris.sourceforge.net/images/poster.png",
+			autostart: "true",
+			//logo: "http://jaris.sourceforge.net/images/logo.png",
+			logoposition: "top left",
+			logoalpha: "30",
+			logowidth: "130",
+			//logolink: "http://jaris.sourceforge.net",
+			hardwarescaling: "false",
+			darkcolor: "000000",
+			brightcolor: "4c4c4c",
+			controlcolor: "FFFFFF",
+			hovercolor: "67A8C1",
+			controltype: 1
+		};
+		var params = {
+			menu: "false",
+			scale: "noScale",
+			allowFullscreen: "true",
+			allowScriptAccess: "always",
+			bgcolor: "#000000",
+			quality: "high",
+			wmode: "opaque"
+		};
+		var attributes = {
+			id:"JarisFLVPlayer"
+		};
+		
+		
+		
+
+		function yuh(date){
+			flashvarsVideoNewControls.source=date;
+			swfobject.embedSWF("./App/Tpl/Home/Public/play/FLVPlayer.swf", "nav1-l", "960px", "520px", "10.0.0", "./App/Tpl/Home/Public/play/install.swf", flashvarsVideoNewControls, params, attributes);
+		
+		}
+		
+
+		
+		//获取简介
+		function newvideoinfo(cad){
+		  	var e_ajax = new Ajax();
+			var videoinfo=document.getElementById("new_video_info");
+			var cid=cad;
+                e_ajax.post("__URL__/newvideoinfo" ,{vid:cid},function(data){												   
+                  videoinfo.innerHTML=data;
+				  $(".play-title").text($(".mv-title").attr("title"));
+                });
+		}
+         
+		 /*function yuh(date){
+                 if(!date==''){
+                 iop=date;
+				 var so =null;
+                 so = new SWFObject("../Public/play/CuPlayerMiniV3_Black_S.swf","nav1-l","960","520","9","#000000");
+                so.addParam("allowfullscreen","true");
+                so.addParam("allowscriptaccess","always");
+                so.addParam("wmode","opaque");
+                so.addParam("quality","high");
+                so.addParam("salign","lt");
+                so.addVariable("CuPlayerFile",iop);
+                so.addVariable("CuPlayerImage","Images/flashChangfa2.jpg");
+                so.addVariable("CuPlayerLogo","Images/logo.png");
+                so.addVariable("CuPlayerShowImage","true");
+                so.addVariable("CuPlayerWidth","960");
+                so.addVariable("CuPlayerHeight","520");
+                so.addVariable("CuPlayerAutoPlay","true");
+                so.addVariable("CuPlayerAutoRepeat","false");
+                so.addVariable("CuPlayerShowControl","true");
+                so.addVariable("CuPlayerAutoHideControl","false");
+                so.addVariable("CuPlayerAutoHideTime","6");
+                so.addVariable("CuPlayerVolume","80");
+                so.addVariable("CuPlayerGetNext","true");
+                so.write("nav1-l");
+                 }else{
+                  alert(date);
+                 // location.href='http://www.baidu.com'
+                 }
+               }
+			   
+			   
+			   */
+                var url_ajax_k=new Ajax();	   
+                url_ajax_k.get("__URL__/geturl/vid/" + <{$vid}>,yuh);
+		var CuPlayerList = "<{$lianlook}>";
+		var sp =CuPlayerList.split("--");
+		var num = sp.length;
+		var video_index = 0;
+		//播放下集触发函数
+		function getNext(pars){	  
+		  if(video_index < num-2){
+				if(sp[video_index].split("||")[0] != ''){
+					var url_ajax_k=new Ajax();
+				    url_ajax_k.get("__URL__/geturl/vid/" + sp[video_index].split("||")[0],yuh);
+					$(".play-title").text(sp[video_index].split("||")[1]);
+					newvideoinfo(sp[video_index].split("||")[0]);
+				    video_index++;	
+				}
+			}else{
+			   video_index = 0;
+			   var url_ajax_k=new Ajax();
+			   url_ajax_k.get("__URL__/geturl/vid/" + sp[video_index].split("||")[0],yuh);
+			   $(".play-title").test(sp[video_index].split("||")[1]);
+			   newvideoinfo(sp[video_index].split("||")[0]);
+			   video_index++;
+			}
+		}
+		function changeStream(CuPlayerFile){
+		so.addVariable("CuPlayerFile",sp[CuPlayerFile]);
+		so.write("nav1-l");	
+		}
+        </script>
+    </div>
+</div>
+  
+<div class="mov_play_box">
+<!--*****************插件使用*******************-->
+<link href="__PUBLIC__/Plugin/hScrollPane/css/hScrollPane.css" type="text/css" rel="stylesheet" />
+
+    <div class="mov_play_l_box">
+    <!--视频列表-->
+        <div class="bd">
+            <span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>视频列表</h3><br>
+                </div>
+                <ul class="mov_pic_list">
+                    <span class="options">
+                    </span>
+                </ul>
+                <if condition="$sqlitcheck eq true">
+                    <div class="container2">
+                        <ul>
+                            <volist name="SplitList" id="split">
+                                <li class="playlistnum"><{$i}></li>
+                                <li><a title="<{$split.title}>" href="<{:U('Home/Play/index?vid='.$split[vid])}>" ><img src="<{$split.img}>" width="133" height="100" alt="" /></a></li>
+                            </volist>
+                        </ul>
+                    </div>
+                <else />
+                    暂无连播列表
+                </if>
+                <load href="__PUBLIC__/Plugin/hScrollPane/js/jquery.mousewheel.js" />
+                <load href="__PUBLIC__/Plugin/hScrollPane/js/hScrollPane.js" />
+<script type="text/javascript">
+$(".container").hScrollPane({
+	mover:".press", //指定container对象下的哪个元素需要滚动位置 | 必传项;
+	showArrow:true, //指定是否显示左右箭头，默认不显示 | 可选项;
+	//moverW:function(){return $(".press").width();}(), //传入水平滚动对象的长度值,不传入的话默认直接获取mover的宽度值 | 可选项;
+	//handleMinWidth:100,//指定handle的最小宽度,要固定handle的宽度请在css中设定handle的width属性（如 width:28px!important;），不传入则不设定最小宽度 | 可选项;
+	//dragable:true, //指定是否要支持拖动效果，默认可以拖动 | 可选项;
+	//easing:true, //滚动是否需要滑动效果,默认有滑动效果 | 可选项;
+	handleCssAlter:"draghandlealter", //指定拖动鼠标时滚动条的样式，不传入该参数则没有变化效果 | 可选项;
+	mousewheel:{bind:true,moveLength:500} //mousewheel: bind->'true',绑定mousewheel事件; ->'false',不绑定mousewheel事件；moveLength是指定鼠标滚动一次移动的距离,默认值：{bind:true,moveLength:300} | 可选项;
+});
+
+$("#showhide").click(function(){
+	$(".container:last").show().hScrollPane({
+		mover:".press",
+		handleCssAlter:"draghandlealter"
+	});
+	return false;
+});
+
+$(".container2").hScrollPane({
+	mover:"ul",
+	moverW:function(){return ($(".container2 li").length)/2*133+($(".container2 li").length)/2*10;}(),
+	showArrow:true,
+	handleCssAlter:"draghandlealter",
+	mousewheel:{moveLength:207}
+});
+</script>
+<!--*****************插件使用*******************-->
+            </div>
+            <span class="bl"></span><span class="br"></span> 
+        </div>
+    <!--视频分享-->
+        <br />
+        <div class="bd">
+            <span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3>视频分享</h3><br>
+                </div>
+                <ul class="mov_pic_list">
+                    <span class="options">
+                        <!--分享到开心网代码-->
+                        <a href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(kaixin=window.open('http://www.kaixin001.com/~repaste/repaste.php?&amp;rurl='+escape(d.location.href)+'&amp;rtitle='+escape(d.title)+'&amp;rcontent='+escape(d.title),'kaixin'));kaixin.focus();"><img src="http://www.ecshop120.com/images/toshare/ico_kaixin.gif" alt="转贴到开心网"  border="0" height="16" width="16"></a> 
+                        <!--分享到人人网代码--放弃
+                        <a name="xn_share" type="icon_count_right" href="#">分享</a><script src="http://static.connect.renren.com/js/share.js" type="text/javascript"></script>
+                        -->
+                        <!--分享到QQ空间代码-->
+                        <a href="javascript:void(0);" onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href));return false;" title="分享到QQ空间"><img src="http://qzonestyle.gtimg.cn/ac/qzone_v5/app/app_share/qz_logo.png" alt="分享到QQ空间"  title="分享到QQ空间"/></a>
+                        <!--分享到QQ书签代码-->
+                        <a href="javascript:window.open('http://shuqian.qq.com/post?from=3&title='+encodeURIComponent(document.title)+'&uri='+encodeURIComponent(document.location.href)+'&jumpback=2&noui=1','favit','');void(0)"><img src="http://www.ecshop120.com/images/toshare/ico_qqshuqian.gif" alt="QQ书签" title="QQ书签" border="0" ></a> 
+                        <!--分享到百度搜藏代码-->
+                        <a href="javascript:window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(document.title.substring(0,76))+'&iu='+encodeURIComponent(location.href)+'&fr=ien#nw=1','_blank','scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes'); void 0" ><IMG alt="添加到百度搜藏" title="添加到百度搜藏" src="http://www.ecshop120.com/images/toshare/ico_soucang.gif"  border=0></a> 
+                        <!--腾讯微博分享按钮-->
+                        <a href="javascript:void(0)" onclick="postToWb();" class="tmblog"><img  alt="分享到腾讯微博" title="分享到腾讯微博"src="http://v.t.qq.com/share/images/s/weiboicon16.png"></a> <script type="text/javascript"> 
+                        function postToWb(){ 
+                        var _t = encodeURI(document.title); 
+                        var _url = encodeURI(document.location); 
+                        var _appkey = encodeURI("appkey");//你从腾讯获得的appkey 
+                        var _pic = encodeURI('');//（列如：var _pic='图片url1|图片url2|图片url3....） 
+                        var _site = 'http://www.fox50.com.cn';//你的网站地址 
+                        var _u = 'http://v.t.qq.com/share/share.php?title='+_t+'&url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic; 
+                        window.open( _u,'转播到腾讯微博', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' ); 
+                        } 
+                        </script>
+                        <!--腾讯微博分享按钮-->
+                        
+                        <!--新浪微博分享按钮-->
+                        <script type="text/javascript" charset="utf-8">
+                        (function(){
+                          var _w = 16 , _h = 16;
+                          var param = {
+                            url:location.href,
+                            type:'3',
+                            count:'', /**是否显示分享数，1显示(可选)*/
+                            appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
+                            title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
+                            pic:'', /**分享图片的路径(可选)*/
+                            ralateUid:'', /**关联用户的UID，分享微博会@该用户(可选)*/
+                            language:'zh_cn', /**设置语言，zh_cn|zh_tw(可选)*/
+                            rnd:new Date().valueOf()
+                          }
+                          var temp = [];
+                          for( var p in param ){
+                            temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+                          }
+                          document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+                        })()
+                        </script>
+                    </span>
+                </ul>
+                
+                <a href="__URL__/download/vid/<{$vid}>">下载该视频</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a>视频分享代码</a>
+    <input type="text" onclick="this.select();" name="poifen" width="300" value="<div id='sharedvideo'><script type='text/javascript' src='<{$swfobject}>'></script><script>var so = new SWFObject('<{$CuPlayerMiniV3_Black_S}>','sharedvideo','640','480','9','#000000');so.addParam('allowfullscreen','true');so.addVariable('CuPlayerFile','<{$video_fenxiang}>');so.addVariable('CuPlayerWidth','640');so.addVariable('CuPlayerHeight','480');so.write('sharedvideo');</script>
+</div>" /> <button style="width:60px; height:22px; border:#999 solid 1px; margin-bottom:-2px;" margin-left:3px;" onclick="poifen();">复制代码</button>
+            </div>
+            <span class="bl"></span><span class="br"></span> 
+        </div>
+    <!--影片评论-->
+        <br />
+        <div class="bd">
+            <span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd"><h3>视频评论</h3></div>
+<!--*****************评论*******************-->
+                <div id="discusscontent">
+                  <br />
+                 　　没有相关评论!
+                </div>
+<script type="text/javascript">
+   function setPage(url,su_obj){
+         var obj=document.getElementById("discusscontent");
+           var a_ajax=new Ajax();	   
+           a_ajax.get(url,function(date){
+             if(!date==''){
+              obj.innerHTML=date;
+             }else{
+              obj.innerHTML='没有相关评论';
+             }
+           });
+        }
+     setPage('__URL__/comment/vid/<{$vid}>/page/1&aa='+Math.random(),0);
+      
+        //评论 
+     function setconment(){
+            var login1='<{$login}>';
+            if(login1==''){
+              alert('请先登录!');
+            }else{
+				if(document.getElementById('comment_content').value == ''){
+					alert('评论内容不能为空！');return;
+				}else if(document.getElementById('comment_content').value == '我来评论，最多200个字。'){
+					alert('请填写相关评论内容!');return;
+				}else if(document.getElementById('comment_content').value.length > 200){
+					alert('评论内容不能超过200字符!');return;
+				}
+                var b_ajax = new Ajax();
+                b_ajax.post("__URL__/addcomment" ,{vid:<{$vid}>,uid:<{$userid}>,comnemt:document.getElementById('comment_content').value},function(data){
+                  if(data==1){
+                      alert('评论成功！');
+					  setPage('__URL__/comment/vid/<{$vid}>/page/1&aa='+Math.random(),0); 
+					  document.getElementById('comment_content').value = '';
+                  }else if(data==0){
+                      alert('评论失败!');
+                  }else{
+                      alert('请先登录!');
+                  }
+                });
+            }
+        }
+        
+    function setretun(name){
+        document.getElementById('comment_content').value='@' + name + ':';
+    }
+</script>
+<!--*****************评论*******************-->
+                <div id="Comments">
+                    <div class="form">
+                        <textarea type="text" name="content" id="comment_content" rows="5" onFocus="if(this.value=='我来评论，最多200个字。'){this.value='';}" onBlur="if(this.value==''){this.value='我来评论，最多200个字。';};" maxlength="200" class="txt_in ">我来评论，最多200个字。</textarea>
+                        <p class="under_row"><input id="comment_button" class="submit" onClick="setconment();" type="button" value="发表评论"></p>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span> 
+        </div>  
+    </div>
+      
+    <div class="mov_play_r_box">
+        <div class="bd">
+            <span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="play-rating"></div>
+
+                <div id="videocard">
+                   <div id="videocard-title">
+                     <h4 class="videotitle"><a name="__URL__/relevance/vid/<{$vid}>">视频续集</a></h4>
+                     <h4><a name="__URL__/likevideo" class="videotitle-right">相关影片</a></h4>
+                   </div> 
+                   <div id="videocard-content">  
+                   </div>
+                </div>
+                <script>
+				  var dt=null;
+				  $("#videocard-content").load("__URL__/relevance/vid/<{$vid}>");
+				  $("#videocard-title h4").hover(function (){
+										   var si=$(this);
+										   dt = setTimeout(function (){
+												 si.addClass("videotitle").siblings("h4").removeClass("videotitle");		
+												 $("#videocard-content").load(si.children("a").eq(0).attr("name"));
+												},200);
+										},function (){
+										  clearTimeout(dt);
+										});
+				 function  videostart(){
+					  $("#videocard-content ul li").mouseover(function(){$(this).css("background","#CFF");}).mouseout(function(){$(this).css("background","#FFF");});
+					  $("#videocard-content ul li").click(function(){
+															    // var url_ajax_su=new Ajax();
+				                                                // url_ajax_su.get("__URL__/geturl/vid/" + $(this).attr("name"),yuh);
+																// newvideoinfo($(this).attr("name"));
+																 window.location.href = "__APP__/Home/Play/index/vid/" + $(this).attr("name");
+															   });
+				  }
+				  
+				    function poifen(){
+					 if(typeof window.clipboardData == "undefined"){
+						 alert('该浏览器不支持复制，请手动复制右边HTML代码！');
+					 }else{
+					   if(window.clipboardData.setData("text",document.getElementById('photo_viewer_main').childNodes[0].data) != true){
+						  alert('复制失败，请手动复制右边HTML代码！');
+					   }else{
+							 alert('复制成功！');  
+						  }
+					 }
+					  
+				  }
+				</script>
+                
+                
+                
+                <div id="new_video_info">
+                        <div class="info">
+                            <span class="mv-title" title="<{$videos[0]['title']}>"> <a href="__GROUP__/Play/index?vid=<{$videos[0]['vid']}>" title="<{$videos[0]['title']}>"><{$videos[0]['title']}></a></span>
+							<in name="catid" value="1,2">
+                            <p>主演：<{$videos[0]['actor']}></p>
+                            <p>导演：<{$videos[0]['director']}></p>
+							</in>
+                            <p>地区：<{$video_region}> </p>
+                            <p>上映年份：<{$videos[0]['year']}> </p>
+                            <p>更新日期：<{$videos[0]['dateline']|date="Y-m-d",###}></p>
+                        </div>
+                <div class="intro">
+                    <p class="title">剧情介绍：</p>
+                    <div class="intro_cont">
+                        <{$videos[0]['about']}>
+                    </div>
+                </div>
+                
+                </div>
+                
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+
+</div>
+
+<div display="none" id="photo_viewer_main">
+<!--
+<div id="sharedvideo">
+    <script type="text/javascript" src="<{$swfobject}>"></script>
+    <script>
+        var so = new SWFObject("<{$CuPlayerMiniV3_Black_S}>","sharedvideo","640","480","9","#000000");
+                    so.addParam("allowfullscreen","true");
+                    so.addVariable("CuPlayerFile","<{$video_fenxiang}>");
+                    so.addVariable("CuPlayerWidth","640");
+                    so.addVariable("CuPlayerHeight","480");
+                    so.write("sharedvideo");
+    </script>
+</div>
+-->
+</div>
+
+﻿<div id="footer">
+    Copyright ? 2012 - 2013 <a href="http://localhost/">fox50</a> Some Rights Reserved 粤ICP备10038672号 <br>
+</div>
+    </body>
+</html>
+eserved 粤ICP备10038672号 <br>
+</div>
+
+    </body>
+</html>

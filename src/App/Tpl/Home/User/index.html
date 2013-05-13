@@ -1,0 +1,28 @@
+<layout name="user_center_layout" />
+
+<!--********************这里是主体内容********************-->
+    <div class="user">
+        <h3>帐号资料</h3>
+        <ul class="face">
+            <if condition="$info.avatar eq null" >
+                <a href="__APP__/Home/User/profile"><img width="100" height="100" title="点击可以编辑用户资料" src="__PUBLIC__/Images/user/face.jpg"></a>
+            <else />
+                <a href="__APP__/Home/User/profile"><img width="100" height="100" title="点击可以编辑用户资料" src="<{$info.avatar}>"></a>
+            </if>
+        </ul>
+        <ul class="readright">
+            <li>用户账号：<{$info.account}></li>
+            <li>用户昵称：<{$info.nickname}></li>
+            <li>电子邮箱：<{$info.email}></li>
+        </ul>
+        <h3>详细信息</h3>
+        <ul class="readmore">
+            <li>登录次数：<{$info.login_count}></li>
+            <li>注册时间：<{$info.create_time|date="Y-m-d",###}></li>
+            <li>最近登录：<{$info.last_login_time|date="Y-m-d",###}></li>
+            <li>最近登录IP：<{$info.last_login_ip}></li>
+            <li>个人简介：<{$info.remark}></li>
+        </ul>   
+    </div> 
+<!--********************这里是主体内容********************-->
+

@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jCarousel - jQuery下的滚动切换传送插件</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="wrap">
+  <h1>jCarousel</h1>
+  <h2>jQuery下的滚动切换传送插件</h2>
+  <p>
+  	<strong>翻译:</strong> <a href="http://www.zhangxinxu.com">张鑫旭</a><br />
+  	<strong>作者:</strong> <a href="http://sorgalla.com">Jan Sorgalla</a><br />
+    <strong>版本:</strong> 0.2.3 (<a href="changelog.html">Changelog</a>)<br />
+    <strong>下载:</strong> <a href="http://sorgalla.com/projects/download.php?jcarousel">jcarousel.tar.gz</a> or <a href="http://sorgalla.com/projects/download-zip.php?jcarousel">jcarousel.zip</a><br />
+    <strong>许可:</strong> <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>
+    和 <a href="http://www.opensource.org/licenses/gpl-license.php">GPL</a> 双授权许可。
+    </p>
+
+  <a name="Contents"></a>
+  <h3>内容</h3>
+    <ol>
+    <li><a href="#Introduction">介绍</a></li>
+    <li><a href="#Examples">示例</a></li>
+    <li><a href="#Getting-Started">入门指南</a></li>
+    <li><a href="#Dynamic-Content-Loading">动态内容加载</a></li>
+    <li><a href="#Configuration">配置</a></li>
+    <li><a href="#Compatibility">兼容性</a></li>
+    <li><a href="#Credits">致谢</a></li>
+  </ol>
+
+  <a name="Introduction"></a>
+  <h3>介绍</h3>
+  <p>jCarousel是一款 <a href="http://jquery.com">jQuery</a> 插件， 用来控制水平或垂直排列的列表项. 这些项目（可以是静态HTML内容或是Ajax加载内容）内容是可以来回滚动的（可以有动画效果）。</p>
+
+  <a name="Examples"></a>
+    <h3>示例</h3>
+  <p>下面的示例展示了jCarousel插件可能的潜力:</p>
+  <noscript>
+  <p style="color:red">您需要JavaScript的支持以看到效果</p>
+  </noscript>
+  <ul>
+    <li><strong>静态实例</strong>
+      <ul>
+        <li><a href="examples/static_simple.html">最简单基本的滚动切换效果</a></li>
+        <li><a href="examples/static_vertical.html">垂直滚动切换</a> </li>
+        <li><a href="examples/static_auto.html">自动滚动的传送切换</a></li>
+        <li><a href="examples/static_callbacks.html">含回调函数的滚动切换举例</a></li>
+        <li><a href="examples/static_controls.html">含外部控制的滚动切换</a></li>
+        <li><a href="examples/static_start.html">有自定义起始位置的滚动切换</a></li>
+        <li><a href="examples/static_multiple.html">一个页面上同时出现多个滚动切换</a></li>
+      </ul>
+    </li>
+    <li><strong>动态实例</strong>
+      <ul>
+        <li><a href="examples/dynamic_javascript.html">通过JavaScript加载滚动切换的动态内容</a></li>
+        <li><a href="examples/dynamic_ajax.html">通过Ajax加载滚动切换的动态内容</a></li>
+        <li><a href="examples/dynamic_ajax_php.html">通过Ajax从PHP脚本加载滚动切换的动态内容</a></li>
+        <li><a href="examples/dynamic_flickr_feed.html">通过Ajax从Flickr照片订阅中加载滚动切换的动态内容</a></li>
+        <li><a href="examples/dynamic_flickr_api.html">通过Ajax从Flickr API中加载滚动切换的动态内容</a></li>
+      </ul>
+    </li>
+    <li><strong>特别的实例</strong>
+      <ul>
+        <li><a href="examples/special_circular.html">循环滚动切换</a></li>
+        <li><a href="examples/special_textscroller.html">使用jCarousel进行文本滚动</a></li>
+        <li><a href="examples/special_flexible.html">更灵活的滚动切换</a></li>
+        <li><a href="examples/special_thickbox.html">jCarousel 和 Thickbox 3插件相结合</a></li>
+        <li><a href="examples/special_easing.html">含自定义动画效果的滚动切换</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <a name="Getting-Started"></a>
+  <h3>入门指南</h3>
+  <p>想要使用这款jCarousel组件，需要include <a href="http://jquery.com">jQuery</a>
+    库， jCarousel资源文件, jCarousel core 核心样式表文件以及jCarousel皮肤样式表文件，该文件在您的HTML文档<code>&lt;head&gt;</code>标签之内。</p>
+  <pre>
+&lt;script type=&quot;text/javascript&quot; src=&quot;/path/to/jquery-1.2.1.pack.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/path/to/lib/jquery.jcarousel.pack.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/path/to/lib/jquery.jcarousel.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/path/to/skin/skin.css&quot; /&gt;
+</pre>
+  <p>下载文件包中包含几款打包的示例皮肤。您可以自由的在这些皮肤上建立属于您自己的皮肤。</p>
+	<p>jCarousel期望在您的HTML文档中能有一个非常基本的HTML标记结构：</p>
+  <pre>
+&lt;ul id=&quot;mycarousel&quot; class=&quot;jcarousel-skin-<em>name</em>&quot;&gt
+   &lt;!-- The content goes in here --&gt;
+&lt;/ul&gt;
+</pre>
+  <p>jCarousel可以自动包括在列表外部的需要的HTML标记。这个class参数是将jCarousel皮肤<em>“名称”</em>应用于滚动切换上。</p>
+    <p>为了设置jCarousel, 在您的HTML文档的<code>&lt;head&gt;</code>标签内部添加如下的代码：</p>
+    <pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+jQuery(document).ready(function() {
+    jQuery('#mycarousel').jcarousel({
+        // Configuration goes here
+    });
+});
+&lt;/script&gt;
+</pre>
+    <p>jCarousel接受很多的配置选项，您可以去“<a href="#Configuration">配置</a>”段落查看更多的信息。</p>
+    <p>在jCarousel被初始化之后，DOM中完整的创建的标记是：</p>
+    <pre>
+&lt;div class=&quot;jcarousel-skin-<em>name</em>&quot;&gt;
+  &lt;div class=&quot;jcarousel-container&quot;&gt;
+    &lt;div disabled=&quot;disabled&quot; class=&quot;jcarousel-prev jcarousel-prev-disabled&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;jcarousel-next&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;jcarousel-clip&quot;&gt;
+      &lt;ul class=&quot;jcarousel-list&quot;&gt;
+        &lt;li class=&quot;jcarousel-item-1&quot;&gt;First item&lt;/li&gt;
+        &lt;li class=&quot;jcarousel-item-2&quot;&gt;Second item&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+  <p>正如您看到的，有些元素添加了一些指定的class（您手动指定的class除外）。您可以根据上面您看到的些样式设计您自己的滚动切换的表现。</p>
+    <h4>注意：</h4>
+  <ul>
+    <li>皮肤class &quot;jcarousel-skin-<em>name&quot;</em> 已经从<code>&lt;ul&gt;</code>移到的顶部的<code>&lt;div&gt;</code>元素上了。</li>
+    <li>实例中，<code>&lt;div class=&quot;jcarousel-container&quot;&gt;</code>下第一个嵌套的<code>&lt;div&gt;</code>是个不可用的按钮，第二个可用。这个不可使用的按钮有个disabled属性（对于<code>&lt;div&gt;</code>而言有些不合理，但是您可以使用<code>&lt;button&gt;</code>元素或者其他您想要的元素）和附加的class类<code>jcarousel-prev-disabled</code>或（<code>jcarousel-next-disabled</code>）。</li>
+    <li>列表中每个<code>&lt;li&gt;</code>元素都有<code></code><code>jcarousel-item-<em>n</em></code>这个特定的class。其中这个<code><em>n</em></code>代表了当前元素在列表中的位置</li>
+    <li>这里没有显示的是，所有class类后面附加的后缀是由滚动切换的方向决定的。例如： <code>&lt;ul class=&quot;jcarousel-list
+      jcarousel-list-horizontal&quot;&gt;</code>表水平方向上的传送切换。</li>
+  </ul>
+
+  <a name="Dynamic-Content-Loading"></a>
+  <h3>动态内容加载</h3>
+  <p>通过<code>itemLoadCallback</code>的回调函数作为配置选项，你可以动态地创建<code>&lt;li&gt;</code>项添加到内容中。</p>
+  <pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+jQuery(document).ready(function() {
+    jQuery('#mycarousel').jcarousel({
+        itemLoadCallback: itemLoadCallbackFunction
+    });
+});
+&lt;/script&gt;</pre>
+  <p><code>itemLoadCallbackFunction</code> 是一个JavaScript函数，这个函数在滚动切换需要的些选项即将被加载完毕的时候调用。传递了两个参数：请求的滚动切换实例参数和显示当前滚动切换状态的标志('init', 'prev' 或 'next')参数。</p>
+    <pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+function itemLoadCallbackFunction(carousel, state)
+{
+    for (var i = carousel.first; i &lt;= carousel.last; i++) {
+        // Check if the item already exists
+        if (!carousel.has(i)) {
+            // Add the item
+            carousel.add(i, &quot;I'm item #&quot; + i);
+        }
+    }
+};
+&lt;/script&gt;</pre>
+    <p>jCarousel包含一个很方便的方法<code>add()</code>，这个玩意可以创建列表项以及每个项中的innerHTML字符串。如果当前项已经存在，则此方法仅仅更新innerHTML。您可以通过公共变量<code>carousel.first</code>和<code>carousel.last</code>使用第一个和最后一个可见项。
+  </p>
+    <a name="Configuration"></a>
+        <h3>配置</h3>
+  <p> jCarousel接受一系列的参数来控制滚动切换传送带的外观和行为。下面就是一些您可以设置的参数。 </p>
+  <table>
+    <thead>
+      <tr>
+        <th>属性</th>
+        <th>类型</th>
+        <th>默认</th>
+        <th>描述</th>
+      </tr>
+      <tr>
+        <td>vertical</td>
+        <td>bool</td>
+        <td>false</td>
+        <td>指定滚动切换传送带是以水平方向显示还是垂直方向显示。改变左右方向的滚动切换为上下方向。</td>
+      </tr>
+      <tr>
+        <td>start</td>
+        <td>integer</td>
+        <td>1</td>
+        <td>指定起始项</td>
+      </tr>
+      <tr>
+        <td>offset</td>
+        <td>integer</td>
+        <td>1</td>
+        <td>在初始化时索引的第一个可用的项。</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>size</td>
+        <td>integer</td>
+        <td><em>Number of existing &lt;li&gt; elements if size is not passed explicitly</em></td>
+        <td>总共的列表项数目。</td>
+      </tr>
+      <tr>
+        <td>scroll</td>
+        <td>integer</td>
+        <td>3</td>
+        <td>每次滚动切换的数目</td>
+      </tr>
+      <tr>
+        <td>visible</td>
+        <td>integer</td>
+        <td>null</td>
+        <td>如果通过，整个列表项的宽/高将会根据剪裁的宽/高计算和设定。因此整个列表项的数目将会被准确的显示出来。</td>
+      </tr>
+      <tr>
+        <td>animation</td>
+        <td>mixed</td>
+        <td>&quot;fast&quot;</td>
+        <td>用以确定滚动显示动画的速度，可以是某些jQuery式字符串（<code>&quot;slow&quot;</code>或<code>&quot;fast&quot;</code>）或是毫秒（参见<a href="http://docs.jquery.com/effects/animate">jQuery文档材料</a>）。如果设为0，则动画效果关闭。</td>
+      </tr>
+      <tr>
+        <td>easing</td>
+        <td>string</td>
+        <td>null</td>
+        <td>您想使用的缓动类型的名称（参见<a href="http://docs.jquery.com/effects/animate">jQuery文档材料</a>）。</td>
+      </tr>
+      <tr>
+        <td>auto</td>
+        <td>integer</td>
+        <td>0</td>
+        <td>指定多少秒内容定期自动滚动。如果设置为<code>0</code>，则自动滚动关闭。</td>
+      </tr>
+      <tr>
+        <td>wrap</td>
+        <td>string</td>
+        <td>null</td>
+        <td>指定是否包裹第一/最后一项（或同时）并跳回到开始/结束。选项参数有<code>&quot;first&quot;</code>, <code>&quot;last&quot;</code>
+          或<code>&quot;both&quot;</code>字符串。如果设置为<code>null</code>，包裹会关闭（默认）。您也可以设置<code>&quot;circular&quot;</code>作为参数使支持循环滚动显示。您可以查看实例<a href="examples/special_circular.html">循环滚动切换</a>看看如何使用此参数。</td>
+      </tr>
+      <tr>
+        <td>initCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，在滚动切换初始化后执行。需传递两个参数：一个请求的滚动切换实例参数，另外一个是滚动切换的初始化状态参数（init,reset或reload）。</td>
+      </tr>
+      <tr>
+        <td>itemLoadCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，在滚动切换请求的些列表项加载完毕的时候执行。需要传递两个参数：一个当前请求的滚动切换的实例化对象，另外一个是滚动切换的活动状态参数（prev,next或init）。或者，您可以传递在动画之前或之后触发的一个或两个函数：
+          <pre>
+itemLoadCallback: {
+  onBeforeAnimation: callback1,
+  onAfterAnimation: callback2
+}</pre> </td>
+      </tr>
+      <tr>
+        <td>itemFirstInCallback </td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，滚动动画执行之后，当某一列表项成为可见区域的第一项时调用。传递四个参数：一是当前滚动切换的实例对象，二是<code>&lt;li&gt;</code>对象本身，三是用来表明当前项在列表项中位置的参数，四是滚动切换的活动状态参数（prev,next或init）。或者，您可以传递在动画之前或之后触发的一个或两个函数：
+          <pre>
+itemFirstInCallback: {
+  onBeforeAnimation: callback1,
+  onAfterAnimation: callback2
+}</pre> </td>
+      </tr>
+      <tr>
+        <td>itemFirstOutCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，滚动动画执行之后，当某一列表项不再是可见区域的第一项时调用。传递四个参数：一是当前滚动切换的实例对象，二是<code>&lt;li&gt;</code>对象本身，三是用来表明当前项在列表项中位置的参数，四是滚动切换的活动状态参数（prev,next或init）。或者，您可以传递在动画之前或之后触发的一个或两个函数：
+          <pre>
+itemFirstOutCallback: {
+  onBeforeAnimation: callback1,
+  onAfterAnimation: callback2
+}</pre> </td>
+      </tr>
+      <tr>
+        <td>itemLastInCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，滚动动画执行之后，当某一列表项成为可见区域的最后一项时调用。传递四个参数：一是当前滚动切换的实例对象，二是<code>&lt;li&gt;</code>对象本身，三是用来表明当前项在列表项中位置的参数，四是滚动切换的活动状态参数（prev,next或init）。或者，您可以传递在动画之前或之后触发的一个或两个函数：
+          <pre>
+itemLastInCallback: {
+  onBeforeAnimation: callback1,
+  onAfterAnimation: callback2
+}</pre> </td>
+      </tr>
+      <tr>
+        <td>itemLastOutCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，滚动动画执行之后，当某一列表项不再是可见区域的最后一项时调用。传递四个参数：一是当前滚动切换的实例对象，二是<code>&lt;li&gt;</code>对象本身，三是用来表明当前项在列表项中位置的参数，四是滚动切换的活动状态参数（prev,next或init）。或者，您可以传递在动画之前或之后触发的一个或两个函数：
+          <pre>
+itemLastOutCallback: {
+  onBeforeAnimation: callback1,
+  onAfterAnimation: callback2
+}</pre> </td>
+      </tr>
+      <tr>
+        <td>itemVisibleInCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，滚动动画执行之后，当某一列表项进入到可见区域内时调用。传递四个参数：一是当前滚动切换的实例对象，二是<code>&lt;li&gt;</code>对象本身，三是用来表明当前项在列表项中位置的参数，四是滚动切换的活动状态参数（prev,next或init）。或者，您可以传递在动画之前或之后触发的一个或两个函数：
+          <pre>
+itemVisibleInCallback: {
+  onBeforeAnimation: callback1,
+  onAfterAnimation: callback2
+}</pre> </td>
+      </tr>
+      <tr>
+        <td>itemVisibleOutCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，滚动动画执行之后，当某一列表项已经不在可见区域内时调用。传递四个参数：一是当前滚动切换的实例对象，二是<code>&lt;li&gt;</code>对象本身，三是用来表明当前项在列表项中位置的参数，四是滚动切换的活动状态参数（prev,next或init）。或者，您可以传递在动画之前或之后触发的一个或两个函数：
+          <pre>
+itemVisibleOutCallback: {
+  onBeforeAnimation: callback1,
+  onAfterAnimation: callback2
+}</pre> </td>
+      </tr>
+      <tr>
+        <td>buttonNextCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，在'next'控制状态改变的时候调用。此方法的职责就是启用或禁用'next'控制。需传递三个参数：一是滚动切换实例对象，二是控制的元素，三是按钮是否要被禁用的标志参数。</td>
+      </tr>
+      <tr>
+        <td>buttonPrevCallback</td>
+        <td>function</td>
+        <td>null</td>
+        <td>JavaScript函数，在'previous'控制状态改变的时候调用。此方法的职责就是启用或禁用'previous'控制。需传递三个参数：一是滚动切换实例对象，二是控制的元素，三是按钮是否要被禁用的flag标志。</td>
+      </tr>
+      <tr>
+        <td>buttonNextHTML</td>
+        <td>string</td>
+        <td><code>&lt;div&gt;&lt;/div&gt;</code></td>
+        <td>自动生成下一个按钮的HTML标记。如果设为<code>null</code>，则没有“下一个(next-button)”按钮创建。</td>
+      </tr>
+      <tr>
+        <td>buttonPrevHTML</td>
+        <td>string</td>
+        <td><code>&lt;div&gt;&lt;/div&gt;</code></td>
+        <td>自动生成前一个按钮的HTML标记。如果设为<code>null</code>，则没有“前一个(prev-button)”按钮创建。</td>
+      </tr>
+      <tr>
+        <td>buttonNextEvent</td>
+        <td>string</td>
+        <td>&quot;click&quot;</td>
+        <td>指定向后滚动触发的事件。</td>
+      </tr>
+      <tr>
+        <td>buttonPrevEvent</td>
+        <td>string</td>
+        <td>&quot;click&quot;</td>
+        <td>指定向前滚动触发的事件。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a name="Compatibility"></a>
+  <h3>兼容性</h3>
+    <p>jCarousel已经在下列浏览器下测试通过：</p>
+    <ul>
+    <li>Internet Explorer 6 (PC)</li>
+    <li>Internet Explorer 7 (PC)</li>
+    <li>FireFox 1.5.0.6 (PC/Mac/Linux)</li>
+    <li>Opera 9.01 (PC/Mac)</li>
+    <li>Safari 2.0.4 (Mac)</li>
+    <li>Safari 3.1.0 (PC)</li>
+    <li>Konqueror 3.4.0 (Linux)</li>
+  </ul>
+
+  <a name="Credits"></a>
+  <h3>致谢</h3>
+  <p>感谢<a href="http://ejohn.org">John Resig</a> 和他的不可思议的<a href="http://jquery.com">jQuery</a>库。<br>
+    jCarousel的灵感来自<a href="http://billwscott.com/carousel/">Carousel Component</a>，由<a href="http://looksgoodworkswell.com">Bill Scott</a>书写。</p>
+  <h3>翻译声明</h3>
+  <p>内容可以公开展示，需保留翻译者姓名及链接。</p>
+</div>
+</body>
+</html>

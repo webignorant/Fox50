@@ -1,0 +1,51 @@
+<tagLib name="html" />
+<include file="Public:header" />
+<load href ="__PUBLIC__/Js/common.js" />
+<div id="main" class="main" >
+<script language="JavaScript">
+<!--
+function checkName(){
+	ThinkAjax.send('__URL__/checkAccount/','ajax=1&account='+$F('account'));
+}
+//-->
+</script>
+<div class="content">
+<div class="title">添加友情链接 [ <a href="__URL__">返回列表</a> ]</div>
+<table cellpadding=3 cellspacing=3>
+<form method='post' id="form1" action="__URL__/insert/" >
+<tr>
+	<td class="tRight" >站点名称:</td>
+	<td class="tLeft" ><input type="text" class="medium bLeftRequire"  check='Require' id="account" name="name" value=""></td>
+</tr>
+<tr>
+	<td class="tRight" >URL:</td>
+	<td class="tLeft" ><input type="text" class="medium bLeft" name="url" value=""></td>
+</tr>
+<tr>
+	<td class="tRight" >说明文字：</td>
+	<td class="tLeft" ><input type="text" class="medium bLeft" name="description" value=""></td>
+</tr>
+<!--
+<tr>
+	<td class="tRight">LOGO地址：</td>
+	<td class="tLeft"><input type="text" class="medium bLeft" name="logo" value=""></td>
+</tr>
+-->
+<tr>
+	<td class="tRight">状态：</td>
+	<td class="tLeft"><SELECT class="small bLeft"  name="status">
+	<option value="1">启用</option>
+	<option value="0">禁用</option>
+	</SELECT></td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center">
+	<input type="submit" value="保 存" class="small submit">
+	<input type="reset" class="submit  small" value="清 空" >
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</div>

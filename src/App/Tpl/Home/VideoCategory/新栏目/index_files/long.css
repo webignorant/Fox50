@@ -1,0 +1,36 @@
+<style type="text/css">
+/* YUI reset */
+* {margin:0; padding:0;}
+/* body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { margin:0;padding:0;} */
+table {border-collapse:collapse;border-spacing:0;}
+fieldset,img { border:0;}
+address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal;}
+ol,ul,li {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal;}
+q:before,q:after {content:'';}
+abbr,acronym { border:0;}
+
+/* my */
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix {zoom:1;}
+
+body {color:#333; font-size:12px; font-family:Verdana,Arial,Helvetica,sans-serif;}
+a {text-decoration:none; color:#333;}
+a:hover {text-decoration:underline;}
+
+.focus {width:1000px; height:280px; border: 1px solid #c5ddf6; background:rgb(245, 250, 255); margin:10px auto; position:relative; overflow:hidden;}
+.focus ul {}
+.focus li {width:550px; height:200px; padding:25px; position:absolute; left:1000px; top:0;}
+.focus li h5, .focus li p, .focus li a.button { position:relative;}
+.focus li h5 {width:300px; font-size:18px; font-family:"Microsoft YaHei";}
+.focus li p {width:300px; line-height:22px; font-size:13px; margin:1em 0;}
+.focus li a.button {width:100px; height:30px; background:#333; cursor:pointer; }
+.focus li a.button:hover {background:#666;}
+.focus li div.imgBox {float:right; width:200px; height:200px; position:relative}
+.focus li div.imgBox img {}
+
+.focus .btn {position:absolute; width:1000px; height:6px; padding:10px; text-align:center; left:0; bottom:0;}
+.focus .btn span {display:inline-block; width:10px; height:6px; background:#999; margin:0 3px;}
+.focus .btn span.on {background:#000;}
+</style>

@@ -1,0 +1,151 @@
+<style>
+#discusscontent li{
+  	height:80px;
+	word-break: break-all;word-wrap: break-word;
+}
+.s_span{
+ margin-top:65px;position:relative; right:-100px;
+}
+</style>
+<div id="wrapper">
+<script src="../Public/js/ajax.js"></script>
+<div class="box"><span>您现在所在的位置：</span><a href="__APP__">首页</a> &gt; <a href="__APP__/Home/VideoCategory/index/catid/<{$getCate['catid']}>"><{$getCate['catname']}></a> &gt;<span> <{$videoinfo[0]['title']}></span></div>
+<div class="blank"></div>
+<div class="mov_detail_box">
+  
+  <div class="mov_detail">
+    <div class="bd"><span class="tl"></span><span class="tr"></span>
+      <div class="ct">
+        <div class="mov_detail_intro">
+          <p class="pic"><a href="<{:U('Home/Play/index?vid='.$videoinfo[0]['vid'])}>"><img src="<{$videoinfo[0]['img']}>" title="" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" width="119" height="170" border="0"></a></p>
+                    <p class="score"><span id="Scorenum"></span><span id="Scoreer"></span></p>          <p class="intro"><a href="<{:U('Home/Play/index?vid='.$videoinfo[0]['vid'])}>" class="title" title="<{$videoinfo[0]['title']}>"><{$videoinfo[0]['title']}></a><span class="intro"></span></p>
+          <p class="actor">主演：<{$videoinfo[0]['actor']}> <br>
+
+            <span class="wide">导演：<{$videoinfo[0]['director']}></span>
+            <span class="wide">影片类型：<{$videoinfo[0]['typeid']}></span><br>
+            <span class="wide">地区：<{$videoinfo[0]['regionid']}></span>
+            <span class="wide">上映时间：<{$videoinfo[0]['year']}></span><br>
+            <span class="wide">语言：未知</span>
+            <span class="wide">更新时间：<{$videoinfo[0]['dateline']|date="Y-m-d",###}></span><br>
+          </p>
+          <p class="bar"> <a href="#comment" class="com_btn">发表评论</a>&nbsp;</p>
+          <p><a href="<{:U('Home/Play/index?vid='.$videoinfo[0]['vid'])}>" class="view_btn"><span>立即观看</span></a></p>
+          <div id="ckepop" class="jia"><a class="jiathis_button_baidu" title="分享到百度搜藏"><span class="jiathis_txt jtico jtico_baidu"></span></a><a class="jiathis_button_tsina" title="分享到新浪微博"><span class="jiathis_txt jtico jtico_tsina"></span></a><a class="jiathis_button_tqq" title="分享到腾讯微博"><span class="jiathis_txt jtico jtico_tqq"></span></a><a class="jiathis_button_kaixin001" title="分享到开心网"><span class="jiathis_txt jtico jtico_kaixin001"></span></a><a class="jiathis_button_renren" title="分享到人人网"><span class="jiathis_txt jtico jtico_renren"></span></a></div>
+        </div>
+      </div>
+      <span class="bl"></span><span class="br"></span></div>
+  </div>
+</div>
+<div class="blank"></div>
+<div class="mov_detail_box bd"><span class="tl"></span><span class="tr"></span>
+  <div class="ct">
+    <div class="hd"><h3>影片摘要</h3></div>
+    <div class="play_list">
+      <p class="title">播放列表：<span class="tip">(点击单集开始播放)</span></p>
+      <div id="plist">
+        <ul class="split-list">
+          <if condition="$videorelevance neq 0">
+             <volist name="videorelevance" id="vo">
+                <li><a href="<{:U('Home/Play/index?vid='.$vo['vid'])}>" target="_blank"><{$key+1}></a></li>
+             </volist>
+           <else />
+             <li><a href="<{:U('Home/Play/index?vid='.$videoinfo[0]['vid'])}>" target="_blank">1</a></li>
+          </if>
+        </ul>
+              </div>
+    </div>	    <div class="brief_info">
+      <div class="title">影片介绍：</div>
+      <div class="brief_info_cont"><{$videoinfo[0]['about']}> </div>
+    </div>
+    <div class="rt_recom">
+   <if condition="$similarvideo neq 0">
+      <div class="title">同类热门推荐：</div>
+    </if>
+      <ul class="mov_pic_list">
+      	<span id="hot_video" href="/gx/index.php?s=my/show/id/hot_video/cid/17/limit/7">
+ <volist name="similarvideo" id="vo">
+<li>
+<div class="pic"><a href="/gx/?s=video/detail/id/91.html" target="_blank"><img src="" title="" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div>
+<div><a href="/gx/?s=video/detail/id/91.html" title="神雕侠侣傅声版">神雕侠侣傅声版</a></div>
+</li>
+ </volist>
+
+
+</span>
+      </ul>
+    </div>
+  </div>
+  <span class="bl"></span><span class="br"></span> </div>
+<div class="blank"></div>
+
+<div class="mov_detail_box bd"><span class="tl"></span><span class="tr"></span>
+  <div class="ct">
+  	<div class="hd"><h3>影片评论</h3></div><a name="comment" id="comment"></a>
+    <div id="Comments">
+
+<ul class="list">
+
+   <div id="discusscontent">
+                  <br />
+                 　　没有相关评论!
+     </div>
+</ul>
+<script type="text/javascript">
+     //回复函数
+     function setretun(name){
+        document.getElementById('comment_content').value='@' + name + ':';
+     }
+    //评论
+     function setconment(){
+            var login1='<{$login}>';
+            if(login1==''){
+              alert('请先登录!');
+            }else{
+				if(document.getElementById('comment_content').value == ''){
+					alert('评论内容不能为空！');return;
+				}else if(document.getElementById('comment_content').value == '我来评论，最多200个字。'){
+					alert('请填写相关评论内容!');return;
+				}else if(document.getElementById('comment_content').value.length > 200){
+					alert('评论内容不能超过200字符!');return;
+				}
+                var b_ajax = new Ajax();
+                 b_ajax.post("__URL__/addcomment" ,{vid:<{$Think.get.vid}>,uid:<{$userid}>,comnemt:document.getElementById('comment_content').value},function(data){
+                 if(data == 1){
+                            alert('评论成功！');
+					         setPage('__URL__/comment/vid/<{$Think.get.vid}>/page/1&aa='+Math.random(),0); 
+					         document.getElementById('comment_content').value = '';
+                  }else if(data==0){
+                      alert('评论失败!');
+                  }else{
+                      alert('请先登录!');
+                  }
+                });
+            }
+        }
+</script>
+
+<script>
+    setPage('__APP__/Home/PlayLoad/comment/vid/<{$Think.get.vid}>/page/1&aa='+Math.random(),0);
+   //加载评论
+   function setPage(url,su_obj){
+        var obj=document.getElementById("discusscontent");
+           var a_ajax=new Ajax();	   
+           a_ajax.get(url,function(date){
+             if(!date==''){
+              obj.innerHTML=date;
+             }else{
+              obj.innerHTML='没有相关评论';
+             }
+           });
+        }
+
+</script>
+
+
+<div class="form1">
+	        <textarea name="content" id="comment_content" rows="5" onfocus="if(this.value=='我来评论，最多200个字。'){this.value='';}" onblur="if(this.value==''){this.value='我来评论，最多200个字。';};" maxlength="200" class="txt_in">我来评论，最多200个字。</textarea>
+        <p class="under_row"><input id="comment_button" class="submit" onClick="setconment();" type="button" value="发表评论"></p></div></div>
+  </div>
+  </div>
+
+</div>

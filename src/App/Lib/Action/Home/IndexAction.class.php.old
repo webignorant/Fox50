@@ -1,0 +1,125 @@
+<?php
+class IndexAction extends CommonAction {
+    // 前台首页
+    public function index() {
+        C ( 'SHOW_RUN_TIME', false ); // 运行时间显示
+        C ( 'SHOW_PAGE_TRACE', false );
+        Load('extend');
+        
+        $video = A('Home/Video');
+        $category = A('Home/VideoCategory');
+        $top = A('Home/VideoTop');
+        $recommended = A('Home/VideoRecommended');
+        
+        $this->assign('webpagetitle',"Fox50视频网 - 在线播放,视频上传 - 最好的视频网站");
+        
+        //显示推荐表视频
+        $this -> assign('RecommendedList',$recommended->getVideoRecommended());
+        
+        //最热视频
+        $this -> assign('HotList',$top -> showHitVideo());
+        
+        //最新视频推荐
+        if(($list = $top->showLatestVideo()) == false) {
+            $this->assign('LatestVideoError','<br />网站还没有视频');
+        }else{
+            $this->assign('LatestVideo',$list);
+        }
+        
+        //显示视频总数量
+        $this->assign('VideoMaxNum',$video->getVideoMaxNum());
+        
+        //显示今天更新视频数量
+        $this->assign('NewVideoNumInToday',$video->showNewVideoNumInToday());
+        
+        //显示电影栏目视频推荐
+        if(($list = $category->showRecommendVideoToCategory(1))==false) {
+			$this->assign('movieerror','还没有该栏目的视频');
+        }else{
+			$this->assign('movieList',$list);
+			$this->assign('movieTypeList',$category->showVideoRegion());
+        }
+        //显示电影栏目每周热播排行榜
+        if(($list = $top->showHitVideoInCategory(1)) == false) {
+            $this->assign('showHitVideoInCategory1Error','还没有该栏目的视频');
+        }else{
+            $this->assign('showHitVideoInCategory1',$list);
+        }
+        
+        //显示连续剧栏目视频推荐
+        if(($list = $category->showRecommendVideoToCategory(2))==false) {
+			$this->assign('sitcomserror','还没有该栏目的视频');
+        }else{
+			$this->assign('sitcomsList',$list);
+			$this->assign('sitcomsTypeList',$category->showVideoRegion());
+        }
+        //显示连续剧栏目每周热播排行榜
+        if(($list = $top->showHitVideoInCategory(2)) == false) {
+            $this->assign('showHitVideoInCategory2Error','还没有该栏目的视频');
+        }else{
+            $this->assign('showHitVideoInCategory2',$list);
+        }
+        
+        //显示动漫栏目视频推荐
+        if(($list = $category->showRecommendVideoToCategory(3))==false) {
+			$this->assign('animationerror','还没有该栏目的视频');
+        }else{
+			$this->assign('animationList',$list);
+			$this->assign('animationTypeList',$category->showVideoRegion());
+        }
+        //显示动漫栏目每周热播排行榜
+        if(($list = $top->showHitVideoInCategory(3)) == false) {
+            $this->assign('showHitVideoInCategory3Error','还没有该栏目的视频');
+        }else{
+            $this->assign('showHitVideoInCategory3',$list);
+        }
+        
+        //显示娱乐栏目视频推荐
+        if(($list = $category->showRecommendVideoToCategory(4))==false) {
+			$this->assign('entertainmenterror','还没有该栏目的视频');
+        }else{
+			$this->assign('entertainmentList',$list);
+			$this->assign('entertainmentTypeList',$category->showVideoType(4));
+        }
+        //显示娱乐栏目每周热播排行榜
+        if(($list = $top->showHitVideoInCategory(4)) == false) {
+            $this->assign('showHitVideoInCategory4Error','还没有该栏目的视频');
+        }else{
+            $this->assign('showHitVideoInCategory4',$list);
+        }
+        
+        //显示资讯栏目视频推荐
+        if(($list = $category->showRecommendVideoToCategory(5))==false) {
+			$this->assign('newserror','还没有该栏目的视频');
+        }else{
+			$this->assign('newsList',$list);
+			$this->assign('newsTypeList',$category->showVideoType(5));
+        }
+        //显示资讯栏目每周热播排行榜
+        if(($list = $top->showHitVideoInCategory(5)) == false) {
+            $this->assign('showHitVideoInCategory5Error','还没有该栏目的视频');
+        }else{
+            $this->assign('showHitVideoInCategory5',$list);
+        }
+        
+        //显示生活栏目视频推荐
+        if(($list = $category->showRecommendVideoToCategory(6))==false) {
+			$this->assign('lifeerror','还没有该栏目的视频');
+        }else{
+			$this->assign('lifeList',$list);
+			$this->assign('lifeTypeList',$category->showVideoType(6));
+        }
+        //显示生活栏目每周热播排行榜
+        if(($list = $top->showHitVideoInCategory(6)) == false) {
+            $this->assign('showHitVideoInCategory6Error','还没有该栏目的视频');
+        }else{
+            $this->assign('showHitVideoInCategory6',$list);
+        }
+        
+        layout(true);
+        $this->display('index');
+    }
+    
+
+    
+}

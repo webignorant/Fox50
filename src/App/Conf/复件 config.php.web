@@ -1,0 +1,61 @@
+<?php
+return array(
+	//'配置项'=>'配置值'
+	
+	/********************惯例配置********************/
+	/*应用配置*/
+	'APP_FILE_CASE' => true,  //检查文件的大小写
+	'APP_GROUP_LIST' => 'Admin,Home',  //项目分组
+	/*默认值配置*/
+	'DEFAULT_GROUP' => 'Home',
+	/*Cookie设置*/
+	/*数据库配置*/
+	'DB_TYPE'			=>	'mysql',			// 数据库类型
+	'DB_HOST'			=>	'129.1.3.3',			// 数据库服务器地址
+	'DB_NAME'			=>	'fox50',			// 数据库名
+	'DB_USER'			=>	'fox50ch',		// 数据库用户名
+	'DB_PWD' => 'chaihua123456',		// 数据库密码
+	'DB_PORT'			=>	3306,				// 数据库端口
+	'DB_PREFIX'			=>	'fox50_',		// 数据库表前缀（因为漫游的原因，数据库表前缀必须写在本文件）
+	'DB_CHARSET'		=>	'utf8',				// 数据库编码
+	'DB_FIELDS_CACHE'	=>	true,				// 启用字段缓存
+	'DEFAULT_TIMEZONE'=>'Asia/Shanghai',        //时区设置
+	/*数据缓存设置*/
+	/*错误设置*/
+	/*日志设置*/
+	/*SESSION设置*/
+	'SESSION_OPTIONS' => array('path'=>'App/Runtime/Session','name'=>'session_id','expire'=>'1800'),
+	/*模板引擎设置*/
+	/*URL设置*/
+	'URL_MODEL' =>  3,
+	/*系统变量名称设置*/
+	/********************惯例配置********************/
+	
+	/********************行为配置********************/
+	/*CheckRoute行为配置*/
+	/*ContentReplace行为配置*/
+	/*ParseTemplate行为配置*/
+	/*ReadHtmlCache行为配置*/
+	/*ShowPageTrace行为配置*/
+	/*ShowRuntime行为配置*/
+	/*ReadHtmlCache行为配置*/
+	'HTML_CACHE_ON' => true,
+	/*ShowPageTrace行为配置*/
+	/*ShowRuntime行为配置*/
+	/*TokenBuild行为配置*/
+	/********************行为配置********************/
+	
+	/********************自定义配置********************/
+	'OFFICIAL_WEBSITE' => 'http://home.chipcore.cn',
+	'CMS_NAME' => 'fox50',
+	'SITE_NAME' => 'fox50',
+	'SITE_TITLE' => 'fox50',
+	'SITE_KEYWORD' => 'fox50',
+	'SITE_DESCRIPTION' => 'fox50',
+	//分页变量
+	'VAR_PAGE' => 'page',
+	// 用户认证SESSION标记
+	'USER_AUTH_KEY' => 'foxauthId',
+	/********************自定义配置********************/
+
+);

@@ -1,0 +1,51 @@
+<!--********************这里是最顶部内容********************-->
+
+<div class="apex" style="width:100%;height:20px;border-bottom:1px solid #f2f6f8">
+    <div class="apex_center" style="width:1000px;height:20px;margin:0 auto;text-align:left;">
+        <span style="float:left;text-align:left;">
+            <a href="#" onclick="SetHome();">设为首页</a> | <a href="#" onclick="SetFavorite();">加入收藏</a>
+        </span>
+        <!--
+        <span style="float:right;text-align:right;">
+            本网站由太阳能驱动 | 本网站采用微服务器
+        </span>
+        -->
+    </div>
+</div>
+
+<script>
+//设为首页 
+function SetHome() {
+    if (document.all) {
+        document.body.style.behavior = 'url(#default#homepage)';
+        document.body.setHomePage(window.location.href);
+    } else if (window.sidebar) {
+        if (window.netscape) {
+            try {
+                netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+            } catch (e) {
+                alert("该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config ,然后将项 signed.applets.codebase_principal_support 值该为true");
+                history.go(-1);
+            }
+        }
+        var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+        prefs.setCharPref('browser.startup.homepage', window.location.href);
+    }
+} 
+// 加入收藏夹
+function SetFavorite() {
+var sTitle=document.title;
+var sURL=document.location.href;
+    try {
+        window.external.addFavorite(sURL, sTitle);
+    } catch (e) {
+        try {
+            window.sidebar.addPanel(sTitle, sURL, "");
+        } catch (e) {
+            alert("加入收藏失败,请手动添加.");
+        }
+    }
+
+}
+</script>
+<!--********************这里是最顶部内容********************-->

@@ -1,0 +1,45 @@
+<!--********************这里是主体内容********************-->
+
+<div class="box1">
+    <div class="left_col">
+        <div class="topbrd"></div>
+        <div class="bd">
+            <div class="ct">
+                <div class="hd">
+                  <h3>热播排行榜</h3>
+                </div>
+                <ul class="index_top_video">
+                    <{$hitListError}>
+                    <volist name="hitList" id="vo">
+                        <li><em><{$i}></em><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><{$vo.title|msubstr=0,12,'utf-8',true}></a> <span><font color="red"><{$vo.viewnum}></font></span></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="btmbrd"></div>
+    </div>
+    <div class="right_col">
+        <div class="bd"><span class="tl"></span><span class="tr"></span>
+            <div class="ct">
+                <div class="hd">
+                    <h3><{$searchType}>搜索结果</h3>
+                </div>
+                <div class="index_mov">
+                    <ul class="mov_pic_list">
+                        <{$VideoSearchError}>
+                        <volist name="VideoSearchList" id="vo">
+                            <li><div class="pic"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>"><img src="<{$vo.img}>" onerror="this.src='__PUBLIC__/Images/nophoto.jpg'" border="0" height="140" width="98"></a></div><div class="ver"><{$vo.definition}></div><div class="mid_title"><a href="<{:U('Home/Play/index?vid='.$vo[vid])}>" title="<{$vo.title}>" target="_blank"><{$vo.title|msubstr=0,9,'utf-8',true}></a></div></li>
+                        </volist>
+                    </ul>
+                    <div class="paging"><{$page}></div>
+                    <div class="mov_text_list">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <span class="bl"></span><span class="br"></span>
+        </div>
+    </div>
+</div>
+
+<!--********************这里是主体内容********************-->

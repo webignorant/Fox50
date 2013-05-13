@@ -1,0 +1,75 @@
+<{// 引入标签库 }>
+<tagLib name="fhtml" />
+<{// 加载头部公共文件 }>
+<include file="Public:header" />
+<load href="__PUBLIC__/Css/home_tag.css" />
+<!-- 菜单区域  -->
+
+<div class="box">
+    <div class="left_col">
+        <div class="medium hMargin" ><b>视频管理</b></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我上传的" onclick="user_video();" class="medium" /></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我收藏的" onclick="user_collect();" class="medium" /></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我看过的" onclick="history();" class="medium" /></div>
+        <div class="medium hMargin" ><b>专辑管理</b></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我创建的" onclick="user_special();" class="medium" /></div>
+        <div class="medium hMargin" ><input type="button" id="" name="add" value="我连播的" onclick="continuous();" class="medium" /></div>
+    </div>
+    <div class="right_col">
+        <div class="operate" >
+            <fhtml:imageBtn name="delete" value="删除" click="del()" style="impBtn hMargin fLeft shadow" />
+            <div class="fRig">
+            <form method='post' action="__URL__/index">
+                <div class="fLeft"><span id="key"><input type="text" name="name" title="查询" class="medium" ></span></div>
+                <fhtml:imageBtn type="submit" name="search" value="查询" style="impBtn hMargin fLeft shadow" />
+            </div>
+            <div  id="searchM" class=" none search cBoth" ></div>
+            </form>
+        </div>
+        
+        <div class="list" >
+            <fhtml:list id="checkList" pk="id" name="favorite" style="list" checkbox="true" action="true" datasource="list" show="id:收藏编号|10%,videotitle:视频名称|12%,title:收藏标题|12%,description:收藏说明|30%,dateline|toDate='Y-m-d H#i#s':收藏时间|10%" actionlist="del:取消收藏"/>
+        </div>
+        <div class="paging"><{$page}></div>
+    </div>
+</div>
+
+<script language="JavaScript">
+function user_video(){
+    location.href  = '<{:U('Home/Video/video_index')}>';
+}
+function user_collect(){
+    location.href  = '<{:U('Home/VideoFavorite/index')}>';
+}
+function user_special(){
+    location.href  = '<{:U('Home/VideoSpecial/index')}>';
+}
+function history() {
+    location.href = '__APP__/Home/VideoRecently/index';
+}
+function continuous(){
+    location.href = '__APP__/Home/VideoFlow/index';
+}
+function sortBy (field,sort){
+	location.href = URL+"/index/&_order="+field+"&_sort="+sort;
+}
+function del(id){
+	var keyValue;
+	if (id)
+	{
+		keyValue = id;
+	}else {
+		keyValue = getSelectCheckboxValues();
+	}
+	if (!keyValue)
+	{
+		alert('请选择删除项！');
+		return false;
+	}
+	if (window.confirm('确实要删除选择项吗？'))
+	{
+        location.href =  URL+"/delete/id/"+keyValue;
+		//ThinkAjax.send(URL+"/delete/","id="+keyValue+'&ajax=1',doDelete);
+	}
+}
+</script>
